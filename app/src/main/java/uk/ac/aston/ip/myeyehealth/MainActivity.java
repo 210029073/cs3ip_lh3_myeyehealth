@@ -1,12 +1,19 @@
 package uk.ac.aston.ip.myeyehealth;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.MenuItemCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,8 +22,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import uk.ac.aston.ip.myeyehealth.databinding.ActivityMainBinding;
+import uk.ac.aston.ip.myeyehealth.ui.home.HomeFragment;
+import uk.ac.aston.ip.myeyehealth.ui.vision_tools.VisionToolsFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -47,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
+
     }
 
     @Override
@@ -61,5 +74,28 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
+        final int id = item.getItemId();
+
+        if (id == R.id.btn_home_nav_tab) {
+            fragment = new HomeFragment();
+        }
+        else if (id == R.id.btn_vision_tool_nav_tab) {
+            fragment = new VisionToolsFragment();
+        }
+        else {
+            fragment = new HomeFragment();
+        }
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.app_bar_main, fragment)
+                .commit();
+
+        return true;
     }
 }

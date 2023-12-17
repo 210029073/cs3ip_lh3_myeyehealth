@@ -47,6 +47,55 @@
             android:text="My Eye Health"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textStyle="bold" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_marginBottom="10dp"
+            android:checkable="true"
+            android:clickable="false"
+            android:focusable="true">
+            <HorizontalScrollView android:layout_height="wrap_content" android:layout_width="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                >
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="80dp"
+                    android:text="Create a reminder"
+                    android:layout_gravity="center_horizontal"
+                    android:textAllCaps="false">
+                </Button>
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Add a body measurement"
+                    android:textAllCaps="false"></Button>
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="View Missed Doses"
+                    android:textAllCaps="false"></Button>
+
+                <Button
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="0dp"
+                    android:text="View Test Scores"
+                    android:textAllCaps="false"></Button>
+            </LinearLayout>
+            </HorizontalScrollView>
+        </com.google.android.material.card.MaterialCardView>
     </TableLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tumbling_e_eyetest"
+    app:startDestination="@id/coverLeftEye">
+
+    <fragment
+        android:id="@+id/coverLeftEye"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.CoverLeftEye"
+        android:label="fragment_cover_left_eye"
+        tools:layout="@layout/fragment_cover_left_eye" >
+        <action
+            android:id="@+id/action_coverLeftEye_to_tumblingETest1Part1"
+            app:destination="@id/tumblingETest1Part1" />
+    </fragment>
+    <fragment
+        android:id="@+id/coverRightEye"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.CoverRightEye"
+        android:label="fragment_cover_right_eye"
+        tools:layout="@layout/fragment_cover_right_eye" >
+        <action
+            android:id="@+id/action_coverRightEye_to_tumblingETest2Part1"
+            app:destination="@id/tumblingETest2Part1" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETestScore"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETestScore"
+        android:label="fragment_tumbling_e_test_score"
+        tools:layout="@layout/fragment_tumbling_e_test_score" />
+    <fragment
+        android:id="@+id/tumblingETest1Part1"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETest"
+        android:label="fragment_tumbling_e_test"
+        tools:layout="@layout/fragment_tumbling_e_test" >
+        <action
+            android:id="@+id/action_tumblingETest1Part1_to_tumblingETest1Part2"
+            app:destination="@id/tumblingETest1Part2" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETest1Part2"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETest"
+        android:label="fragment_tumbling_e_test"
+        tools:layout="@layout/fragment_tumbling_e_test" >
+        <action
+            android:id="@+id/action_tumblingETest1Part2_to_tumblingETest1Part3"
+            app:destination="@id/tumblingETest1Part3" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETest1Part3"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETest"
+        android:label="fragment_tumbling_e_test"
+        tools:layout="@layout/fragment_tumbling_e_test" >
+        <action
+            android:id="@+id/action_tumblingETest1Part3_to_tumblingETest1Part4"
+            app:destination="@id/tumblingETest1Part4" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETest1Part4"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETest"
+        android:label="fragment_tumbling_e_test"
+        tools:layout="@layout/fragment_tumbling_e_test" >
+        <action
+            android:id="@+id/action_tumblingETest1Part4_to_tumblingETest1Part5"
+            app:destination="@id/tumblingETest1Part5" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETest1Part5"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETest"
+        android:label="fragment_tumbling_e_test"
+        tools:layout="@layout/fragment_tumbling_e_test" >
+        <action
+            android:id="@+id/action_tumblingETest1Part5_to_coverRightEye"
+            app:destination="@id/coverRightEye" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETest2Part1"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETest"
+        android:label="fragment_tumbling_e_test"
+        tools:layout="@layout/fragment_tumbling_e_test" >
+        <action
+            android:id="@+id/action_tumblingETest2Part1_to_tumblingETest2Part2"
+            app:destination="@id/tumblingETest2Part2" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETest2Part2"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETest"
+        android:label="fragment_tumbling_e_test"
+        tools:layout="@layout/fragment_tumbling_e_test" >
+        <action
+            android:id="@+id/action_tumblingETest2Part2_to_tumblingETest2Part3"
+            app:destination="@id/tumblingETest2Part3" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETest2Part3"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETest"
+        android:label="fragment_tumbling_e_test"
+        tools:layout="@layout/fragment_tumbling_e_test" >
+        <action
+            android:id="@+id/action_tumblingETest2Part3_to_tumblingETest2Part4"
+            app:destination="@id/tumblingETest2Part4" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETest2Part4"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETest"
+        android:label="fragment_tumbling_e_test"
+        tools:layout="@layout/fragment_tumbling_e_test" >
+        <action
+            android:id="@+id/action_tumblingETest2Part4_to_tumblingETest2Part5"
+            app:destination="@id/tumblingETest2Part5" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETest2Part5"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.tumbling_e.TumblingETest"
+        android:label="fragment_tumbling_e_test"
+        tools:layout="@layout/fragment_tumbling_e_test" >
+        <action
+            android:id="@+id/action_tumblingETest2Part5_to_tumblingETestScore"
+            app:destination="@id/tumblingETestScore" />
+    </fragment>
+</navigation>
