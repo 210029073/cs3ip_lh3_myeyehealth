@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -11,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +61,10 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        this.navController = navController;
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(this::onNavigationItemSelected);
-
     }
 
     @Override
@@ -78,23 +83,23 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment = null;
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         final int id = item.getItemId();
-
         if (id == R.id.btn_home_nav_tab) {
-            fragment = new HomeFragment();
+            navController.navigate(R.id.nav_home);
         }
         else if (id == R.id.btn_vision_tool_nav_tab) {
-            fragment = new VisionToolsFragment();
+            navController.navigate(R.id.nav_vision_tools);
         }
         else {
-            fragment = new HomeFragment();
+            navController.popBackStack(R.id.nav_home, false);
         }
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.app_bar_main, fragment)
-                .commit();
+
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.app_bar_main, fragment)
+//                .commit();
 
         return true;
     }

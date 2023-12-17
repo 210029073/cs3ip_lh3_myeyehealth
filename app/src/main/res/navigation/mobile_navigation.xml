@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
+        android:id="@+id/nav_vision_tools"
+        android:name="uk.ac.aston.ip.myeyehealth.ui.vision_tools.VisionToolsFragment"
+        android:label="Vision Tools"
+        tools:layout="@layout/fragment_vision_tools"/>
+
+    <fragment
         android:id="@+id/nav_slideshow"
         android:name="uk.ac.aston.ip.myeyehealth.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
