@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import androidx.core.view.WindowCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.MenuItemKt;
 import androidx.navigation.ui.NavigationUI;
@@ -45,6 +47,22 @@ public class MainActivity extends AppCompatActivity {
                         .setAnchorView(R.id.fab)
                         .setAction("Action", null).show();
             }
+        });
+
+        //this is the toolbar represented as menu and menu item for options
+        // in order to access the menu item a listener is used to determine the menu item
+        //selected to perform appropriate action.
+        binding.toolbar.setOnMenuItemClickListener(item ->
+        {
+            if(item.getItemId() == R.id.action_settings) {
+                navController.navigate(R.id.settingsFragment);
+                return true;
+            }
+            else if(item.getItemId() == R.id.action_abouts) {
+                navController.navigate(R.id.aboutFragment);
+                return true;
+            }
+            return false;
         });
         //temporarily hiding
         binding.fab.setVisibility(View.INVISIBLE);
