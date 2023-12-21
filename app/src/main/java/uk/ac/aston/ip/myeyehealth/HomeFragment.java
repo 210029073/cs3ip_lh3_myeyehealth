@@ -14,8 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import uk.ac.aston.ip.myeyehealth.databinding.FragmentHomeBinding;
+import java.util.Objects;
 
+import uk.ac.aston.ip.myeyehealth.databinding.FragmentHomeBinding;
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -78,6 +79,11 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            //this is an example of retrieving a global argument from navigation graph
+            //and outputting to logcat.
+            Log.println(Log.INFO, "Name var", (String) requireArguments().get("name"));
+            //this can be used in order to update global arguements in navigation graph
+            requireArguments().putString("name", "Home");
             item.setChecked(false);
             if(item.getItemId() == R.id.visionToolsFragment) {
                 Log.println(Log.INFO, "Item checked", "item: " + item.getTitle() + " checked: " + item.isChecked());

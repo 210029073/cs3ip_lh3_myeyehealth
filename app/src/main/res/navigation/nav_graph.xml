@@ -62,4 +62,8 @@
         android:id="@+id/settingsFragment"
         android:name="uk.ac.aston.ip.myeyehealth.SettingsFragment"
         android:label="Settings" />
+    <argument
+        android:name="name"
+        app:argType="string"
+        android:defaultValue="Name GLOBAL VAR" />
 </navigation>
