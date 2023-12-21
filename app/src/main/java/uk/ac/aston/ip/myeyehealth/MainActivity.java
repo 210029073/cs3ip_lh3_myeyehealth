@@ -1,13 +1,19 @@
 package uk.ac.aston.ip.myeyehealth;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.provider.Settings;
 import android.view.View;
 
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.WindowCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -34,6 +40,33 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //how to create notifications
+        // the NotificationChannel class is not in the Support Library.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "EyeHealth";
+            String description = "Successfully launched app";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("MyEyeHealth", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system. You can't change the importance
+            // or other notification behaviors after this.
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+
+
+//            Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+//            intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+//            intent.putExtra(Settings.EXTRA_CHANNEL_ID, channel.getId());
+//            startActivity(intent);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel.getId())
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setContentTitle("EyeHealth")
+                    .setContentText(description)
+                    .setPriority(NotificationCompat.DEFAULT_ALL);
+
+            notificationManager.notify(0, builder.build());
+        }
 
         setSupportActionBar(binding.toolbar);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -66,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         });
         //temporarily hiding
         binding.fab.setVisibility(View.INVISIBLE);
+
     }
 
     @Override

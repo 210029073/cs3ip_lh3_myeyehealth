@@ -71,9 +71,25 @@ public class VisionToolsFragment extends Fragment {
         return binding.getRoot();
     }
 
+    private void bindActionButtons() {
+        binding.optionTumblingE.setOnClickListener(item -> {
+            Toast.makeText(this.getContext(), "This should launch the tumbling E test...", Toast.LENGTH_SHORT).show();
+            NavHostFragment.findNavController(VisionToolsFragment.this)
+                    .navigate(R.id.action_visionToolsFragment_to_tumblingETestFragment);
+        });
+
+        binding.optionMetricConversion.setOnClickListener(item -> {
+            Toast.makeText(this.getContext(), "This should launch the metric conversion tools...", Toast.LENGTH_SHORT).show();
+            NavHostFragment.findNavController(VisionToolsFragment.this)
+                    .navigate(R.id.action_visionToolsFragment_to_metricConversionFragment);
+        });
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        bindActionButtons();
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             item.setChecked(false);
