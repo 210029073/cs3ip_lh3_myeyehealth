@@ -38,6 +38,8 @@ public class TumblingETestFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         int[] letterE = randomManipulateE();
+
+        //set end test with a prompt before closing
     }
 
     private int[] randomManipulateE() {
