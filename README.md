@@ -1,2 +1,14 @@
-# cs3ip_lh3_myeyehealth
-An eye health management mobile application designed for users to manage their eye heatlh
+# **MyEyeHealth - Eye Health Management Application**
+## About
+For the purpose of CS3IP (Individual Project), my project is to create an eye health management mobile application designed for users to manage their eye heatlh.
+
+## Technology
+- Uses Java as the main programming language. (Requires Java JDK version 17)
+- Android Studio was used in order to implement the native mobile application solely for Android devices.
+
+## Features
+- Set medication reminders, providing reminders to users when to take their eye drops.
+- Provide Interactive games such as Tumbling E Test for testing their vision acuity, and colour arrangement.
+- Vision tools such as metric conversions.
+- Monitor key measurements such as blood pressure level, glucose level, etc.
+- Education section for general management of their eye health.
