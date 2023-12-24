@@ -75,7 +75,7 @@ public class VisionToolsFragment extends Fragment {
         binding.optionTumblingE.setOnClickListener(item -> {
             Toast.makeText(this.getContext(), "This should launch the tumbling E test...", Toast.LENGTH_SHORT).show();
             NavHostFragment.findNavController(VisionToolsFragment.this)
-                    .navigate(R.id.action_visionToolsFragment_to_tumblingETestFragment);
+                    .navigate(R.id.action_visionToolsFragment_to_tumblingECoverLeftEyeFragment);
         });
 
         binding.optionMetricConversion.setOnClickListener(item -> {
