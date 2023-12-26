@@ -41,6 +41,8 @@ public class TumblingEAssessFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //TODO: Need to hide navigation bar
+
         //TODO: get data from view model
         this.viewModel = new ViewModelProvider(requireActivity()).get(TumblingETestViewModel.class);
         int[] letterPosSize = this.viewModel.getCurrentLetterEPosSize().getValue();

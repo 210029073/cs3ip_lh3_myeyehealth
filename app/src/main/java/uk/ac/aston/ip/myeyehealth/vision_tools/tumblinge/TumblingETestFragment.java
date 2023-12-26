@@ -41,6 +41,7 @@ public class TumblingETestFragment extends Fragment {
 
         int[] letterE = randomManipulateE();
 
+        //TODO: Need to hide navigation bar.
 
         //TODO: set end test with a prompt before closing
 
