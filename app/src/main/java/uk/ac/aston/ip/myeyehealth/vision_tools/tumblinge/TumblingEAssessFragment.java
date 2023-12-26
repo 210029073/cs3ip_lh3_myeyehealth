@@ -2,7 +2,6 @@ package uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentTumblingEAssessBinding;
@@ -47,9 +48,11 @@ public class TumblingEAssessFragment extends Fragment {
         this.viewModel = new ViewModelProvider(requireActivity()).get(TumblingETestViewModel.class);
         int[] letterPosSize = this.viewModel.getCurrentLetterEPosSize().getValue();
 
+        this.mViewModel = new ViewModelProvider(requireActivity()).get(TumblingEAssessViewModel.class);
+
         int size = letterPosSize[0];
         int position = letterPosSize[1];
-
+        AtomicInteger currScore = new AtomicInteger();
         binding.option1Card.setOnClickListener(optionSelected -> {
             int parsedSize = (int) binding.option1.getTextSize();
             int angle = (int) binding.option1.getRotation();
@@ -59,6 +62,7 @@ public class TumblingEAssessFragment extends Fragment {
                         .setBackgroundTintList(getContext().getColorStateList(R.color.green))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
+                currScore.addAndGet(1);
             }
 
             else {
@@ -79,6 +83,7 @@ public class TumblingEAssessFragment extends Fragment {
                         .setBackgroundTintList(getContext().getColorStateList(R.color.green))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
+                currScore.addAndGet(1);
             }
 
             else {
@@ -99,6 +104,7 @@ public class TumblingEAssessFragment extends Fragment {
                         .setBackgroundTintList(getContext().getColorStateList(R.color.green))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
+                currScore.addAndGet(1);
             }
 
             else {
@@ -119,6 +125,7 @@ public class TumblingEAssessFragment extends Fragment {
                         .setBackgroundTintList(getContext().getColorStateList(R.color.green))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
+                currScore.addAndGet(1);
             }
 
             else {
@@ -129,6 +136,25 @@ public class TumblingEAssessFragment extends Fragment {
                         .setAction("Action",null).show();
             }
         });
+
+        if(mViewModel.getNumberOfTimesLeftEyeTested().getValue() < 5) {
+            //TODO: DO LEFT EYE TEST
+            //increment numberOfTimeLeftEyeTested
+            //update score
+            //switch back to test
+        }
+
+        else if(mViewModel.getNumberOfTimesLeftEyeTested().getValue() == 5 && mViewModel.getNumberOfTimesRightEyeTested().getValue() < 5) {
+            //TODO: SWITCH TO FRAGMENT ASKING USER TO COVER RIGHT EYE
+            //increment numberOfTimeLeftEyeTested
+            //update score
+            //switch back to test
+        }
+
+        else {
+            //TODO: SHOW SCORE
+            //RETURN HOME TEMP
+        }
     }
 
     @Override
