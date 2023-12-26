@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel;
 
 public class TumblingEAssessViewModel extends ViewModel {
     // TODO: Implement the ViewModel
-    private MutableLiveData<Integer> numberOfTimesLeftEyeTested = new MutableLiveData<>(1);
+    private MutableLiveData<Integer> numberOfTimesLeftEyeTested = new MutableLiveData<>(0);
 
-    private MutableLiveData<Integer> numberOfTimesRightEyeTested = new MutableLiveData<>(1);
+    private MutableLiveData<Integer> numberOfTimesRightEyeTested = new MutableLiveData<>(0);
+
+    private MutableLiveData<Boolean> hasSwitchedToRightEyeTest = new MutableLiveData<>(false);
 
     public MutableLiveData<Integer> getNumberOfTimesLeftEyeTested() {
         return numberOfTimesLeftEyeTested;
@@ -23,5 +25,13 @@ public class TumblingEAssessViewModel extends ViewModel {
 
     public void setNumberOfTimesRightEyeTested(int numberOfTimesRightEyeTested) {
         this.numberOfTimesRightEyeTested.setValue(numberOfTimesRightEyeTested);
+    }
+
+    public MutableLiveData<Boolean> getHasSwitchedToRightEyeTest() {
+        return this.hasSwitchedToRightEyeTest;
+    }
+
+    public void setHasSwitchedToRightEyeTest(boolean hasSwitchedToRightEyeTest) {
+        this.hasSwitchedToRightEyeTest.setValue(hasSwitchedToRightEyeTest);
     }
 }

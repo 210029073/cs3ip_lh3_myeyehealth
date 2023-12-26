@@ -8,9 +8,9 @@ public class TumblingETestViewModel extends ViewModel {
     // TODO: Implement the ViewModel
 
     //TODO: Need to separate score for right and left eyes
-    private MutableLiveData<Integer> leftEyeScore = new MutableLiveData<>();
+    private MutableLiveData<Integer> leftEyeScore = new MutableLiveData<>(0);
 
-    private MutableLiveData<Integer> rightEyeScore = new MutableLiveData<>();
+    private MutableLiveData<Integer> rightEyeScore = new MutableLiveData<>(0);
 
     private MutableLiveData<int[]> currentLetterEPosSize = new MutableLiveData<>();
 

@@ -122,5 +122,8 @@
         <action
             android:id="@+id/action_tumblingEAssessFragment_to_tumblingETestFragment"
             app:destination="@id/tumblingETestFragment" />
+        <action
+            android:id="@+id/action_tumblingEAssessFragment_to_tumblingECoverRightEyeFragment"
+            app:destination="@id/tumblingECoverRightEyeFragment" />
     </fragment>
 </navigation>

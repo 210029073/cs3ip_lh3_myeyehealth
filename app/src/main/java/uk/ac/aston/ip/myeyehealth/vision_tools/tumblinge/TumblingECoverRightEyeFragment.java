@@ -7,16 +7,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import uk.ac.aston.ip.myeyehealth.R;
+import uk.ac.aston.ip.myeyehealth.databinding.FragmentTumblingECoverRightEyeBinding;
 
 public class TumblingECoverRightEyeFragment extends Fragment {
 
     private TumblingECoverRightEyeViewModel mViewModel;
+
+    private FragmentTumblingECoverRightEyeBinding binding;
 
     public static TumblingECoverRightEyeFragment newInstance() {
         return new TumblingECoverRightEyeFragment();
@@ -25,7 +29,18 @@ public class TumblingECoverRightEyeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_tumbling_e_cover_right_eye, container, false);
+        binding = FragmentTumblingECoverRightEyeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        binding.fragmentCoverRightEyeTumblingeContainer.setOnClickListener(containerSwitch -> {
+            NavHostFragment.findNavController(TumblingECoverRightEyeFragment.this)
+                    .navigate(R.id.action_tumblingECoverRightEyeFragment_to_tumblingETestFragment);
+        });
     }
 
     @Override

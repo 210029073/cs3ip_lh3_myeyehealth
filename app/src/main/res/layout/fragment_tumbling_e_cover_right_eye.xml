@@ -7,6 +7,7 @@
     tools:context=".vision_tools.tumblinge.TumblingECoverRightEyeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragmentCoverRightEyeTumblingeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
