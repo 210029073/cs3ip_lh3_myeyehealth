@@ -7,12 +7,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import uk.ac.aston.ip.myeyehealth.R;
+import uk.ac.aston.ip.myeyehealth.VisionToolsFragment;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentTumblingETestBinding;
 
 public class TumblingETestFragment extends Fragment {
@@ -39,7 +41,17 @@ public class TumblingETestFragment extends Fragment {
 
         int[] letterE = randomManipulateE();
 
-        //set end test with a prompt before closing
+
+        //TODO: set end test with a prompt before closing
+
+        //TODO: Communicate with assess fragment
+        mViewModel = new ViewModelProvider(requireActivity()).get(TumblingETestViewModel.class);
+        mViewModel.setCurrentLetterEPosSize(letterE);
+
+        binding.tumblingEContainer.setOnClickListener(view1 -> {
+            NavHostFragment.findNavController(TumblingETestFragment.this)
+                    .navigate(R.id.action_tumblingETestFragment_to_tumblingEAssessFragment);
+        });
     }
 
     private int[] randomManipulateE() {

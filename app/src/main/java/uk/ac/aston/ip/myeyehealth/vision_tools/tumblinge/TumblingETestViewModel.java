@@ -8,11 +8,11 @@ public class TumblingETestViewModel extends ViewModel {
     // TODO: Implement the ViewModel
 
     //TODO: Need to separate score for right and left eyes
-    private MutableLiveData<Integer> leftEyeScore;
+    private MutableLiveData<Integer> leftEyeScore = new MutableLiveData<>();
 
-    private MutableLiveData<Integer> rightEyeScore;
+    private MutableLiveData<Integer> rightEyeScore = new MutableLiveData<>();
 
-    private MutableLiveData<Integer[]> currentLetterEPosSize;
+    private MutableLiveData<int[]> currentLetterEPosSize = new MutableLiveData<>();
 
     public void setLeftEyeScore(int score) {
         this.leftEyeScore.setValue(score);
@@ -22,7 +22,7 @@ public class TumblingETestViewModel extends ViewModel {
         this.rightEyeScore.setValue(score);
     }
 
-    public void setCurrentLetterEPosSize(Integer[] ePosSize) {
+    public void setCurrentLetterEPosSize(int[] ePosSize) {
         this.currentLetterEPosSize.setValue(ePosSize);
     }
 
@@ -34,7 +34,7 @@ public class TumblingETestViewModel extends ViewModel {
         return this.rightEyeScore;
     }
 
-    public LiveData<Integer[]> getCurrentLetterEPosSize() {
+    public LiveData<int[]> getCurrentLetterEPosSize() {
         return this.currentLetterEPosSize;
     }
 }
