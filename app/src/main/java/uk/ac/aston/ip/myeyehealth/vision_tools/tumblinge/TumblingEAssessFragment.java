@@ -35,6 +35,14 @@ public class TumblingEAssessFragment extends Fragment {
         return new TumblingEAssessFragment();
     }
 
+    //TODO: NEED TO DESTROY SESSION
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -65,7 +73,6 @@ public class TumblingEAssessFragment extends Fragment {
 
             if (angle == position) {
                 Snackbar.make(getView(), "Correct answer", Snackbar.LENGTH_SHORT)
-                        .setAnchorView(R.id.option_1_card)
                         .setBackgroundTintList(getContext().getColorStateList(R.color.green))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
@@ -75,7 +82,6 @@ public class TumblingEAssessFragment extends Fragment {
 
             else {
                 Snackbar.make(getView(), "Incorrect answer", Snackbar.LENGTH_SHORT)
-                        .setAnchorView(R.id.option_1_card)
                         .setBackgroundTintList(getContext().getColorStateList(R.color.red))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
@@ -89,7 +95,6 @@ public class TumblingEAssessFragment extends Fragment {
             boolean isAnswerCorrect = false;
             if (angle == position) {
                 Snackbar.make(getView(), "Correct answer", Snackbar.LENGTH_SHORT)
-                        .setAnchorView(R.id.option_2_card)
                         .setBackgroundTintList(getContext().getColorStateList(R.color.green))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
@@ -99,7 +104,6 @@ public class TumblingEAssessFragment extends Fragment {
 
             else {
                 Snackbar.make(getView(), "Incorrect answer", Snackbar.LENGTH_SHORT)
-                        .setAnchorView(R.id.option_2_card)
                         .setBackgroundTintList(getContext().getColorStateList(R.color.red))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
@@ -113,7 +117,6 @@ public class TumblingEAssessFragment extends Fragment {
             boolean isAnswerCorrect = false;
             if (angle == position) {
                 Snackbar.make(getView(), "Correct answer", Snackbar.LENGTH_SHORT)
-                        .setAnchorView(R.id.option_3_card)
                         .setBackgroundTintList(getContext().getColorStateList(R.color.green))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
@@ -123,7 +126,6 @@ public class TumblingEAssessFragment extends Fragment {
 
             else {
                 Snackbar.make(getView(), "Incorrect answer", Snackbar.LENGTH_SHORT)
-                        .setAnchorView(R.id.option_3_card)
                         .setBackgroundTintList(getContext().getColorStateList(R.color.red))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
@@ -137,7 +139,6 @@ public class TumblingEAssessFragment extends Fragment {
             boolean isAnswerCorrect = false;
             if (angle == position) {
                 Snackbar.make(getView(), "Correct answer", Snackbar.LENGTH_SHORT)
-                        .setAnchorView(R.id.option_4_card)
                         .setBackgroundTintList(getContext().getColorStateList(R.color.green))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
@@ -147,7 +148,6 @@ public class TumblingEAssessFragment extends Fragment {
 
             else {
                 Snackbar.make(getView(), "Incorrect answer", Snackbar.LENGTH_SHORT)
-                        .setAnchorView(R.id.option_4_card)
                         .setBackgroundTintList(getContext().getColorStateList(R.color.red))
                         .setTextColor(getContext().getColorStateList(R.color.white))
                         .setAction("Action",null).show();
@@ -228,10 +228,10 @@ public class TumblingEAssessFragment extends Fragment {
             //RETURN HOME TEMP
 //            String scoreMsg = "Score for Left eye is: " + viewModel.getLeftEyeScore().getValue() + "\n Score for Right eye is: " + viewModel.getRightEyeScore().getValue() +
 //                    "\nNumber of times left eye tested: " + mViewModel.getNumberOfTimesLeftEyeTested().getValue();
-            String scoreMsg =
-                    "Number of times left eye tested: " + viewModel.numberOfTimesLeftEyeTested.getValue();
-            Snackbar.make(getView(), scoreMsg, Snackbar.LENGTH_LONG)
-                    .show();
+//            String scoreMsg =
+//                    "Number of times left eye tested: " + viewModel.numberOfTimesLeftEyeTested.getValue();
+//            Snackbar.make(getView(), scoreMsg, Snackbar.LENGTH_LONG)
+//                    .show();
         }
     }
 
