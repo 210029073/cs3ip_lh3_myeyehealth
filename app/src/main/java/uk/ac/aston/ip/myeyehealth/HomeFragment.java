@@ -81,9 +81,9 @@ public class HomeFragment extends Fragment {
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             //this is an example of retrieving a global argument from navigation graph
             //and outputting to logcat.
-            Log.println(Log.INFO, "Name var", (String) requireArguments().get("name"));
+//            Log.println(Log.INFO, "Name var", (String) requireArguments().get("name"));
             //this can be used in order to update global arguements in navigation graph
-            requireArguments().putString("name", "Home");
+//            requireArguments().putString("name", "Home");
             item.setChecked(false);
             if(item.getItemId() == R.id.visionToolsFragment) {
                 Log.println(Log.INFO, "Item checked", "item: " + item.getTitle() + " checked: " + item.isChecked());

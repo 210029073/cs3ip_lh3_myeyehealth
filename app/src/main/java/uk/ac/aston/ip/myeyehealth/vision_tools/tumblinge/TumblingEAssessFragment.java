@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -7,12 +8,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -49,7 +52,7 @@ public class TumblingEAssessFragment extends Fragment {
         this.viewModel = new ViewModelProvider(requireActivity()).get(TumblingETestViewModel.class);
         int[] letterPosSize = this.viewModel.getCurrentLetterEPosSize().getValue();
 
-        this.mViewModel = new ViewModelProvider(requireActivity()).get(TumblingEAssessViewModel.class);
+//        this.mViewModel = new ViewModelProvider(requireActivity()).get(TumblingEAssessViewModel.class);
 
         int size = letterPosSize[0];
         int position = letterPosSize[1];
@@ -155,12 +158,16 @@ public class TumblingEAssessFragment extends Fragment {
     }
 
     private void calculateScore(boolean isCorrectAnswer) {
-        if(mViewModel.getNumberOfTimesLeftEyeTested().getValue() < 5) {
+        if(viewModel.numberOfTimesLeftEyeTested.getValue() < 5) {
             //TODO: DO LEFT EYE TEST
             //increment numberOfTimeLeftEyeTested
-            mViewModel.getNumberOfTimesLeftEyeTested().observe(getViewLifecycleOwner(), integer -> {
-                ++integer;
-            });
+            if(mViewModel.getNumberOfTimesLeftEyeTested() == null) {
+//                mViewModel.setNumberOfTimesLeftEyeTested(new MutableLiveData<>(1));
+            }
+            else {
+                int old = viewModel.numberOfTimesLeftEyeTested.getValue();
+                viewModel.numberOfTimesLeftEyeTested.setValue(old + 1);
+            }
 //            mViewModel.setNumberOfTimesLeftEyeTested(old + 1);
 
             if(isCorrectAnswer) {
@@ -174,32 +181,46 @@ public class TumblingEAssessFragment extends Fragment {
                     .navigate(R.id.action_tumblingEAssessFragment_to_tumblingETestFragment);
         }
 
-        if(mViewModel.getNumberOfTimesLeftEyeTested().getValue() == 5) {
+        if(viewModel.numberOfTimesLeftEyeTested.getValue() == 5) {
             //TODO: SWITCH TO FRAGMENT ASKING USER TO COVER RIGHT EYE
             //if user has not seen the cover right eye message
             //then switch the fragment
 
-            if(!mViewModel.getHasSwitchedToRightEyeTest().getValue()) {
+            if(!viewModel.hasSwitchedToRightEyeTest.getValue()) {
                 //set to true
-                mViewModel.setHasSwitchedToRightEyeTest(true);
+                viewModel.hasSwitchedToRightEyeTest.setValue(true);
 
                 NavHostFragment.findNavController(TumblingEAssessFragment.this)
-                        .navigate(R.id.action_tumblingEAssessFragment_to_tumblingECoverRightEyeFragment);
+                        .navigate(R.id.action_tumblingETestFragment_to_tumblingECoverRightEyeFragment);
+
+//                Navigation.findNavController(getView()).navigate(R.id.action_tumblingEAssessFragment_to_tumblingECoverRightEyeFragment);
             }
 
-            //increment numberOfTimeRightEyeTested
-            int old = mViewModel.getNumberOfTimesRightEyeTested().getValue();
-            mViewModel.setNumberOfTimesRightEyeTested(old + 1);
+            else {
 
-            if(isCorrectAnswer) {
-                //update score
-                int oldScore = viewModel.getRightEyeScore().getValue();
-                viewModel.setRightEyeScore(oldScore + 1);
+                if(viewModel.numberOfTimesRightEyeTested.getValue() == 5) {
+                    Snackbar.make(getView(),"Left Eye: " + viewModel.getLeftEyeScore().getValue() + "\nRight Eye: " + viewModel.getRightEyeScore().getValue(), Snackbar.LENGTH_LONG)
+                            .show();
+                    //switch back to test
+                    NavHostFragment.findNavController(TumblingEAssessFragment.this)
+                            .navigate(R.id.action_tumblingEAssessFragment_to_homeFragment);
+                    return;
+                }
+
+                //increment numberOfTimeRightEyeTested
+                int old = viewModel.numberOfTimesRightEyeTested.getValue();
+                viewModel.numberOfTimesRightEyeTested.setValue(old + 1);
+
+                if (isCorrectAnswer) {
+                    //update score
+                    int oldScore = viewModel.getRightEyeScore().getValue();
+                    viewModel.setRightEyeScore(oldScore + 1);
+                }
+
+                //switch back to test
+                NavHostFragment.findNavController(TumblingEAssessFragment.this)
+                        .navigate(R.id.action_tumblingEAssessFragment_to_tumblingETestFragment);
             }
-
-            //switch back to test
-            NavHostFragment.findNavController(TumblingEAssessFragment.this)
-                    .navigate(R.id.action_tumblingEAssessFragment_to_tumblingETestFragment);
         }
 
         else {
@@ -208,7 +229,7 @@ public class TumblingEAssessFragment extends Fragment {
 //            String scoreMsg = "Score for Left eye is: " + viewModel.getLeftEyeScore().getValue() + "\n Score for Right eye is: " + viewModel.getRightEyeScore().getValue() +
 //                    "\nNumber of times left eye tested: " + mViewModel.getNumberOfTimesLeftEyeTested().getValue();
             String scoreMsg =
-                    "Number of times left eye tested: " + mViewModel.getNumberOfTimesLeftEyeTested().getValue();
+                    "Number of times left eye tested: " + viewModel.numberOfTimesLeftEyeTested.getValue();
             Snackbar.make(getView(), scoreMsg, Snackbar.LENGTH_LONG)
                     .show();
         }

@@ -108,22 +108,34 @@
     <fragment
         android:id="@+id/tumblingECoverRightEyeFragment"
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingECoverRightEyeFragment"
-        android:label="fragment_tumbling_e_cover_right_eye"
-        tools:layout="@layout/fragment_tumbling_e_cover_right_eye" >
+        android:label="Cover right eye"
+        tools:layout="@layout/fragment_tumbling_e_cover_right_eye">
         <action
             android:id="@+id/action_tumblingECoverRightEyeFragment_to_tumblingETestFragment"
             app:destination="@id/tumblingETestFragment" />
     </fragment>
     <fragment
+        android:id="@+id/tumblingECoverRightEyeFragment2"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingECoverRightEyeFragment"
+        android:label="Cover right eye"
+        tools:layout="@layout/fragment_tumbling_e_cover_right_eye">
+        <action
+            android:id="@+id/action_tumblingECoverRightEyeFragment2_to_tumblingETestFragment"
+            app:destination="@id/tumblingETestFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/tumblingEAssessFragment"
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingEAssessFragment"
-        android:label="fragment_tumbling_e_assess"
-        tools:layout="@layout/fragment_tumbling_e_assess" >
+        android:label="Quiz"
+        tools:layout="@layout/fragment_tumbling_e_assess">
         <action
             android:id="@+id/action_tumblingEAssessFragment_to_tumblingETestFragment"
             app:destination="@id/tumblingETestFragment" />
         <action
-            android:id="@+id/action_tumblingEAssessFragment_to_tumblingECoverRightEyeFragment"
-            app:destination="@id/tumblingECoverRightEyeFragment" />
+            android:id="@+id/action_tumblingEAssessFragment_to_tumblingECoverRightEyeFragment2"
+            app:destination="@id/tumblingECoverRightEyeFragment2" />
+        <action
+            android:id="@+id/action_tumblingEAssessFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
