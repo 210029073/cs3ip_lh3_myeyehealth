@@ -45,4 +45,9 @@ public class TumblingETestViewModel extends ViewModel {
     public LiveData<int[]> getCurrentLetterEPosSize() {
         return this.currentLetterEPosSize;
     }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+    }
 }

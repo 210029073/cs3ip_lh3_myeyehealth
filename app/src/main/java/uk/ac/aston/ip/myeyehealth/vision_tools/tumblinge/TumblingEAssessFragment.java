@@ -201,6 +201,8 @@ public class TumblingEAssessFragment extends Fragment {
                 if(viewModel.numberOfTimesRightEyeTested.getValue() == 5) {
                     Snackbar.make(getView(),"Left Eye: " + viewModel.getLeftEyeScore().getValue() + "\nRight Eye: " + viewModel.getRightEyeScore().getValue(), Snackbar.LENGTH_LONG)
                             .show();
+                    viewModel.onCleared();
+                    mViewModel.onCleared();
                     //switch back to test
                     NavHostFragment.findNavController(TumblingEAssessFragment.this)
                             .navigate(R.id.action_tumblingEAssessFragment_to_homeFragment);

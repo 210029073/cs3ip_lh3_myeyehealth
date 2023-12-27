@@ -35,4 +35,9 @@ public class TumblingEAssessViewModel extends ViewModel {
     public void setHasSwitchedToRightEyeTest(boolean hasSwitchedToRightEyeTest) {
         this.hasSwitchedToRightEyeTest.setValue(hasSwitchedToRightEyeTest);
     }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+    }
 }
