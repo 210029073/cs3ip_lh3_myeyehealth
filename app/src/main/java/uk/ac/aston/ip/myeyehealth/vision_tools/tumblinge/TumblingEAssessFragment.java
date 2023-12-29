@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -65,7 +66,8 @@ public class TumblingEAssessFragment extends Fragment {
         int size = letterPosSize[0];
         int position = letterPosSize[1];
         AtomicInteger currScore = new AtomicInteger();
-
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setVisibility(View.INVISIBLE);
         binding.option1Card.setOnClickListener(optionSelected -> {
             int parsedSize = (int) binding.option1.getTextSize();
             int angle = (int) binding.option1.getRotation();
@@ -206,6 +208,9 @@ public class TumblingEAssessFragment extends Fragment {
                     //switch back to test
                     NavHostFragment.findNavController(TumblingEAssessFragment.this)
                             .navigate(R.id.action_tumblingEAssessFragment_to_homeFragment);
+
+                    Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+                    toolbar.setVisibility(View.VISIBLE);
                     return;
                 }
 

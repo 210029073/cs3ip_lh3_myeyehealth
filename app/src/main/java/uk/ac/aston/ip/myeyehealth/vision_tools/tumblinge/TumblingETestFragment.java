@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import java.util.Random;
 import android.os.Bundle;
@@ -38,6 +39,9 @@ public class TumblingETestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.setVisibility(View.INVISIBLE);
 
         int[] letterE = randomManipulateE();
 
