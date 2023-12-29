@@ -49,5 +49,10 @@ public class TumblingETestViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+        this.leftEyeScore = new MutableLiveData<>(0);
+        this.rightEyeScore = new MutableLiveData<>(0);
+        this.numberOfTimesLeftEyeTested = new MutableLiveData<>(0);
+        this.numberOfTimesRightEyeTested = new MutableLiveData<>(0);
+        this.hasSwitchedToRightEyeTest = new MutableLiveData<>(false);
     }
 }
