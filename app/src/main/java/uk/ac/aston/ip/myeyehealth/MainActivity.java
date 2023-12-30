@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 
 import androidx.core.app.NotificationCompat;
@@ -70,11 +72,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setSupportActionBar(binding.toolbar);
+        NavigationView navigationView = binding.navView;
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .setOpenableLayout(binding.navDrawerLayout)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            item.setChecked(true);
+            if(item.isChecked()) {
+                Log.i("Item checked: ", String.valueOf(item.getItemId()));
+                navController.navigate(item.getItemId());
+                return true;
+            }
+            return false;
+        });
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override

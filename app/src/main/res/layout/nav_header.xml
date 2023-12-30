@@ -10,13 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="MyEyeHealth"
+        android:textSize="20dp"
         android:textStyle="bold"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="email@email.com"
-        android:textStyle="bold"
         />
 
 </LinearLayout>

@@ -138,4 +138,9 @@
             android:id="@+id/action_tumblingEAssessFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/remindersFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.reminders.RemindersFragment"
+        android:label="fragment_reminders"
+        tools:layout="@layout/fragment_reminders" />
 </navigation>
