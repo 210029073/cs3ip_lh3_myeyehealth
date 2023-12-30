@@ -3,13 +3,13 @@
     <item
         android:id="@+id/homeFragment"
         android:title="Home"
-        android:icon="@drawable/ic_launcher_background"/>
+        android:icon="@drawable/baseline_home_24"/>
     <item
         android:id="@+id/visionToolsFragment"
         android:title="Vision Tools"
-        android:icon="@drawable/ic_launcher_background"/>
+        android:icon="@drawable/tools"/>
     <item
         android:id="@+id/settings"
         android:title="Reminders"
-        android:icon="@drawable/ic_launcher_background"/>
+        android:icon="@drawable/reminder_60"/>
 </menu>
