@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.Objects;
 
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentHomeBinding;
@@ -98,6 +100,29 @@ public class HomeFragment extends Fragment {
                 return false;
             }
             return false;
+        });
+
+        binding.cardVisionTools.setOnClickListener(card -> {
+            NavHostFragment.findNavController(HomeFragment.this)
+                    .navigate(R.id.action_homeFragment_to_visionToolsFragment);
+        });
+
+        binding.cardMedicationReminders.setOnClickListener(card -> {
+            Snackbar.make(getView(), "Feature not added yet...", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show();
+        });
+
+        binding.cardMissedDoses.setOnClickListener(card -> {
+            Snackbar.make(getView(), "Feature not added yet...", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show();
+        });
+
+        binding.cardViewTestScores.setOnClickListener(card -> {
+            Snackbar.make(getView(), "Feature not added yet...", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null)
+                    .show();
         });
 
     }

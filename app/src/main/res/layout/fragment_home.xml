@@ -71,7 +71,7 @@
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/materialCardView"
+                app:layout_constraintRight_toLeftOf="@id/card_medication_reminders"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
@@ -98,7 +98,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView"
+                android:id="@+id/card_medication_reminders"
                 android:layout_width="162dp"
                 android:clickable="true"
                 android:focusable="true"
@@ -140,7 +140,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_c"
+                android:id="@+id/card_missed_doses"
                 android:layout_width="162dp"
                 android:layout_height="149dp"
                 android:paddingVertical="10in"
@@ -150,7 +150,7 @@
 
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/card_d"
+                app:layout_constraintRight_toLeftOf="@id/card_view_test_scores"
                 app:layout_constraintTop_toTopOf="parent">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -175,7 +175,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_d"
+                android:id="@+id/card_view_test_scores"
                 android:layout_width="162dp"
 
                 android:clickable="true"
@@ -183,7 +183,7 @@
 
                 android:layout_height="149dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/card_c"
+                app:layout_constraintLeft_toRightOf="@id/card_missed_doses"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
