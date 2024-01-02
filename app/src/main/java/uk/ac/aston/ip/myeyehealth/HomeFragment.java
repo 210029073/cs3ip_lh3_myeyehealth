@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -79,7 +80,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             //this is an example of retrieving a global argument from navigation graph
             //and outputting to logcat.
@@ -125,5 +125,10 @@ public class HomeFragment extends Fragment {
                     .show();
         });
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

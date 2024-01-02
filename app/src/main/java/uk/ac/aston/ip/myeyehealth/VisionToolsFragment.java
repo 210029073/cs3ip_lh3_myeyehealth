@@ -107,4 +107,10 @@ public class VisionToolsFragment extends Fragment {
             return false;
         });
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+//        Toast.makeText(getContext(), "Exitting from vision tools", Toast.LENGTH_SHORT).show();
+    }
 }

@@ -85,9 +85,12 @@ public class MainActivity extends AppCompatActivity {
             if(item.isChecked()) {
                 Log.i("Item checked: ", String.valueOf(item.getItemId()));
                 navController.navigate(item.getItemId());
+                binding.navDrawerLayout.close();
                 return true;
             }
-            return false;
+            else {
+                return false;
+            }
         });
 
         binding.fab.setOnClickListener(new View.OnClickListener() {

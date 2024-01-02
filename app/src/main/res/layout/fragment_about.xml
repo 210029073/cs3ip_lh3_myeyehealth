@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <TextView
@@ -31,36 +32,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Created by Ibrahim Ahmad"
-            android:textSize="10dp"
+            android:textSize="12dp"
             android:textAlignment="center"
             />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="For CS3IP (Individual Project)"
-            android:textSize="10dp"
-            android:textColor="@color/black"
+            android:textSize="12dp"
             android:textAlignment="center"
+            android:layout_marginBottom="20dp"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ligula turpis, tempor eu est imperdiet, vehicula pulvinar neque. Sed aliquam suscipit lectus, nec bibendum velit tristique at. Maecenas id felis luctus ligula mattis posuere sit amet id odio. Ut porta posuere euismod. Fusce sed enim in augue mattis pharetra.
-            Etiam vel sagittis nisi. Vestibulum nec mattis eros. Cras id maximus risus, sit amet sagittis est. "
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ligula turpis, tempor eu est imperdiet, vehicula pulvinar neque. Sed aliquam suscipit lectus, nec bibendum velit tristique at. Maecenas id felis luctus ligula mattis posuere sit amet id odio. Ut porta posuere euismod. Fusce sed enim in augue mattis pharetra.
-            Etiam vel sagittis nisi. Vestibulum nec mattis eros. Cras id maximus risus, sit amet sagittis est. "
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ligula turpis, tempor eu est imperdiet, vehicula pulvinar neque. Sed aliquam suscipit lectus, nec bibendum velit tristique at. Maecenas id felis luctus ligula mattis posuere sit amet id odio. Ut porta posuere euismod. Fusce sed enim in augue mattis pharetra. Etiam vel sagittis nisi. Vestibulum nec mattis eros. Cras id maximus risus, sit amet sagittis est. "
             />
 
         <TextView
@@ -71,8 +59,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ligula turpis, tempor eu est imperdiet, vehicula pulvinar neque. Sed aliquam suscipit lectus, nec bibendum velit tristique at. Maecenas id felis luctus ligula mattis posuere sit amet id odio. Ut porta posuere euismod. Fusce sed enim in augue mattis pharetra.
-            Etiam vel sagittis nisi. Vestibulum nec mattis eros. Cras id maximus risus, sit amet sagittis est. "
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ligula turpis, tempor eu est imperdiet, vehicula pulvinar neque. Sed aliquam suscipit lectus, nec bibendum velit tristique at. Maecenas id felis luctus ligula mattis posuere sit amet id odio. Ut porta posuere euismod. Fusce sed enim in augue mattis pharetra. Etiam vel sagittis nisi. Vestibulum nec mattis eros. Cras id maximus risus, sit amet sagittis est. "
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ligula turpis, tempor eu est imperdiet, vehicula pulvinar neque. Sed aliquam suscipit lectus, nec bibendum velit tristique at. Maecenas id felis luctus ligula mattis posuere sit amet id odio. Ut porta posuere euismod. Fusce sed enim in augue mattis pharetra. Etiam vel sagittis nisi. Vestibulum nec mattis eros. Cras id maximus risus, sit amet sagittis est. "
             />
     </LinearLayout>
 

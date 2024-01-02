@@ -206,8 +206,10 @@ public class TumblingEAssessFragment extends Fragment {
                     viewModel.onCleared();
                     mViewModel.onCleared();
                     //switch back to test
-                    NavHostFragment.findNavController(TumblingEAssessFragment.this)
-                            .navigate(R.id.action_tumblingEAssessFragment_to_homeFragment);
+//                    NavHostFragment.findNavController(TumblingEAssessFragment.this)
+//                            .navigate(R.id.action_tumblingEAssessFragment_to_homeFragment);
+
+                    Navigation.findNavController(TumblingEAssessFragment.this.getView()).navigate(R.id.homeFragment);
 
                     Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
                     toolbar.setVisibility(View.VISIBLE);
