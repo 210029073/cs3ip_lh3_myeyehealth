@@ -38,7 +38,6 @@
                 android:layout_height="150dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:layout_marginRight="10dp">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -68,7 +67,6 @@
                 android:layout_marginLeft="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
                 >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -111,7 +109,6 @@
                 android:layout_marginRight="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:focusableInTouchMode="true"
                 >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -141,7 +138,7 @@
                 android:layout_marginLeft="10dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:focusableInTouchMode="true">
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
