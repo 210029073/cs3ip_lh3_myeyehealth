@@ -91,21 +91,7 @@ public class VisionToolsFragment extends Fragment {
 
         bindActionButtons();
 
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            item.setChecked(false);
-            Log.println(Log.INFO, "Item checked", "item: " + item.getTitle() + " checked: " + item.isChecked());
-            if(item.getItemId() == R.id.homeFragment) {
-                item.setChecked(true);
-                NavHostFragment.findNavController(VisionToolsFragment.this)
-                        .navigate(R.id.action_visionToolsFragment_to_homeFragment);
-                return true;
-            }
-            else if(item.getItemId() == R.id.visionToolsFragment) {
-                Toast.makeText(this.getContext(), "You are already in Vision Tools.", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-            return false;
-        });
+
     }
 
     @Override

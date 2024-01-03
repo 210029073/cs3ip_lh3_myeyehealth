@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -31,6 +32,7 @@ import uk.ac.aston.ip.myeyehealth.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,11 +82,31 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            item.setChecked(false);
+            Log.println(Log.INFO, "Item checked", "item: " + item.getTitle() + " checked: " + item.isChecked());
+            if(item.isChecked()) {
+                navController.navigate(item.getItemId());
+                return true;
+            }
+
+            return false;
+
+        });
+
         navigationView.setNavigationItemSelectedListener(item -> {
             item.setChecked(true);
             if(item.isChecked()) {
                 Log.i("Item checked: ", String.valueOf(item.getItemId()));
                 navController.navigate(item.getItemId());
+                if(item.getItemId() ==  R.id.homeFragment || item.getItemId() ==  R.id.visionToolsFragment || item.getItemId() ==  R.id.remindersFragment) {
+                    bottomNavigationView.setSelectedItemId(item.getItemId());
+                }
+                else {
+
+                }
                 binding.navDrawerLayout.close();
                 return true;
             }
@@ -92,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override

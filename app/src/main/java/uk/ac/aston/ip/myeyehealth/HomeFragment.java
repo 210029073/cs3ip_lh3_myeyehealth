@@ -80,27 +80,27 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            //this is an example of retrieving a global argument from navigation graph
-            //and outputting to logcat.
-//            Log.println(Log.INFO, "Name var", (String) requireArguments().get("name"));
-            //this can be used in order to update global arguements in navigation graph
-//            requireArguments().putString("name", "Home");
-            item.setChecked(false);
-            if(item.getItemId() == R.id.visionToolsFragment) {
-                Log.println(Log.INFO, "Item checked", "item: " + item.getTitle() + " checked: " + item.isChecked());
-
-                item.setChecked(true);
-                NavHostFragment.findNavController(HomeFragment.this)
-                        .navigate(R.id.action_homeFragment_to_visionToolsFragment);
-                    return true;
-            }
-            if(item.getItemId() == R.id.homeFragment) {
-                Toast.makeText(this.getContext(), "You are currently at home.", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-            return false;
-        });
+//        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+//            //this is an example of retrieving a global argument from navigation graph
+//            //and outputting to logcat.
+////            Log.println(Log.INFO, "Name var", (String) requireArguments().get("name"));
+//            //this can be used in order to update global arguements in navigation graph
+////            requireArguments().putString("name", "Home");
+//            item.setChecked(false);
+//            if(item.getItemId() == R.id.visionToolsFragment) {
+//                Log.println(Log.INFO, "Item checked", "item: " + item.getTitle() + " checked: " + item.isChecked());
+//
+//                item.setChecked(true);
+//                NavHostFragment.findNavController(HomeFragment.this)
+//                        .navigate(R.id.action_homeFragment_to_visionToolsFragment);
+//                    return true;
+//            }
+//            if(item.getItemId() == R.id.homeFragment) {
+//                Toast.makeText(this.getContext(), "You are currently at home.", Toast.LENGTH_SHORT).show();
+//                return false;
+//            }
+//            return false;
+//        });
 
         binding.cardVisionTools.setOnClickListener(card -> {
             NavHostFragment.findNavController(HomeFragment.this)

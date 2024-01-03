@@ -9,7 +9,7 @@
         android:title="Vision Tools"
         android:icon="@drawable/tools"/>
     <item
-        android:id="@+id/settings"
+        android:id="@+id/remindersFragment"
         android:title="Reminders"
         android:icon="@drawable/reminder_60"/>
 </menu>
