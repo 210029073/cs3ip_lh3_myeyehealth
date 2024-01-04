@@ -83,9 +83,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
+        NavigationUI.setupWithNavController(binding.navView, navController);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            item.setChecked(false);
+            item.setChecked(true);
             Log.println(Log.INFO, "Item checked", "item: " + item.getTitle() + " checked: " + item.isChecked());
             if(item.isChecked()) {
                 navController.navigate(item.getItemId());
@@ -100,13 +101,15 @@ public class MainActivity extends AppCompatActivity {
             item.setChecked(true);
             if(item.isChecked()) {
                 Log.i("Item checked: ", String.valueOf(item.getItemId()));
+                item.setChecked(false);
                 navController.navigate(item.getItemId());
-                if(item.getItemId() ==  R.id.homeFragment || item.getItemId() ==  R.id.visionToolsFragment || item.getItemId() ==  R.id.remindersFragment) {
-                    bottomNavigationView.setSelectedItemId(item.getItemId());
-                }
-                else {
-
-                }
+//                if(item.getItemId() ==  R.id.homeFragment || item.getItemId() ==  R.id.visionToolsFragment || item.getItemId() ==  R.id.remindersFragment) {
+//                    bottomNavigationView.setSelectedItemId(item.getItemId());
+//                }
+//                else {
+//
+//
+//                }
                 binding.navDrawerLayout.close();
                 return true;
             }
