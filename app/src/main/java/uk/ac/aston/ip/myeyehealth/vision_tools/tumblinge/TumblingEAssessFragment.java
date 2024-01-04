@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -213,6 +214,9 @@ public class TumblingEAssessFragment extends Fragment {
 
                     Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
                     toolbar.setVisibility(View.VISIBLE);
+
+                    BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+                    bottomNavigationView.setVisibility(View.VISIBLE);
                     return;
                 }
 

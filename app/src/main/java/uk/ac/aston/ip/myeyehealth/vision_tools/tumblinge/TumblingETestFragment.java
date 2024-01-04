@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.VisionToolsFragment;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentTumblingETestBinding;
@@ -42,6 +44,9 @@ public class TumblingETestFragment extends Fragment {
 
         Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
         toolbar.setVisibility(View.INVISIBLE);
+
+        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setVisibility(View.INVISIBLE);
 
         int[] letterE = randomManipulateE();
 
