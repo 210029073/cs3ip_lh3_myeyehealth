@@ -77,7 +77,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/darkBlue"
+                    >
                 <TextView
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
@@ -86,12 +88,16 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:scaleType="center"
+                    android:backgroundTint="@color/white"
                     android:background="@drawable/tools"
                     />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:text="Vision Tools"
                     android:textAlignment="center" />
                 </LinearLayout>
@@ -112,7 +118,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/red">
                     <TextView
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="10dp"
@@ -121,12 +128,16 @@
                         android:layout_height="100dp"
                         android:layout_gravity="center"
                         android:scaleType="center"
+                        android:backgroundTint="@color/white"
                         android:background="@drawable/medication_64"
                         />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
                         android:text="Medication Reminders"
                         android:textAlignment="center" />
                 </LinearLayout>
@@ -155,7 +166,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/yellow">
                     <TextView
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="10dp"
@@ -163,6 +175,7 @@
                         android:layout_height="100dp"
                         android:layout_gravity="center"
                         android:scaleType="center"
+                        android:backgroundTint="@color/white"
                         android:background="@drawable/reminder_60"
                         />
 
@@ -170,6 +183,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Missed Doses"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
                         android:textAlignment="center" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -190,7 +206,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/green">
                     <TextView
                         android:forceDarkAllowed="true"
                         android:layout_marginTop="15dp"
@@ -199,13 +216,17 @@
                         android:layout_height="100dp"
                         android:layout_gravity="center"
                         android:scaleType="center"
+                        android:backgroundTint="@color/white"
                         android:background="@drawable/test_32"
                         />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
                         android:text="View Test Scores"
+                        android:textColor="@color/white"
                         android:textAlignment="center" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
