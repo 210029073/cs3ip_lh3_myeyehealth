@@ -18,7 +18,7 @@ public class Reminders {
     public String reminderType;
 
     @ColumnInfo(name = "reminder_time")
-    public LocalTime time;
+    public long time;
 
     @ColumnInfo(name = "is_reminder_repeated")
     public boolean isRepeated;
