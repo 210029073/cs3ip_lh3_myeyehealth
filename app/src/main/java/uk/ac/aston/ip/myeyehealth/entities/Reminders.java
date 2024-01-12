@@ -6,9 +6,13 @@ import androidx.room.PrimaryKey;
 
 import java.time.LocalTime;
 
+import javax.annotation.processing.Generated;
+
+
 @Entity
 public class Reminders {
     @PrimaryKey
+    @Generated("AUTOINCREMENT")
     public int reminderNo;
 
     @ColumnInfo(name = "reminder_name")

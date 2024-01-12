@@ -44,6 +44,7 @@ public class RemindersFragment extends Fragment {
         //TODO: Create the local database using android room
         MyEyeHealthDatabase database = Room.databaseBuilder(getContext(), MyEyeHealthDatabase.class, "myeyehealth.db")
                 .createFromAsset("myeyehealth.db")
+                .enableMultiInstanceInvalidation()
                 .build();
 
         binding.addReminderActionBtn.setOnClickListener(click -> {
