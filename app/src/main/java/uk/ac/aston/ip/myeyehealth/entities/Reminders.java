@@ -11,8 +11,7 @@ import javax.annotation.processing.Generated;
 
 @Entity
 public class Reminders {
-    @PrimaryKey
-    @Generated("AUTOINCREMENT")
+    @PrimaryKey(autoGenerate = true)
     public int reminderNo;
 
     @ColumnInfo(name = "reminder_name")
