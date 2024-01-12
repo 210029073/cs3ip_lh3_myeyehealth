@@ -56,6 +56,8 @@ public class RemindersFragment extends Fragment {
         if(reminders.size() > 0) {
             binding.tmpPlaceholderMsg.setVisibility(View.INVISIBLE);
             for(Reminders reminder : reminders) {
+                //TODO: Use recycler view.
+                //TODO: Need to do this via xml and duplicate the element to make it easy to control the dimensions
                 MaterialCardView materialCardView = new MaterialCardView(getContext());
 
                 TextView reminderName = new TextView(getContext());
