@@ -3,5 +3,38 @@
     <style name="Base.Theme.MyEyeHealth" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/darkBlue</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorPrimaryDark">@color/darkBlue</item>
+    </style>
+
+
+    <style name="Theme.App" parent="Theme.MaterialComponents">
+        ...
+        <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
+
+    </style>
+
+    <style name="Theme.MyEyeHealth.TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
+        <item name="colorPrimary">@color/darkBlue</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorPrimaryDark">@color/darkBlue</item>
+        <item name="backgroundColor">@color/darkBlue</item>
+        <item name="itemTextColor">@color/white</item>
+    </style>
+
+    <style name="Theme.MyEyeHealth.NavDrawer">
+
+    </style>
+
+    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorPrimary">@color/darkBlue</item>
+        <!--        <item name="colorOnPrimary">@color/darkBlue</item>-->
+        <item name="colorAccent">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
     </style>
 </resources>

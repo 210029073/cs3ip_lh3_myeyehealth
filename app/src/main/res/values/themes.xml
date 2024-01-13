@@ -5,6 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/darkBlue</item>
         <item name="colorAccent">@color/white</item>
+        <item name="colorPrimaryDark">@color/darkBlue</item>
     </style>
 
 
@@ -23,9 +24,10 @@
 
     <style name="Theme.MyEyeHealth.TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
         <item name="colorPrimary">@color/darkBlue</item>
-        <item name="colorAccent">@color/darkBlue</item>
+        <item name="colorAccent">@color/white</item>
         <item name="colorPrimaryDark">@color/darkBlue</item>
         <item name="backgroundColor">@color/darkBlue</item>
+        <item name="itemTextColor">@color/white</item>
     </style>
 
     <style name="Theme.MyEyeHealth.NavDrawer">
@@ -40,6 +42,7 @@
         <item name="colorPrimary">@color/darkBlue</item>
 <!--        <item name="colorOnPrimary">@color/darkBlue</item>-->
         <item name="colorAccent">@color/white</item>
+        <item name="itemTextColor">@color/white</item>
     </style>
 
 </resources>
