@@ -22,6 +22,7 @@ import java.time.LocalTime;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentAddReminderBinding;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
@@ -58,6 +59,7 @@ public class AddReminderFragment extends Fragment {
                     .setTimeFormat(TimeFormat.CLOCK_12H)
                     .setHour(12)
                     .setMinute(0)
+                    .setTheme(R.style.Theme_MyEyeHealth_TimePicker)
                     .setTitleText("Select Reminder Time AM")
                     .build();
             timePicker.show(getParentFragmentManager(), "atag");
