@@ -179,6 +179,7 @@ public class TumblingEAssessFragment extends Fragment {
                 viewModel.setLeftEyeScore(oldScore + 1);
             }
 
+
             //switch back to test
             NavHostFragment.findNavController(TumblingEAssessFragment.this)
                     .navigate(R.id.action_tumblingEAssessFragment_to_tumblingETestFragment);
@@ -192,7 +193,6 @@ public class TumblingEAssessFragment extends Fragment {
             if(!viewModel.hasSwitchedToRightEyeTest.getValue()) {
                 //set to true
                 viewModel.hasSwitchedToRightEyeTest.setValue(true);
-
                 NavHostFragment.findNavController(TumblingEAssessFragment.this)
                         .navigate(R.id.action_tumblingETestFragment_to_tumblingECoverRightEyeFragment);
 
@@ -207,8 +207,8 @@ public class TumblingEAssessFragment extends Fragment {
                     viewModel.onCleared();
                     mViewModel.onCleared();
                     //switch back to test
-//                    NavHostFragment.findNavController(TumblingEAssessFragment.this)
-//                            .navigate(R.id.action_tumblingEAssessFragment_to_homeFragment);
+                    NavHostFragment.findNavController(TumblingEAssessFragment.this)
+                            .popBackStack(R.id.homeFragment, false);
 
                     Navigation.findNavController(TumblingEAssessFragment.this.getView()).navigate(R.id.homeFragment);
 
