@@ -210,7 +210,7 @@ public class TumblingEAssessFragment extends Fragment {
                     NavHostFragment.findNavController(TumblingEAssessFragment.this)
                             .popBackStack(R.id.homeFragment, false);
 
-                    Navigation.findNavController(TumblingEAssessFragment.this.getView()).navigate(R.id.homeFragment);
+                    Navigation.findNavController(TumblingEAssessFragment.this.getView()).navigateUp();
 
                     Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
                     toolbar.setVisibility(View.VISIBLE);

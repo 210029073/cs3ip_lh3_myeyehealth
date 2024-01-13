@@ -40,11 +40,17 @@
 
             >
 
-            <TextView
+            <ImageSwitcher
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="You currently have no reminders.\nAdd a reminder to see them here..."/>
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="You currently have no reminders.\nAdd a reminder to see them here..."/>
+            </ImageSwitcher>
+
         </com.google.android.material.card.MaterialCardView>
 
         <TextView

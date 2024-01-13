@@ -3,6 +3,8 @@ package uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import java.util.Random;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -38,6 +40,7 @@ public class TumblingETestFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
