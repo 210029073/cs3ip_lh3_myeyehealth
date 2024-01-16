@@ -4,6 +4,7 @@ For the purpose of CS3IP (Individual Project), my project is to create an eye he
 
 ## Technology
 - Uses Java as the main programming language. (Requires Java JDK version 17)
+- Requires Android 8.1 or later.
 - Android Studio was used in order to implement the native mobile application solely for Android devices.
 
 ## Features
