@@ -62,8 +62,9 @@ public class TumblingEAssessFragment extends Fragment {
         this.viewModel = new ViewModelProvider(requireActivity()).get(TumblingETestViewModel.class);
         int[] letterPosSize = this.viewModel.getCurrentLetterEPosSize().getValue();
 
-//        this.mViewModel = new ViewModelProvider(requireActivity()).get(TumblingEAssessViewModel.class);
-
+        this.mViewModel = new ViewModelProvider(requireActivity()).get(TumblingEAssessViewModel.class);
+        mViewModel.setLeftEyeScore(viewModel.getLeftEyeScore().getValue());
+        mViewModel.setRightEyeScore(viewModel.getRightEyeScore().getValue());
         int size = letterPosSize[0];
         int position = letterPosSize[1];
         AtomicInteger currScore = new AtomicInteger();
@@ -177,6 +178,7 @@ public class TumblingEAssessFragment extends Fragment {
                 //update score
                 int oldScore = viewModel.getLeftEyeScore().getValue();
                 viewModel.setLeftEyeScore(oldScore + 1);
+                mViewModel.setLeftEyeScore(oldScore + 1);
             }
 
 
@@ -205,18 +207,13 @@ public class TumblingEAssessFragment extends Fragment {
                     Snackbar.make(getView(),"Left Eye: " + viewModel.getLeftEyeScore().getValue() + "\nRight Eye: " + viewModel.getRightEyeScore().getValue(), Snackbar.LENGTH_LONG)
                             .show();
                     viewModel.onCleared();
-                    mViewModel.onCleared();
+//                    mViewModel.onCleared();
                     //switch back to test
-                    NavHostFragment.findNavController(TumblingEAssessFragment.this)
-                            .popBackStack(R.id.homeFragment, false);
 
-                    Navigation.findNavController(TumblingEAssessFragment.this.getView()).navigateUp();
+//                    mViewModel.setLeftEyeScore(viewModel.getLeftEyeScore().getValue());
+//                    mViewModel.setRightEyeScore(viewModel.getRightEyeScore().getValue());
+                    Navigation.findNavController(TumblingEAssessFragment.this.getView()).navigate(R.id.action_tumblingEAssessFragment_to_tumblingETestScoreFragment);
 
-                    Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-                    toolbar.setVisibility(View.VISIBLE);
-
-                    BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
-                    bottomNavigationView.setVisibility(View.VISIBLE);
                     return;
                 }
 
@@ -228,6 +225,7 @@ public class TumblingEAssessFragment extends Fragment {
                     //update score
                     int oldScore = viewModel.getRightEyeScore().getValue();
                     viewModel.setRightEyeScore(oldScore + 1);
+                    mViewModel.setRightEyeScore(oldScore + 1);
                 }
 
                 //switch back to test

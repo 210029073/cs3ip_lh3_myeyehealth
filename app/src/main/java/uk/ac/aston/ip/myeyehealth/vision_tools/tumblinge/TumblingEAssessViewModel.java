@@ -10,6 +10,10 @@ public class TumblingEAssessViewModel extends ViewModel {
 
     private MutableLiveData<Integer> numberOfTimesRightEyeTested = new MutableLiveData<>();
 
+    private MutableLiveData<Integer> leftEyeScore = new MutableLiveData<>(0);
+
+    private MutableLiveData<Integer> rightEyeScore = new MutableLiveData<>(0);
+
     private MutableLiveData<Boolean> hasSwitchedToRightEyeTest = new MutableLiveData<>(false);
 
     public MutableLiveData<Integer> getNumberOfTimesLeftEyeTested() {
@@ -39,5 +43,21 @@ public class TumblingEAssessViewModel extends ViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+    }
+
+    public MutableLiveData<Integer> getRightEyeScore() {
+        return rightEyeScore;
+    }
+
+    public void setRightEyeScore(int rightEyeScore) {
+        this.rightEyeScore.setValue(rightEyeScore);
+    }
+
+    public MutableLiveData<Integer> getLeftEyeScore() {
+        return leftEyeScore;
+    }
+
+    public void setLeftEyeScore(int leftEyeScore) {
+        this.leftEyeScore.setValue(leftEyeScore);
     }
 }
