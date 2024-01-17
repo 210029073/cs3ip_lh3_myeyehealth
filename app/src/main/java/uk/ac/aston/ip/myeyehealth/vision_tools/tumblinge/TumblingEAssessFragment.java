@@ -204,8 +204,8 @@ public class TumblingEAssessFragment extends Fragment {
             else {
 
                 if(viewModel.numberOfTimesRightEyeTested.getValue() == 5) {
-                    Snackbar.make(getView(),"Left Eye: " + viewModel.getLeftEyeScore().getValue() + "\nRight Eye: " + viewModel.getRightEyeScore().getValue(), Snackbar.LENGTH_LONG)
-                            .show();
+//                    Snackbar.make(getView(),"Left Eye: " + viewModel.getLeftEyeScore().getValue() + "\nRight Eye: " + viewModel.getRightEyeScore().getValue(), Snackbar.LENGTH_LONG)
+//                            .show();
                     viewModel.onCleared();
 //                    mViewModel.onCleared();
                     //switch back to test
