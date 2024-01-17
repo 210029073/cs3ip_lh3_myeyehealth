@@ -54,6 +54,8 @@ public class AddReminderFragment extends Fragment {
         AtomicReference<String> medicationName = new AtomicReference<>();
         AtomicReference<String> medicationType = new AtomicReference<>();
 
+        AtomicReference<Float> medicationDose = new AtomicReference<>();
+
         binding.btnReminderTime.setOnClickListener(listener -> {
             MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
                     .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -84,11 +86,13 @@ public class AddReminderFragment extends Fragment {
             //gather inputs from medication name and type
             medicationName.set(binding.txtReminderName.getEditText().getText().toString());
             medicationType.set(binding.txtReminderType.getEditText().getText().toString());
+            medicationDose.set(Float.valueOf(binding.txtReminderDose.getEditText().getText().toString()));
 
             MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
             Reminders reminder = new Reminders();
             reminder.reminderName = medicationName.get();
             reminder.reminderType = medicationType.get();
+            reminder.dose = medicationDose.get();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 reminder.time = LocalTime.of(hour.get(), minute.get()).toNanoOfDay();
             }

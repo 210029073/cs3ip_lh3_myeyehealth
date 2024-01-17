@@ -20,6 +20,9 @@ public class Reminders {
     @ColumnInfo(name = "reminder_type")
     public String reminderType;
 
+    @ColumnInfo(name = "reminder_dose")
+    public float dose;
+
     @ColumnInfo(name = "reminder_time")
     public long time;
 

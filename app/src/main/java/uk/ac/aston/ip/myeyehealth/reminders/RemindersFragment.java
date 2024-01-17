@@ -62,26 +62,36 @@ public class RemindersFragment extends Fragment {
 
                 TextView reminderName = new TextView(getContext());
                 TextView reminderType = new TextView(getContext());
+                TextView reminderDose = new TextView(getContext());
                 TextView reminderTime = new TextView(getContext());
 
                 LinearLayout linearLayout = new LinearLayout(getContext());
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
 
                 reminderName.setText(reminder.reminderName);
+                reminderName.setTextSize(16);
+                reminderName.setTextAppearance(androidx.appcompat.R.style.TextAppearance_AppCompat_Headline);
+                reminderDose.setText("Dose: " + Float.toString(reminder.dose));
+                reminderDose.setTextSize(16);
                 reminderType.setText(reminder.reminderType);
+                reminderType.setTextSize(16);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    reminderTime.setText(LocalTime.ofNanoOfDay(reminder.time).toString());
+                    reminderTime.setText("Time to take: " + LocalTime.ofNanoOfDay(reminder.time).toString());
+                    reminderTime.setTextSize(16);
                 }
 
-                linearLayout.setPadding(25,25,25,25);
-
+                linearLayout.setPadding(30,25,30,25);
                 linearLayout.addView(reminderName);
                 linearLayout.addView(reminderType);
+                linearLayout.addView(reminderDose);
                 linearLayout.addView(reminderTime);
 
-                materialCardView.addView(linearLayout);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                params.setMargins(20,15,20,15);
 
+                materialCardView.addView(linearLayout);
+                materialCardView.setLayoutParams(params);
                 binding.listReminders.addView(materialCardView);
             }
         }
