@@ -159,6 +159,10 @@ public class TumblingEAssessFragment extends Fragment {
             calculateScore(isAnswerCorrect);
         });
 
+        binding.btnNotSure.setOnClickListener(listener -> {
+            calculateScore(false);
+        });
+
     }
 
     private void calculateScore(boolean isCorrectAnswer) {
