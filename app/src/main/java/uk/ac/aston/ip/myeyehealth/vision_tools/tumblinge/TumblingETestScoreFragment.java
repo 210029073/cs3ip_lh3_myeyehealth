@@ -94,6 +94,44 @@ public class TumblingETestScoreFragment extends Fragment {
         binding.leftEyeTestscore.setText(String.valueOf(left));
         binding.rightEyeTestscore.setText(String.valueOf(right));
 
+        switch (left) {
+            case 0:
+            case 1:
+                binding.leftEyeBody.setText("Poor Vision. Needs to book Eye Test.");
+                break;
+            case 2:
+            case 3:
+                binding.leftEyeBody.setText("Partially-Sighted. Needs to book Eye Test.");
+                break;
+            case 4:
+                binding.leftEyeBody.setText("Moderate Vision. Needs to book Eye Test.");
+                break;
+            case 5:
+                binding.leftEyeBody.setText("Normal Vision.");
+            default:
+                binding.leftEyeBody.setText("N/A");
+        }
+
+        switch (right) {
+            case 0:
+            case 1:
+                binding.rightEyeBody.setText("Poor Vision. Needs to book Eye Test.");
+                break;
+            case 2:
+            case 3:
+                binding.rightEyeBody.setText("Partially-Sighted. Needs to book Eye Test.");
+                break;
+            case 4:
+                binding.rightEyeBody.setText("Moderate Vision. Needs to book Eye Test.");
+                break;
+            case 5:
+                binding.rightEyeBody.setText("Normal Vision.");
+                break;
+            default:
+                binding.rightEyeBody.setText("N/A");
+                break;
+        }
+
         binding.btnContinue.setOnClickListener(listener -> {
 
             this.mViewModel.onCleared();
