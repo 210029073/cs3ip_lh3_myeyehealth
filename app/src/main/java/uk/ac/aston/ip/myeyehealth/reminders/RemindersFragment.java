@@ -96,7 +96,7 @@ public class RemindersFragment extends Fragment {
                 materialCardView.setLayoutParams(params);
 
                 materialCardView.setOnClickListener(listener -> {
-                    RemindersViewModel viewModel = new ViewModelProvider(requireActivity()).get(RemindersViewModel.class);
+                    ReminderTrackerViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReminderTrackerViewModel.class);
                     viewModel.reminderName.setValue(reminder.reminderName);
                     viewModel.reminderTime.setValue(reminder.time);
                     viewModel.reminderType.setValue(reminder.reminderType);
@@ -107,6 +107,9 @@ public class RemindersFragment extends Fragment {
 
                     Snackbar.make(getView(), reminderName.getText(), Snackbar.LENGTH_SHORT)
                             .show();
+
+                    NavHostFragment.findNavController(RemindersFragment.this)
+                            .navigate(R.id.action_remindersFragment_to_reminderTrackerFragment);
                 });
 
                 binding.listReminders.addView(materialCardView);

@@ -152,6 +152,9 @@
         <action
             android:id="@+id/action_remindersFragment_to_addReminderFragment"
             app:destination="@id/addReminderFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_reminderTrackerFragment"
+            app:destination="@id/reminderTrackerFragment" />
     </fragment>
     <fragment
         android:id="@+id/addReminderFragment"
@@ -173,5 +176,14 @@
         <action
             android:id="@+id/action_tumblingETestScoreFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reminderTrackerFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.reminders.ReminderTrackerFragment"
+        android:label="fragment_reminder_tracker"
+        tools:layout="@layout/fragment_reminder_tracker" >
+        <action
+            android:id="@+id/action_reminderTrackerFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
     </fragment>
 </navigation>

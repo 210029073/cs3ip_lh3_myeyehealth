@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".reminders.UpdateReminders">
+    tools:context=".reminders.ReminderTrackerFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,12 +18,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="5dp"
+            android:enabled="false"
             android:hint="Medication Name"
             app:boxStrokeColor="@color/darkBlue"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="18dp"
                 android:inputType="text"
                 />
         </com.google.android.material.textfield.TextInputLayout>
@@ -32,12 +34,14 @@
             android:id="@+id/txt_reminder_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:layout_marginVertical="10dp"
             app:boxStrokeColor="@color/darkBlue"
             android:hint="Medication Type"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:inputType="text"
 
@@ -49,12 +53,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
+            android:enabled="false"
             app:boxStrokeColor="@color/darkBlue"
             android:hint="Medication Dose"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="18dp"
                 android:inputType="numberDecimal"
 
                 />
@@ -70,23 +76,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-            <Button
-                android:id="@+id/btn_reminder_time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:text="Set a Reminder time"
-                />
 
             <TextView
                 android:id="@+id/reminder_time_am_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:enabled="false"
                 android:text="00:00"
-                android:textSize="36dp"
-                app:layout_constraintHorizontal_bias="0.984"
-                app:layout_constraintLeft_toRightOf="@id/btn_reminder_time"
+                android:textSize="48dp"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:layout_editor_absoluteY="0dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,7 +103,7 @@
                 android:id="@+id/checkbox_is_repeat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:enabled="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -122,19 +121,34 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="25dp"
             />
-        <Button
-            android:id="@+id/btn_update"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Update"
-            android:textSize="16dp"
-            />
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btn_taken_medicine"
+                android:layout_width="150dp"
+                android:layout_height="75dp"
+                android:text="Taken"
+                android:textSize="20dp"
+                android:layout_margin="10dp"
+                />
+            <Button
+                android:id="@+id/btn_not_taken_medicine"
+                android:layout_width="150dp"
+                android:layout_height="75dp"
+                android:text="Not Taken"
+                android:textSize="20dp"
+                android:layout_margin="10dp"
+                />
+        </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>
