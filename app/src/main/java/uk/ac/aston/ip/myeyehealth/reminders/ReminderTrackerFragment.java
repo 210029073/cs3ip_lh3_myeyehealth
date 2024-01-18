@@ -88,6 +88,7 @@ public class ReminderTrackerFragment extends Fragment {
         String reminderTime = "";
         String reminderName = reminderTrackerViewModel.reminderName.getValue();
         String reminderType = reminderTrackerViewModel.reminderType.getValue();
+        int reminderNo = reminderTrackerViewModel.reminderNo.getValue();
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             reminderTime = String.valueOf(LocalTime.ofNanoOfDay(reminderTrackerViewModel.reminderTime.getValue()));
         }
@@ -103,25 +104,47 @@ public class ReminderTrackerFragment extends Fragment {
         binding.btnTakenMedicine.setOnClickListener(listener -> {
             Thread thread = new Thread(() -> {
                 //create object
-                MedicationLog medicationLog = new MedicationLog();
-                medicationLog.isMedicationTaken = true;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    medicationLog.medicationTimeTaken = LocalTime.now().toNanoOfDay();
-                }
-                medicationLog.remindersNo = reminderTrackerViewModel.reminderNo.getValue();
+                MedicationLog medicationLog = createMedicationLog(reminderNo, true);
 
                 //Store object to database
                 MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO().insertMedicationLog(medicationLog);
-
-                //return back to reminders fragment
-                NavHostFragment.findNavController(ReminderTrackerFragment.this)
-                        .popBackStack(R.id.remindersFragment, false);
-
-                NavHostFragment.findNavController(ReminderTrackerFragment.this).navigateUp();
             });
             thread.start();
+            //return back to reminders fragment
+            NavHostFragment.findNavController(ReminderTrackerFragment.this)
+                    .popBackStack(R.id.reminderTrackerFragment, false);
+
+            NavHostFragment.findNavController(ReminderTrackerFragment.this).navigateUp();
+        });
+
+        binding.btnNotTakenMedicine.setOnClickListener(listener -> {
+            Thread thread = new Thread(() -> {
+                //create object
+                MedicationLog medicationLog = createMedicationLog(reminderNo, false);
+
+                //Store object to database
+                MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO().insertMedicationLog(medicationLog);
+            });
+            thread.start();
+            //return back to reminders fragment
+            NavHostFragment.findNavController(ReminderTrackerFragment.this)
+                    .popBackStack(R.id.reminderTrackerFragment, false);
+
+            NavHostFragment.findNavController(ReminderTrackerFragment.this).navigateUp();
         });
 
 
+
+    }
+
+    @NonNull
+    private static MedicationLog createMedicationLog(int reminderNo, boolean hasChecked) {
+        MedicationLog medicationLog = new MedicationLog();
+        medicationLog.isMedicationTaken = hasChecked;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            medicationLog.medicationTimeTaken = LocalTime.now().toNanoOfDay();
+        }
+        medicationLog.remindersNo = reminderNo;
+        return medicationLog;
     }
 }

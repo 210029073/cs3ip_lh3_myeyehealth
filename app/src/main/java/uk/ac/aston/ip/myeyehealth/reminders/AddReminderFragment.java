@@ -104,7 +104,7 @@ public class AddReminderFragment extends Fragment {
             Thread thread = new Thread(addReminderThread);
             thread.start();
             NavHostFragment.findNavController(AddReminderFragment.this)
-                    .popBackStack(R.id.homeFragment, false);
+                    .popBackStack(R.id.addReminderFragment, false);
 
             Navigation.findNavController(AddReminderFragment.this.getView()).navigateUp();
         });
