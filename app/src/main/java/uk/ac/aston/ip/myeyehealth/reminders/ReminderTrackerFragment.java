@@ -95,6 +95,10 @@ public class ReminderTrackerFragment extends Fragment {
         binding.reminderTimeAmTxt.setText(reminderTime);
         binding.checkboxIsRepeat.setChecked(isReminderRepeated);
 
+        binding.btnTakenMedicine.setOnClickListener(listener -> {
+            
+        });
+
 
     }
 }

@@ -159,8 +159,8 @@
     <fragment
         android:id="@+id/addReminderFragment"
         android:name="uk.ac.aston.ip.myeyehealth.reminders.AddReminderFragment"
-        android:label="fragment_add_reminder"
-        tools:layout="@layout/fragment_add_reminder" >
+        android:label="Add Reminder"
+        tools:layout="@layout/fragment_add_reminder">
         <action
             android:id="@+id/action_addReminderFragment_to_remindersFragment"
             app:destination="@id/remindersFragment" />
@@ -180,8 +180,8 @@
     <fragment
         android:id="@+id/reminderTrackerFragment"
         android:name="uk.ac.aston.ip.myeyehealth.reminders.ReminderTrackerFragment"
-        android:label="fragment_reminder_tracker"
-        tools:layout="@layout/fragment_reminder_tracker" >
+        android:label="Track Medication Reminders"
+        tools:layout="@layout/fragment_reminder_tracker">
         <action
             android:id="@+id/action_reminderTrackerFragment_to_remindersFragment"
             app:destination="@id/remindersFragment" />
