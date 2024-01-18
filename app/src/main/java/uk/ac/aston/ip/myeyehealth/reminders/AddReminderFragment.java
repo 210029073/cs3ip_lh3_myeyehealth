@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.room.Room;
 
 import android.util.Log;
@@ -26,6 +28,7 @@ import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentAddReminderBinding;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
+import uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingETestScoreFragment;
 
 public class AddReminderFragment extends Fragment {
 
@@ -88,7 +91,7 @@ public class AddReminderFragment extends Fragment {
             medicationType.set(binding.txtReminderType.getEditText().getText().toString());
             medicationDose.set(Float.valueOf(binding.txtReminderDose.getEditText().getText().toString()));
 
-            MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
+//            MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
             Reminders reminder = new Reminders();
             reminder.reminderName = medicationName.get();
             reminder.reminderType = medicationType.get();
@@ -96,7 +99,14 @@ public class AddReminderFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 reminder.time = LocalTime.of(hour.get(), minute.get()).toNanoOfDay();
             }
-            database.remindersDAO().addReminder(reminder);
+//            database.remindersDAO().addReminder(reminder);
+            AddReminderThread addReminderThread = new AddReminderThread(reminder, getContext());
+            Thread thread = new Thread(addReminderThread);
+            thread.start();
+            NavHostFragment.findNavController(AddReminderFragment.this)
+                    .popBackStack(R.id.homeFragment, false);
+
+            Navigation.findNavController(AddReminderFragment.this.getView()).navigateUp();
         });
     }
 

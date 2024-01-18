@@ -19,14 +19,14 @@ public interface TestRecordDAO {
     void insertTestRecord(TestRecord record);
 
     @Insert
-    void insertAllTestRecords(TestRecord ... record);
+    void insertAllTestRecords(TestRecord... record);
 
 
     @Update
     void updateTestRecord(TestRecord old, TestRecord update);
 
     @Delete
-    void deleteAllRecords(TestRecord ... testRecords);
+    void deleteAllRecords(TestRecord... testRecords);
 
     @Delete
     void deleteRecord(TestRecord testRecord);
