@@ -119,6 +119,7 @@ public class ReminderTrackerFragment extends Fragment {
 
                 NavHostFragment.findNavController(ReminderTrackerFragment.this).navigateUp();
             });
+            thread.start();
         });
 
 
