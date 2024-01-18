@@ -98,6 +98,7 @@ public class RemindersFragment extends Fragment {
                 materialCardView.setOnClickListener(listener -> {
                     ReminderTrackerViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReminderTrackerViewModel.class);
                     viewModel.reminderName.setValue(reminder.reminderName);
+                    viewModel.reminderNo.setValue(reminder.reminderNo);
                     viewModel.reminderTime.setValue(reminder.time);
                     viewModel.reminderType.setValue(reminder.reminderType);
                     viewModel.reminderDose.setValue(reminder.dose);

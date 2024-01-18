@@ -1,11 +1,14 @@
 package uk.ac.aston.ip.myeyehealth.reminders;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +17,9 @@ import android.view.ViewGroup;
 import java.time.LocalTime;
 
 import uk.ac.aston.ip.myeyehealth.R;
+import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentReminderTrackerBinding;
+import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -96,7 +101,24 @@ public class ReminderTrackerFragment extends Fragment {
         binding.checkboxIsRepeat.setChecked(isReminderRepeated);
 
         binding.btnTakenMedicine.setOnClickListener(listener -> {
-            
+            Thread thread = new Thread(() -> {
+                //create object
+                MedicationLog medicationLog = new MedicationLog();
+                medicationLog.isMedicationTaken = true;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    medicationLog.medicationTimeTaken = LocalTime.now().toNanoOfDay();
+                }
+                medicationLog.remindersNo = reminderTrackerViewModel.reminderNo.getValue();
+
+                //Store object to database
+                MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO().insertMedicationLog(medicationLog);
+
+                //return back to reminders fragment
+                NavHostFragment.findNavController(ReminderTrackerFragment.this)
+                        .popBackStack(R.id.remindersFragment, false);
+
+                NavHostFragment.findNavController(ReminderTrackerFragment.this).navigateUp();
+            });
         });
 
 

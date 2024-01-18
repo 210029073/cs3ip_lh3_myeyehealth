@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class ReminderTrackerViewModel extends ViewModel {
+    MutableLiveData<Integer> reminderNo = new MutableLiveData<>(0);
     MutableLiveData<String> reminderName = new MutableLiveData<>("");
 
     MutableLiveData<String> reminderType = new MutableLiveData<>("");
