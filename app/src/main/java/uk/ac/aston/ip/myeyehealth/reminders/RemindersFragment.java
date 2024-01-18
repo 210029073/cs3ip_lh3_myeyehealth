@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth.reminders;
 
+import androidx.annotation.IdRes;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Build;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -92,6 +94,21 @@ public class RemindersFragment extends Fragment {
 
                 materialCardView.addView(linearLayout);
                 materialCardView.setLayoutParams(params);
+
+                materialCardView.setOnClickListener(listener -> {
+                    RemindersViewModel viewModel = new ViewModelProvider(requireActivity()).get(RemindersViewModel.class);
+                    viewModel.reminderName.setValue(reminder.reminderName);
+                    viewModel.reminderTime.setValue(reminder.time);
+                    viewModel.reminderType.setValue(reminder.reminderType);
+                    viewModel.reminderDose.setValue(reminder.dose);
+                    viewModel.isRepeated.setValue(reminder.isRepeated);
+
+                    //TODO: NEED TO NAVIGATE TO THE UPDATE REMINDER FRAGMENT
+
+                    Snackbar.make(getView(), reminderName.getText(), Snackbar.LENGTH_SHORT)
+                            .show();
+                });
+
                 binding.listReminders.addView(materialCardView);
             }
         }

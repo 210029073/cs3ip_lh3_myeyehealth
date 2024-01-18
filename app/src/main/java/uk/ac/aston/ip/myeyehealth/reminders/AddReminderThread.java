@@ -20,8 +20,8 @@ public class AddReminderThread extends AbstractRemindersThread implements Runnab
 
     @Override
     public void run() {
-        MyEyeHealthDatabase database = Room.databaseBuilder(context.getApplicationContext(), MyEyeHealthDatabase.class, "myeyehealth.db")
+        MyEyeHealthDatabase database = Room.databaseBuilder(super.context.getApplicationContext(), MyEyeHealthDatabase.class, "myeyehealth.db")
                 .build();
-        database.remindersDAO().addReminder(reminder);
+        database.remindersDAO().addReminder(super.reminder);
     }
 }
