@@ -3,6 +3,7 @@
     <style name="Base.Theme.MyEyeHealth" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/darkBlue</item>
         <item name="android:statusBarColor">@color/darkBlue</item>
     </style>
 
@@ -15,9 +16,9 @@
     </style>
 
     <style name="Theme.MyEyeHealth.TimePicker" parent="ThemeOverlay.MaterialComponents.TimePicker">
-        <item name="colorPrimary">@color/darkBlue</item>
-        <item name="colorAccent">@color/white</item>
-        <item name="itemTextColor">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorSurface">@color/darkBlue</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
     </style>
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">

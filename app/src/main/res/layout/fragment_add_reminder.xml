@@ -77,6 +77,7 @@
                 android:layout_marginVertical="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:text="Set a Reminder time"
+                style="@style/Theme.MyEyeHealth.Button"
                 />
 
             <TextView
@@ -133,6 +134,7 @@
             android:layout_height="wrap_content"
             android:text="Submit"
             android:textSize="16dp"
+            style="@style/Theme.MyEyeHealth.Button"
             />
     </LinearLayout>
 </FrameLayout>
