@@ -5,7 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimary">@color/darkBlue</item>
         <item name="colorAccent">@color/white</item>
-        <item name="colorPrimaryDark">@color/darkBlue</item>
+        <item name="android:statusBarColor">@color/white</item>
     </style>
 
 
@@ -34,15 +34,17 @@
 
     </style>
 
-    <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
     </style>
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorPrimary">@color/darkBlue</item>
-<!--        <item name="colorOnPrimary">@color/darkBlue</item>-->
-        <item name="colorAccent">@color/white</item>
-        <item name="itemTextColor">@color/white</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorSecondaryContainer">@color/darkBlue</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/darkBlue</item>
     </style>
+
+
 
 </resources>
