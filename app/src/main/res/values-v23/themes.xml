@@ -4,7 +4,7 @@
         <!-- Transparent system bars for edge-to-edge. -->
         <item name="android:navigationBarColor">@android:color/background_dark</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
-        <item name="fontFamily">sans-serif-condensed-medium</item>
+        <item name="fontFamily">@font/noto_sans</item>
         <item name="android:buttonStyle">@style/Theme.MyEyeHealth.Button</item>
     </style>
 
