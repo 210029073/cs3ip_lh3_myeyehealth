@@ -31,7 +31,7 @@
     </style>
 
     <style name="Theme.MyEyeHealth.NavDrawer">
-
+        <item name="navigationViewStyle">@style/Widget.Material3.NavigationView</item>
     </style>
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
@@ -43,6 +43,13 @@
         <item name="colorSecondaryContainer">@color/darkBlue</item>
         <item name="colorOnSecondaryContainer">@color/white</item>
         <item name="colorOnSurfaceVariant">@color/darkBlue</item>
+    </style>
+
+    <style name="ThemeOverlay.Material3.NavigationView">
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/black</item>
+        <item name="colorSecondaryContainer">@color/darkBlue</item>
+        <item name="colorOnSecondaryContainer">@color/white</item>
     </style>
 
 

@@ -32,4 +32,11 @@
         <item name="colorOnSurfaceVariant">@color/white</item>
     </style>
 
+    <style name="ThemeOverlay.Material3.NavigationView">
+        <item name="colorSurface">@android:color/background_dark</item>
+        <item name="colorOnSurfaceVariant">@color/white</item>
+        <item name="colorSecondaryContainer">@color/white</item>
+        <item name="colorOnSecondaryContainer">@color/darkBlue</item>
+    </style>
+
 </resources>
