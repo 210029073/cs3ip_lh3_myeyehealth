@@ -66,13 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
             PendingIntent pendingRemindersIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel.getId())
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setSmallIcon(R.drawable.medication_64)
                     .setContentTitle("Your Medication Reminders")
                     .setContentText(description)
                     .setPriority(NotificationCompat.DEFAULT_ALL)
                     .setContentIntent(pendingRemindersIntent)
                     .setAutoCancel(true)
-                    .addAction(R.drawable.medication_64, "View", pendingRemindersIntent);
+                    .addAction(R.drawable.medication_64, "REVIEW", pendingRemindersIntent);
 
             notificationManager.notify(0, builder.build());
         }
