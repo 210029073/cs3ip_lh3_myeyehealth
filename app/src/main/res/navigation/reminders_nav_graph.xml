@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/remindersFragment">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.HomeFragment"
+        android:label="@string/fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_visionToolsFragment"
+            app:destination="@id/visionToolsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/visionToolsFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.VisionToolsFragment"
+        android:label="@string/fragment_vision_tools"
+        tools:layout="@layout/fragment_vision_tools">
+        <action
+            android:id="@+id/action_visionToolsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_visionToolsFragment_to_metricConversionFragment"
+            app:destination="@id/metricConversionFragment" />
+        <action
+            android:id="@+id/action_visionToolsFragment_to_tumblingECoverLeftEyeFragment"
+            app:destination="@id/tumblingECoverLeftEyeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.AboutFragment"
+        android:label="@string/fragment_about"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_aboutFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.SettingsFragment"
+        android:label="Settings" />
+    <argument
+        android:name="name"
+        app:argType="string"
+        android:defaultValue="Name GLOBAL VAR" />
+    <fragment
+        android:id="@+id/metricConversionFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.metric_conversion.MetricConversionFragment"
+        android:label="@string/fragment_metric_conversion_label"
+        tools:layout="@layout/fragment_metric_conversion">
+        <action
+            android:id="@+id/action_metricConversionFragment_to_visionToolsFragment"
+            app:destination="@id/visionToolsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingECoverLeftEyeFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingECoverLeftEyeFragment"
+        android:label="Cover your Left Eye"
+        tools:layout="@layout/fragment_tumbling_e_cover_left_eye">
+        <action
+            android:id="@+id/action_tumblingECoverLeftEyeFragment_to_visionToolsFragment"
+            app:destination="@id/visionToolsFragment" />
+        <action
+            android:id="@+id/action_tumblingECoverLeftEyeFragment_to_tumblingETestFragment"
+            app:destination="@id/tumblingETestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETestFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingETestFragment"
+        android:label="@string/fragment_tumbling_e_label"
+        tools:layout="@layout/fragment_tumbling_e_test">
+        <action
+            android:id="@+id/action_tumblingETestFragment_to_tumblingECoverRightEyeFragment"
+            app:destination="@id/tumblingECoverRightEyeFragment" />
+        <action
+            android:id="@+id/action_tumblingETestFragment_to_tumblingEAssessFragment"
+            app:destination="@id/tumblingEAssessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingECoverRightEyeFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingECoverRightEyeFragment"
+        android:label="Cover right eye"
+        tools:layout="@layout/fragment_tumbling_e_cover_right_eye">
+        <action
+            android:id="@+id/action_tumblingECoverRightEyeFragment_to_tumblingETestFragment"
+            app:destination="@id/tumblingETestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingECoverRightEyeFragment2"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingECoverRightEyeFragment"
+        android:label="Cover right eye"
+        tools:layout="@layout/fragment_tumbling_e_cover_right_eye">
+        <action
+            android:id="@+id/action_tumblingECoverRightEyeFragment2_to_tumblingETestFragment"
+            app:destination="@id/tumblingETestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingEAssessFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingEAssessFragment"
+        android:label="Quiz"
+        tools:layout="@layout/fragment_tumbling_e_assess">
+        <action
+            android:id="@+id/action_tumblingEAssessFragment_to_tumblingETestFragment"
+            app:destination="@id/tumblingETestFragment" />
+        <action
+            android:id="@+id/action_tumblingEAssessFragment_to_tumblingECoverRightEyeFragment2"
+            app:destination="@id/tumblingECoverRightEyeFragment2" />
+        <action
+            android:id="@+id/action_tumblingEAssessFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_tumblingEAssessFragment_to_tumblingETestScoreFragment"
+            app:destination="@id/tumblingETestScoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/remindersFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.reminders.RemindersFragment"
+        android:label="Reminders"
+        tools:layout="@layout/fragment_reminders">
+        <action
+            android:id="@+id/action_remindersFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_addReminderFragment"
+            app:destination="@id/addReminderFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_reminderTrackerFragment"
+            app:destination="@id/reminderTrackerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addReminderFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.reminders.AddReminderFragment"
+        android:label="Add Reminder"
+        tools:layout="@layout/fragment_add_reminder">
+        <action
+            android:id="@+id/action_addReminderFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETestScoreFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingETestScoreFragment"
+        android:label="fragment_tumbling_e_test_score"
+        tools:layout="@layout/fragment_tumbling_e_test_score" >
+        <action
+            android:id="@+id/action_tumblingETestScoreFragment_to_tumblingEAssessFragment"
+            app:destination="@id/tumblingEAssessFragment" />
+        <action
+            android:id="@+id/action_tumblingETestScoreFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reminderTrackerFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.reminders.ReminderTrackerFragment"
+        android:label="Track Medication Reminders"
+        tools:layout="@layout/fragment_reminder_tracker">
+        <action
+            android:id="@+id/action_reminderTrackerFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
+    </fragment>
+</navigation>

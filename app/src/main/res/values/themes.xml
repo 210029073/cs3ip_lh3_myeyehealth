@@ -51,6 +51,12 @@
         <item name="colorSecondaryContainer">@color/darkBlue</item>
         <item name="colorOnSecondaryContainer">@color/white</item>
     </style>
+    <style name="Theme.MyEyeHealth.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.MyEyeHealth.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.MyEyeHealth.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
 

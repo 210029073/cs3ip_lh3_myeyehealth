@@ -2,6 +2,7 @@ package uk.ac.aston.ip.myeyehealth;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,29 +11,23 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.view.WindowCompat;
-import androidx.fragment.app.Fragment;
+import androidx.core.app.TaskStackBuilder;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.MenuItemKt;
 import androidx.navigation.ui.NavigationUI;
 
 import uk.ac.aston.ip.myeyehealth.databinding.ActivityMainBinding;
+import uk.ac.aston.ip.myeyehealth.reminders.RemindersActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         //how to create notifications
         // the NotificationChannel class is not in the Support Library.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "EyeHealth";
-            String description = "Successfully launched app";
+            CharSequence name = "MyEyeHealth";
+            String description = "You need to take your medications. Press review to continue.";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("MyEyeHealth", name, importance);
             channel.setDescription(description);
@@ -64,11 +59,20 @@ public class MainActivity extends AppCompatActivity {
 //            intent.putExtra(Settings.EXTRA_CHANNEL_ID, channel.getId());
 //            startActivity(intent);
 
+            Intent openReminders = new Intent(this, RemindersActivity.class);
+            openReminders.setAction("VIEW");
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+            stackBuilder.addNextIntentWithParentStack(openReminders);
+
+            PendingIntent pendingRemindersIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel.getId())
                     .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentTitle("EyeHealth")
+                    .setContentTitle("Your Medication Reminders")
                     .setContentText(description)
-                    .setPriority(NotificationCompat.DEFAULT_ALL);
+                    .setPriority(NotificationCompat.DEFAULT_ALL)
+                    .setContentIntent(pendingRemindersIntent)
+                    .setAutoCancel(true)
+                    .addAction(R.drawable.medication_64, "View", pendingRemindersIntent);
 
             notificationManager.notify(0, builder.build());
         }
