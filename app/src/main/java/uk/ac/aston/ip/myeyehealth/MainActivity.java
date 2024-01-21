@@ -72,9 +72,11 @@ public class MainActivity extends AppCompatActivity {
                     .setPriority(NotificationCompat.DEFAULT_ALL)
                     .setContentIntent(pendingRemindersIntent)
                     .setAutoCancel(true)
+                    .setOnlyAlertOnce(true)
                     .addAction(R.drawable.medication_64, "REVIEW", pendingRemindersIntent);
 
             notificationManager.notify(0, builder.build());
+
         }
 
         setSupportActionBar(binding.toolbar);
