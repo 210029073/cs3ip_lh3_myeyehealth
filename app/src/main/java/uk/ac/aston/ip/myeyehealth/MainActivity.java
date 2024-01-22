@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth;
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -43,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
         //how to create notifications
         // the NotificationChannel class is not in the Support Library.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "MyEyeHealth";
+            CharSequence name = "Show Medication Reminders";
             String description = "You need to take your medications. Press review to continue.";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("MyEyeHealth", name, importance);
             channel.setDescription(description);
             // Register the channel with the system. You can't change the importance
@@ -69,12 +70,15 @@ public class MainActivity extends AppCompatActivity {
                     .setSmallIcon(R.drawable.medication_64)
                     .setContentTitle("Your Medication Reminders")
                     .setContentText(description)
-                    .setPriority(NotificationCompat.DEFAULT_ALL)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setContentIntent(pendingRemindersIntent)
                     .setAutoCancel(true)
                     .setOnlyAlertOnce(true)
                     .addAction(R.drawable.medication_64, "REVIEW", pendingRemindersIntent);
-
+            if(!notificationManager.areNotificationsEnabled()) {
+                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 0);
+                notificationManager.notify(0, builder.build());
+            }
             notificationManager.notify(0, builder.build());
 
         }
