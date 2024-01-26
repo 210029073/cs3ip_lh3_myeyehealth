@@ -11,6 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/btn_end_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="15dp"
+            android:text="End Test"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toRightOf="@id/tumbling_e_container"
+            app:layout_constraintLeft_toLeftOf="@id/tumbling_e_container"
+            app:layout_constraintTop_toTopOf="@id/tumbling_e_container"
+            app:layout_constraintBottom_toBottomOf="@id/tumbling_e_container"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintHorizontal_bias="1"/>
+
         <TextView
             android:id="@+id/txtLetterE"
             android:layout_width="wrap_content"

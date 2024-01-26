@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.Random;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.VisionToolsFragment;
@@ -60,6 +63,40 @@ public class TumblingETestFragment extends Fragment {
         //TODO: Communicate with assess fragment
         mViewModel = new ViewModelProvider(requireActivity()).get(TumblingETestViewModel.class);
         mViewModel.setCurrentLetterEPosSize(letterE);
+
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext())
+                .setMessage("Are you want to end the game?");
+
+        dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Snackbar.make(getContext(), getView(), "You said yes", Snackbar.LENGTH_SHORT)
+                        .show();
+
+                NavHostFragment.findNavController(TumblingETestFragment.this)
+                        .popBackStack(R.id.visionToolsFragment, false);
+
+                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+                toolbar.setVisibility(View.VISIBLE);
+
+                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+                bottomNavigationView.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Snackbar.make(getContext(), getView(), "You said no", Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+        });
+
+        binding.btnEndTest.setOnClickListener(v -> {
+            dialog.create();
+            dialog.show();
+        });
 
         binding.tumblingEContainer.setOnClickListener(view1 -> {
             NavHostFragment.findNavController(TumblingETestFragment.this)

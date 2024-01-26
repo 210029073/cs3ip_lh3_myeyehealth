@@ -8,8 +8,25 @@
     tools:context=".vision_tools.tumblinge.TumblingECoverLeftEyeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tumbling_e_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_end_test"
+            app:layout_constraintLeft_toLeftOf="@id/tumbling_e_container"
+            app:layout_constraintRight_toRightOf="@id/tumbling_e_container"
+            app:layout_constraintTop_toTopOf="@id/tumbling_e_container"
+            app:layout_constraintBottom_toBottomOf="@id/tumbling_e_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="15dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintVertical_bias="0.025"
+            app:layout_constraintHorizontal_bias="0.95"
+            android:text="End Test"/>
 
         <TextView
             android:id="@+id/lbl_msg_title"
