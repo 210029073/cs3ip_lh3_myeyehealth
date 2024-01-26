@@ -2,6 +2,7 @@ package uk.ac.aston.ip.myeyehealth;
 
 import android.Manifest;
 import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -24,11 +25,19 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.ActivityMainBinding;
+import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
 import uk.ac.aston.ip.myeyehealth.reminders.RemindersActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneOffset;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,8 +88,18 @@ public class MainActivity extends AppCompatActivity {
                 requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 0);
                 notificationManager.notify(0, builder.build());
             }
-            notificationManager.notify(0, builder.build());
 
+            //TODO: check if there is no notifications
+            MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getApplicationContext());
+            Instant date = Instant.ofEpochSecond(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+            long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
+            List<MedicationLog> medicationLogs = database.remindersDAO().findRemindersTakenTodayNotification(date.getEpochSecond(), yesterday);
+            //if there is medication reminders then notify the user.
+            Log.d("medicationLog", String.valueOf(medicationLogs.size()));
+            Log.d("reminders", "med reminders: " + database.remindersDAO().getAll().size() );
+            if(medicationLogs.size() < database.remindersDAO().getAll().size()) {
+                notificationManager.notify(0, builder.build());
+            }
         }
 
         setSupportActionBar(binding.toolbar);

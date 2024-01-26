@@ -14,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneOffset;
 
 import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
@@ -142,7 +144,7 @@ public class ReminderTrackerFragment extends Fragment {
         MedicationLog medicationLog = new MedicationLog();
         medicationLog.isMedicationTaken = hasChecked;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            medicationLog.medicationTimeTaken = LocalTime.now().toNanoOfDay();
+            medicationLog.medicationTimeTaken = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
         }
         medicationLog.remindersNo = reminderNo;
         return medicationLog;

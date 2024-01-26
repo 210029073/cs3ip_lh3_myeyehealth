@@ -6,9 +6,12 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
 
 import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
+import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 
 @Dao
 public interface MedicationLogDAO {

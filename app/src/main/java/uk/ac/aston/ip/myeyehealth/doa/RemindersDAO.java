@@ -8,6 +8,7 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 
 @Dao
@@ -29,4 +30,16 @@ public interface RemindersDAO {
 
     @Delete
     void deleteAllReminders(Reminders ... candidate);
+
+    @Query(
+            "SELECT * FROM medicationlog " +
+                    "Inner JOIN reminders ON reminders.reminderNo == medicationlog.reminderNo " +
+                    "WHERE medicationTimeTaken < :time AND medicationTimeTaken > :yesterday AND medicationTaken == true")
+    public List<MedicationLog> findRemindersTakenToday(Long time, Long yesterday);
+
+    @Query(
+            "SELECT * FROM medicationlog " +
+                    "Inner JOIN reminders ON reminders.reminderNo == medicationlog.reminderNo " +
+                    "WHERE medicationTimeTaken < :time AND medicationTimeTaken > :yesterday")
+    public List<MedicationLog> findRemindersTakenTodayNotification(Long time, Long yesterday);
 }
