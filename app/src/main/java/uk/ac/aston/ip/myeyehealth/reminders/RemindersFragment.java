@@ -21,13 +21,11 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Period;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import uk.ac.aston.ip.myeyehealth.R;
@@ -68,6 +66,7 @@ public class RemindersFragment extends Fragment {
 
         if(reminders.size() > 0) {
             binding.tmpPlaceholderMsg.setVisibility(View.INVISIBLE);
+            binding.tmpPlaceholderMsg1.setVisibility(View.INVISIBLE);
             //keep track of the list
             ArrayList<Integer> addedReminder = new ArrayList<>();
             for(Reminders reminder : reminders) {
@@ -80,63 +79,12 @@ public class RemindersFragment extends Fragment {
                     }
                 }
 
-
+                binding.listRemindersAll.addView(generateReminderCardsForDailyMedication(reminder));
                 if(!addedReminder.contains(reminder.reminderNo)) {
                     //TODO: Use recycler view.
                     //TODO: Need to do this via xml and duplicate the element to make it easy to control the dimensions
                     binding.tmpPlaceholderMsg.setVisibility(View.INVISIBLE);
-                    MaterialCardView materialCardView = new MaterialCardView(getContext());
-
-                    TextView reminderName = new TextView(getContext());
-                    TextView reminderType = new TextView(getContext());
-                    TextView reminderDose = new TextView(getContext());
-                    TextView reminderTime = new TextView(getContext());
-
-                    LinearLayout linearLayout = new LinearLayout(getContext());
-                    linearLayout.setOrientation(LinearLayout.VERTICAL);
-
-                    reminderName.setText(reminder.reminderName);
-                    reminderName.setTextSize(16);
-//                reminderName.setTextAppearance(R.style.TextAppearance_AppCompat_Headline);
-                    reminderDose.setText("Dose: " + Float.toString(reminder.dose));
-                    reminderDose.setTextSize(16);
-                    reminderType.setText(reminder.reminderType);
-                    reminderType.setTextSize(16);
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        reminderTime.setText("Time to take: " + LocalTime.ofNanoOfDay(reminder.time).toString());
-                        reminderTime.setTextSize(16);
-                    }
-
-                    linearLayout.setPadding(30, 25, 30, 25);
-                    linearLayout.addView(reminderName);
-                    linearLayout.addView(reminderType);
-                    linearLayout.addView(reminderDose);
-                    linearLayout.addView(reminderTime);
-
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                    params.setMargins(20, 15, 20, 15);
-
-                    materialCardView.addView(linearLayout);
-                    materialCardView.setLayoutParams(params);
-
-                    materialCardView.setOnClickListener(listener -> {
-                        ReminderTrackerViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReminderTrackerViewModel.class);
-                        viewModel.reminderName.setValue(reminder.reminderName);
-                        viewModel.reminderNo.setValue(reminder.reminderNo);
-                        viewModel.reminderTime.setValue(reminder.time);
-                        viewModel.reminderType.setValue(reminder.reminderType);
-                        viewModel.reminderDose.setValue(reminder.dose);
-                        viewModel.isRepeated.setValue(reminder.isRepeated);
-
-                        //TODO: NEED TO NAVIGATE TO THE UPDATE REMINDER FRAGMENT
-
-                        Snackbar.make(getView(), reminderName.getText(), Snackbar.LENGTH_SHORT)
-                                .show();
-
-                        NavHostFragment.findNavController(RemindersFragment.this)
-                                .navigate(R.id.action_remindersFragment_to_reminderTrackerFragment);
-                    });
+                    MaterialCardView materialCardView = generateReminderCardsForDailyMedicationIntake(reminder);
 
                     binding.listReminders.addView(materialCardView);
                 }
@@ -149,6 +97,7 @@ public class RemindersFragment extends Fragment {
         }
         else {
             binding.tmpPlaceholderMsg.setVisibility(View.VISIBLE);
+            binding.tmpPlaceholderMsg1.setVisibility(View.VISIBLE);
             binding.tmpPlaceholderMsg.setText("You currently have no medication.\nAdd a medication reminder to see them here...");
         }
 
@@ -157,6 +106,122 @@ public class RemindersFragment extends Fragment {
             NavHostFragment.findNavController(RemindersFragment.this)
                     .navigate(R.id.action_remindersFragment_to_addReminderFragment);
         });
+    }
+
+    @NonNull
+    private MaterialCardView generateReminderCardsForDailyMedicationIntake(Reminders reminder) {
+        MaterialCardView materialCardView = new MaterialCardView(getContext());
+
+        TextView reminderName = new TextView(getContext());
+        TextView reminderType = new TextView(getContext());
+        TextView reminderDose = new TextView(getContext());
+        TextView reminderTime = new TextView(getContext());
+
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        reminderName.setText(reminder.reminderName);
+        reminderName.setTextSize(16);
+//                reminderName.setTextAppearance(R.style.TextAppearance_AppCompat_Headline);
+        reminderDose.setText("Dose: " + Float.toString(reminder.dose));
+        reminderDose.setTextSize(16);
+        reminderType.setText(reminder.reminderType);
+        reminderType.setTextSize(16);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            reminderTime.setText("Time to take: " + LocalTime.ofNanoOfDay(reminder.time).toString());
+            reminderTime.setTextSize(16);
+        }
+
+        linearLayout.setPadding(30, 25, 30, 50);
+        linearLayout.addView(reminderName);
+        linearLayout.addView(reminderType);
+        linearLayout.addView(reminderDose);
+        linearLayout.addView(reminderTime);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(20, 15, 20, 15);
+
+        materialCardView.addView(linearLayout);
+        materialCardView.setLayoutParams(params);
+
+
+        materialCardView.setOnClickListener(listener -> {
+            ReminderTrackerViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReminderTrackerViewModel.class);
+            viewModel.reminderName.setValue(reminder.reminderName);
+            viewModel.reminderNo.setValue(reminder.reminderNo);
+            viewModel.reminderTime.setValue(reminder.time);
+            viewModel.reminderType.setValue(reminder.reminderType);
+            viewModel.reminderDose.setValue(reminder.dose);
+            viewModel.isRepeated.setValue(reminder.isRepeated);
+
+            //TODO: NEED TO NAVIGATE TO THE UPDATE REMINDER FRAGMENT
+
+            Snackbar.make(getView(), reminderName.getText(), Snackbar.LENGTH_SHORT)
+                    .show();
+
+            NavHostFragment.findNavController(RemindersFragment.this)
+                    .navigate(R.id.action_remindersFragment_to_reminderTrackerFragment);
+        });
+        return materialCardView;
+    }
+
+    @NonNull
+    private MaterialCardView generateReminderCardsForDailyMedication(Reminders reminder) {
+        MaterialCardView materialCardView = new MaterialCardView(getContext());
+
+        TextView reminderName = new TextView(getContext());
+        TextView reminderType = new TextView(getContext());
+        TextView reminderDose = new TextView(getContext());
+        TextView reminderTime = new TextView(getContext());
+
+        LinearLayout linearLayout = new LinearLayout(getContext());
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        reminderName.setText(reminder.reminderName);
+        reminderName.setTextSize(16);
+//                reminderName.setTextAppearance(R.style.TextAppearance_AppCompat_Headline);
+        reminderDose.setText("Dose: " + Float.toString(reminder.dose));
+        reminderDose.setTextSize(16);
+        reminderType.setText(reminder.reminderType);
+        reminderType.setTextSize(16);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            reminderTime.setText("Time to take: " + LocalTime.ofNanoOfDay(reminder.time).toString());
+            reminderTime.setTextSize(16);
+        }
+
+        linearLayout.setPadding(30, 25, 30, 25);
+        linearLayout.addView(reminderName);
+        linearLayout.addView(reminderType);
+        linearLayout.addView(reminderDose);
+        linearLayout.addView(reminderTime);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(20, 15, 20, 15);
+
+        materialCardView.addView(linearLayout);
+        materialCardView.setLayoutParams(params);
+
+        //TODO: Show Editing Fragment
+        materialCardView.setOnClickListener(listener -> {
+            ReminderTrackerViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReminderTrackerViewModel.class);
+            viewModel.reminderName.setValue(reminder.reminderName);
+            viewModel.reminderNo.setValue(reminder.reminderNo);
+            viewModel.reminderTime.setValue(reminder.time);
+            viewModel.reminderType.setValue(reminder.reminderType);
+            viewModel.reminderDose.setValue(reminder.dose);
+            viewModel.isRepeated.setValue(reminder.isRepeated);
+
+            //TODO: NEED TO NAVIGATE TO THE UPDATE REMINDER FRAGMENT
+
+            Snackbar.make(getView(), reminderName.getText(), Snackbar.LENGTH_SHORT)
+                    .show();
+
+            NavHostFragment.findNavController(RemindersFragment.this)
+                    .navigate(R.id.action_remindersFragment_to_reminderTrackerFragment);
+        });
+        return materialCardView;
     }
 
     @Override
