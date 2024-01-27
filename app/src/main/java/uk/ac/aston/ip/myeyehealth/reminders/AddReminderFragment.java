@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.room.Room;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,10 +24,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 import uk.ac.aston.ip.myeyehealth.R;
-import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentAddReminderBinding;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
-import uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingETestScoreFragment;
+import uk.ac.aston.ip.myeyehealth.reminders.threads.AddReminderThread;
 
 public class AddReminderFragment extends Fragment {
 

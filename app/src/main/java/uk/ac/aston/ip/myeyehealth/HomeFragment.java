@@ -114,9 +114,11 @@ public class HomeFragment extends Fragment {
         });
 
         binding.cardMissedDoses.setOnClickListener(card -> {
-            Snackbar.make(getView(), "Feature not added yet...", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .show();
+//            Snackbar.make(getView(), "Feature not added yet...", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null)
+//                    .show();
+            NavHostFragment.findNavController(HomeFragment.this)
+                    .navigate(R.id.action_homeFragment_to_missedRemindersFragment);
         });
 
         binding.cardViewTestScores.setOnClickListener(card -> {

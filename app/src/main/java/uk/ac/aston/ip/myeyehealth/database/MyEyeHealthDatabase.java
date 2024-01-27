@@ -2,6 +2,7 @@ package uk.ac.aston.ip.myeyehealth.database;
 
 import android.content.Context;
 
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -12,8 +13,9 @@ import uk.ac.aston.ip.myeyehealth.doa.TestRecordDAO;
 import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 import uk.ac.aston.ip.myeyehealth.entities.TestRecord;
+import uk.ac.aston.ip.myeyehealth.views.MissedMedicationViews;
 
-@Database(entities = {Reminders.class, MedicationLog.class, TestRecord.class}, version = 1, exportSchema = true)
+@Database(version = 1, entities = {Reminders.class, MedicationLog.class, TestRecord.class}, views = {MissedMedicationViews.class}, exportSchema = true)
 public abstract class MyEyeHealthDatabase extends RoomDatabase {
     public static MyEyeHealthDatabase instance;
     public abstract RemindersDAO remindersDAO();

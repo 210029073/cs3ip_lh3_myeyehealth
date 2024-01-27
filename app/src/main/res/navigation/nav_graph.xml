@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_missedRemindersFragment"
+            app:destination="@id/missedRemindersFragment" />
     </fragment>
     <fragment
         android:id="@+id/visionToolsFragment"
@@ -185,5 +188,14 @@
         <action
             android:id="@+id/action_reminderTrackerFragment_to_remindersFragment"
             app:destination="@id/remindersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/missedRemindersFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.reminders.MissedRemindersFragment"
+        android:label="fragment_missed_reminders"
+        tools:layout="@layout/fragment_missed_reminders" >
+        <action
+            android:id="@+id/action_missedRemindersFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

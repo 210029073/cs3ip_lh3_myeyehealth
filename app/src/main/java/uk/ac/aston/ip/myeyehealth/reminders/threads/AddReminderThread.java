@@ -1,4 +1,4 @@
-package uk.ac.aston.ip.myeyehealth.reminders;
+package uk.ac.aston.ip.myeyehealth.reminders.threads;
 
 import android.content.Context;
 
