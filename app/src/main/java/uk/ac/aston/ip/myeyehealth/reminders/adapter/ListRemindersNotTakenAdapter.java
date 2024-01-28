@@ -19,45 +19,31 @@ import uk.ac.aston.ip.myeyehealth.views.MissedMedicationViews;
 
 public class ListRemindersNotTakenAdapter extends RecyclerView.Adapter<ListRemindersNotTakenAdapter.RemindersListViewHolder> {
 
-    private List<MissedMedicationViews> remindersList;
+    private List<Reminders> remindersList;
 
     public static class RemindersListViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView reminderName;
 
-        private final TextView reminderType;
-
-        private final TextView reminderDose;
-
-        private final TextView reminderTimeAMPM;
+        private final TextView reminderTime;
 
 
         public RemindersListViewHolder(@NonNull View itemView) {
             super(itemView);
             this.reminderName = itemView.findViewById(R.id.txt_reminder_name);
-            this.reminderType = itemView.findViewById(R.id.txt_reminder_type);
-            this.reminderDose = itemView.findViewById(R.id.txt_reminder_dose);
-            this.reminderTimeAMPM = itemView.findViewById(R.id.reminder_time_taken);
+            this.reminderTime = itemView.findViewById(R.id.txt_reminder_time);
         }
 
         public TextView getReminderName() {
             return this.reminderName;
         }
 
-        public TextView getReminderType() {
-            return reminderType;
-        }
-
-        public TextView getReminderDose() {
-            return reminderDose;
-        }
-
-        public TextView getReminderTimeAMPM() {
-            return reminderTimeAMPM;
+        public TextView getReminderTime() {
+            return reminderTime;
         }
     }
 
-    public ListRemindersNotTakenAdapter(List<MissedMedicationViews> reminders) {
+    public ListRemindersNotTakenAdapter(List<Reminders> reminders) {
         this.remindersList = reminders;
     }
 
@@ -65,25 +51,16 @@ public class ListRemindersNotTakenAdapter extends RecyclerView.Adapter<ListRemin
     @Override
     public RemindersListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.reminder_item, parent, false);
+                .inflate(R.layout.reminders_list_items, parent, false);
         return new RemindersListViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RemindersListViewHolder holder, int position) {
-        holder.getReminderName().setText(remindersList.get(position).reminders.reminderName);
+        holder.getReminderName().setText(remindersList.get(position).reminderName);
         if (remindersList.size() > 0) {
-            Log.d("reminderList", "size: " + remindersList.get(0).reminders);
-            if (remindersList.get(position).reminders.reminderType.equals("Eye Drops")) {
-                holder.getReminderType().setText(remindersList.get(position).reminders.reminderType);
-                String doseAndUnit = remindersList.get(position).reminders.dose + " drops";
-                holder.getReminderDose().setText(doseAndUnit);
-//
-            }
-            holder.getReminderType().setText(remindersList.get(position).reminders.reminderType);
-            holder.getReminderDose().setText(String.valueOf(remindersList.get(position).reminders.dose));
-            holder.getReminderTimeAMPM().setText(String.valueOf(LocalTime.ofNanoOfDay(remindersList.get(position).reminders.time)));
-
+            Log.d("reminderList", "size: " + remindersList.get(0));
+            holder.getReminderTime().setText(String.valueOf(LocalTime.ofNanoOfDay(remindersList.get(position).time)));
         }
     }
     @Override

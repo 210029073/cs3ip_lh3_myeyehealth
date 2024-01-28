@@ -7,19 +7,33 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageSwitcher;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentHomeBinding;
+import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
+import uk.ac.aston.ip.myeyehealth.entities.Reminders;
+import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersNotTakenAdapter;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
@@ -126,6 +140,47 @@ public class HomeFragment extends Fragment {
                     .setAction("Action", null)
                     .show();
         });
+
+        RecyclerView recyclerView = view.findViewById(R.id.reminders_list_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
+        List<Reminders> reminders = database.remindersDAO().getAll();
+
+        Instant date = Instant.ofEpochSecond(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+        long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
+        long today = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+        List<MedicationLog> remindersTaken = database.remindersDAO().findRemindersTakenToday(today, yesterday);
+        ArrayList<Integer> addedReminder = new ArrayList<>();
+        List<Reminders> remindersCarousel = new ArrayList<>();
+        for(Reminders reminder : reminders) {
+            boolean hasTaken = false;
+            for(MedicationLog reminderTaken : remindersTaken) {
+                Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
+                Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
+                if(reminderTaken.remindersNo == reminder.reminderNo && reminderTaken.medicationTimeTaken < today && reminderTaken.medicationTimeTaken > yesterday) {
+                    addedReminder.add(reminder.reminderNo);
+                }
+            }
+
+            if(!addedReminder.contains(reminder.reminderNo)) {
+                //TODO: Use recycler view.
+                //TODO: Need to do this via xml and duplicate the element to make it easy to control the dimensions
+                remindersCarousel.add(reminder);
+            }
+
+            else {
+            }
+        }
+        ImageSwitcher noRemindersMsg = view.findViewById(R.id.msg_no_reminders_carousel);
+
+        if(remindersCarousel.size() > 0) {
+            noRemindersMsg.setVisibility(View.INVISIBLE);
+        }
+        else {
+            noRemindersMsg.setVisibility(View.VISIBLE);
+        }
+        recyclerView.setAdapter(new ListRemindersNotTakenAdapter(remindersCarousel));
+        recyclerView.setVisibility(View.VISIBLE);
 
     }
 
