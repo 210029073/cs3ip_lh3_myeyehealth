@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -24,19 +25,27 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.ActivityMainBinding;
 import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
+import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 import uk.ac.aston.ip.myeyehealth.reminders.RemindersActivity;
+import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersAdapter;
+import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersNotTakenAdapter;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageSwitcher;
+import android.widget.TextView;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -175,6 +184,46 @@ public class MainActivity extends AppCompatActivity {
         //temporarily hiding
         binding.fab.setVisibility(View.INVISIBLE);
 
+        RecyclerView recyclerView = findViewById(R.id.reminders_list_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(this);
+        List<Reminders> reminders = database.remindersDAO().getAll();
+
+        Instant date = Instant.ofEpochSecond(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+        long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
+        long today = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+        List<MedicationLog> remindersTaken = database.remindersDAO().findRemindersTakenToday(today, yesterday);
+        ArrayList<Integer> addedReminder = new ArrayList<>();
+        List<Reminders> remindersCarousel = new ArrayList<>();
+        for(Reminders reminder : reminders) {
+            boolean hasTaken = false;
+            for(MedicationLog reminderTaken : remindersTaken) {
+                Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
+                Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
+                if(reminderTaken.remindersNo == reminder.reminderNo && reminderTaken.medicationTimeTaken < today && reminderTaken.medicationTimeTaken > yesterday) {
+                    addedReminder.add(reminder.reminderNo);
+                }
+            }
+
+            if(!addedReminder.contains(reminder.reminderNo)) {
+                //TODO: Use recycler view.
+                //TODO: Need to do this via xml and duplicate the element to make it easy to control the dimensions
+                remindersCarousel.add(reminder);
+            }
+
+            else {
+            }
+        }
+        ImageSwitcher noRemindersMsg = findViewById(R.id.msg_no_reminders_carousel);
+
+        if(remindersCarousel.size() > 0) {
+            noRemindersMsg.setVisibility(View.INVISIBLE);
+        }
+        else {
+            noRemindersMsg.setVisibility(View.VISIBLE);
+        }
+        recyclerView.setAdapter(new ListRemindersAdapter(remindersCarousel));
+        recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override

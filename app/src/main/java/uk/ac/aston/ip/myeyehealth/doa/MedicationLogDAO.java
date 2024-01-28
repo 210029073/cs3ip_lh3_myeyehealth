@@ -12,6 +12,7 @@ import java.util.List;
 
 import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
+import uk.ac.aston.ip.myeyehealth.views.MissedMedicationViews;
 
 @Dao
 public interface MedicationLogDAO {
@@ -26,4 +27,11 @@ public interface MedicationLogDAO {
 
     @Delete
     void deleteMedicationLog(MedicationLog medicationLog);
+
+    @Query(
+            "SELECT * FROM medicationlog " +
+                    "INNER JOIN reminders ON reminders.reminderNo == medicationlog.reminderNo " +
+                    "WHERE medicationTimeTaken < :time AND medicationTaken = 0")
+    List<MissedMedicationViews> findMissedDoses(Long time);
+
 }

@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth.reminders.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,13 @@ import java.time.LocalTime;
 import java.util.List;
 
 import uk.ac.aston.ip.myeyehealth.R;
+import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
+import uk.ac.aston.ip.myeyehealth.views.MissedMedicationViews;
 
-public class ListRemindersAdapter extends RecyclerView.Adapter<ListRemindersAdapter.RemindersListViewHolder> {
+public class ListRemindersNotTakenAdapter extends RecyclerView.Adapter<ListRemindersNotTakenAdapter.RemindersListViewHolder> {
 
-    private List<Reminders> remindersList;
+    private List<MissedMedicationViews> remindersList;
 
     public static class RemindersListViewHolder extends RecyclerView.ViewHolder {
 
@@ -54,7 +57,7 @@ public class ListRemindersAdapter extends RecyclerView.Adapter<ListRemindersAdap
         }
     }
 
-    public ListRemindersAdapter(List<Reminders> reminders) {
+    public ListRemindersNotTakenAdapter(List<MissedMedicationViews> reminders) {
         this.remindersList = reminders;
     }
 
@@ -68,20 +71,21 @@ public class ListRemindersAdapter extends RecyclerView.Adapter<ListRemindersAdap
 
     @Override
     public void onBindViewHolder(@NonNull RemindersListViewHolder holder, int position) {
-        holder.getReminderName().setText("Medication Name:\t"+remindersList.get(position).reminderName);
-        if(remindersList.get(position).reminderType.equalsIgnoreCase("Eye Drops")) {
-            holder.getReminderType().setText("Reminder Type: "+remindersList.get(position).reminderType);
-            String doseAndUnit = remindersList.get(position).dose+" drops";
-            holder.getReminderDose().setText("Dose: " + doseAndUnit);
+        holder.getReminderName().setText(remindersList.get(position).reminders.reminderName);
+        if (remindersList.size() > 0) {
+            Log.d("reminderList", "size: " + remindersList.get(0).reminders);
+            if (remindersList.get(position).reminders.reminderType.equals("Eye Drops")) {
+                holder.getReminderType().setText(remindersList.get(position).reminders.reminderType);
+                String doseAndUnit = remindersList.get(position).reminders.dose + " drops";
+                holder.getReminderDose().setText(doseAndUnit);
+//
+            }
+            holder.getReminderType().setText(remindersList.get(position).reminders.reminderType);
+            holder.getReminderDose().setText(String.valueOf(remindersList.get(position).reminders.dose));
+            holder.getReminderTimeAMPM().setText(String.valueOf(LocalTime.ofNanoOfDay(remindersList.get(position).reminders.time)));
 
         }
-        else {
-            holder.getReminderType().setText("Reminder Type: " + remindersList.get(position).reminderType);
-            holder.getReminderDose().setText("Dose: " + String.valueOf(remindersList.get(position).dose));
-        }
-        holder.getReminderTimeAMPM().setText("Time: " + String.valueOf(LocalTime.ofNanoOfDay(remindersList.get(position).time)));
     }
-
     @Override
     public int getItemCount() {
         return remindersList.size();

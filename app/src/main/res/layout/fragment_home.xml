@@ -39,8 +39,13 @@
             android:layout_height="176dp"
 
             >
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reminders_list_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible"/>
             <ImageSwitcher
+                android:id="@+id/msg_no_reminders_carousel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
