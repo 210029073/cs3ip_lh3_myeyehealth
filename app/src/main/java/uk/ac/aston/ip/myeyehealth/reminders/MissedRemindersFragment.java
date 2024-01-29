@@ -91,7 +91,7 @@ public class MissedRemindersFragment extends Fragment {
                 if(!entry.getValue().contains(reminder.reminderNo)) {
 
                     MissedReminder missedReminder =
-                            new MissedReminder(reminder.reminderNo, reminder.reminderName, reminder.reminderType, reminder.dose, visitedMissedReminders.get(entry.getKey()).get(0).medicationTimeTaken, reminder.isRepeated);
+                            new MissedReminder(reminder.reminderNo, reminder.reminderName, reminder.reminderType, reminder.dose, visitedMissedReminders.get(entry.getKey()).stream().findFirst().get().medicationTimeTaken, reminder.isRepeated);
                     tmp.add(missedReminder);
                 }
             }
