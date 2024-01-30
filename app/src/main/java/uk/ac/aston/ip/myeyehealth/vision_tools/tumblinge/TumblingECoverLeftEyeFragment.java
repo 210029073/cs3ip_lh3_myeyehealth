@@ -55,11 +55,13 @@ public class TumblingECoverLeftEyeFragment extends Fragment {
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Snackbar.make(getContext(), getView(), "You pressed yes", Snackbar.LENGTH_SHORT)
+                Snackbar.make(getContext(), getView(), "Exiting Game.", Snackbar.LENGTH_SHORT)
                         .show();
 
-                NavHostFragment.findNavController(TumblingECoverLeftEyeFragment.this)
-                        .popBackStack(R.id.visionToolsFragment, false);
+    //                NavHostFragment.findNavController(TumblingECoverLeftEyeFragment.this)
+    //                        .popBackStack(R.id.visionToolsFragment, false);
+
+                getActivity().finish();
 
 //                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
 //                toolbar.setVisibility(View.VISIBLE);
@@ -72,7 +74,7 @@ public class TumblingECoverLeftEyeFragment extends Fragment {
         dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Snackbar.make(getContext(), getView(), "You pressed no", Snackbar.LENGTH_SHORT)
+                Snackbar.make(getContext(), getView(), "You have pressed no.", Snackbar.LENGTH_SHORT)
                         .show();
             }
         });

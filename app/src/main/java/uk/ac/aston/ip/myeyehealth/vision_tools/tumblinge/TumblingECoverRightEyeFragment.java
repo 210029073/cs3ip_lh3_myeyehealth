@@ -57,14 +57,15 @@ public class TumblingECoverRightEyeFragment extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 Snackbar.make(getContext(), getView(), "You pressed yes", Snackbar.LENGTH_SHORT)
                         .show();
-                NavHostFragment.findNavController(TumblingECoverRightEyeFragment.this)
-                        .popBackStack(R.id.visionToolsFragment, false);
-
-                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-                toolbar.setVisibility(View.VISIBLE);
-
-                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
-                bottomNavigationView.setVisibility(View.VISIBLE);
+                getActivity().finish(); //terminates activity
+//                NavHostFragment.findNavController(TumblingECoverRightEyeFragment.this)
+//                        .popBackStack(R.id.visionToolsFragment, false);
+//
+//                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+//                toolbar.setVisibility(View.VISIBLE);
+//
+//                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+//                bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
 

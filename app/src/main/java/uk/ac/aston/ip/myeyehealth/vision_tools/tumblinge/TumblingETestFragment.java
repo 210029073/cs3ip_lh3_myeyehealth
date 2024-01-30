@@ -70,17 +70,18 @@ public class TumblingETestFragment extends Fragment {
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Snackbar.make(getContext(), getView(), "You said yes", Snackbar.LENGTH_SHORT)
+                Snackbar.make(getContext(), getView(), "Exiting Game", Snackbar.LENGTH_SHORT)
                         .show();
 
-                NavHostFragment.findNavController(TumblingETestFragment.this)
-                        .popBackStack(R.id.visionToolsFragment, false);
-
-                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-                toolbar.setVisibility(View.VISIBLE);
-
-                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
-                bottomNavigationView.setVisibility(View.VISIBLE);
+                getActivity().finish();
+//                NavHostFragment.findNavController(TumblingETestFragment.this)
+//                        .popBackStack(R.id.visionToolsFragment, false);
+//
+//                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+//                toolbar.setVisibility(View.VISIBLE);
+//
+//                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+//                bottomNavigationView.setVisibility(View.VISIBLE);
 
             }
         });
@@ -88,7 +89,7 @@ public class TumblingETestFragment extends Fragment {
         dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Snackbar.make(getContext(), getView(), "You said no", Snackbar.LENGTH_SHORT)
+                Snackbar.make(getContext(), getView(), "You have pressed no", Snackbar.LENGTH_SHORT)
                         .show();
             }
         });

@@ -86,6 +86,9 @@ public class TumblingEActivity extends AppCompatActivity {
             }
         });
 
+        //this will make changes to the back press system button by creating an OnBackPressedCallback
+        //to create a custom back pressed callback function
+        //see more: https://developer.android.com/guide/navigation/custom-back
         OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
