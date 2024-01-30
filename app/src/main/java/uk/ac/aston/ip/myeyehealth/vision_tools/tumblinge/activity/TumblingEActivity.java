@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.activity;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -85,7 +86,15 @@ public class TumblingEActivity extends AppCompatActivity {
             }
         });
 
+        OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                dialog.create();
+                dialog.show();
+            }
+        };
 
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
 
     }
 
