@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tumbling_e_test_graph"
+    app:startDestination="@id/tumblingECoverLeftEyeFragment">
+    <fragment
+        android:id="@+id/tumblingECoverLeftEyeFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingECoverLeftEyeFragment"
+        android:label="Cover your Left Eye"
+        tools:layout="@layout/fragment_tumbling_e_cover_left_eye">
+        <action
+            android:id="@+id/action_tumblingECoverLeftEyeFragment_to_visionToolsFragment"
+            app:destination="@id/visionToolsFragment" />
+        <action
+            android:id="@+id/action_tumblingECoverLeftEyeFragment_to_tumblingETestFragment"
+            app:destination="@id/tumblingETestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETestFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingETestFragment"
+        android:label="@string/fragment_tumbling_e_label"
+        tools:layout="@layout/fragment_tumbling_e_test">
+        <action
+            android:id="@+id/action_tumblingETestFragment_to_tumblingECoverRightEyeFragment"
+            app:destination="@id/tumblingECoverRightEyeFragment" />
+        <action
+            android:id="@+id/action_tumblingETestFragment_to_tumblingEAssessFragment"
+            app:destination="@id/tumblingEAssessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingECoverRightEyeFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingECoverRightEyeFragment"
+        android:label="Cover right eye"
+        tools:layout="@layout/fragment_tumbling_e_cover_right_eye">
+        <action
+            android:id="@+id/action_tumblingECoverRightEyeFragment_to_tumblingETestFragment"
+            app:destination="@id/tumblingETestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingECoverRightEyeFragment2"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingECoverRightEyeFragment"
+        android:label="Cover right eye"
+        tools:layout="@layout/fragment_tumbling_e_cover_right_eye">
+        <action
+            android:id="@+id/action_tumblingECoverRightEyeFragment2_to_tumblingETestFragment"
+            app:destination="@id/tumblingETestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingEAssessFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingEAssessFragment"
+        android:label="Quiz"
+        tools:layout="@layout/fragment_tumbling_e_assess">
+        <action
+            android:id="@+id/action_tumblingEAssessFragment_to_tumblingETestFragment"
+            app:destination="@id/tumblingETestFragment" />
+        <action
+            android:id="@+id/action_tumblingEAssessFragment_to_tumblingECoverRightEyeFragment2"
+            app:destination="@id/tumblingECoverRightEyeFragment2" />
+        <action
+            android:id="@+id/action_tumblingEAssessFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_tumblingEAssessFragment_to_tumblingETestScoreFragment"
+            app:destination="@id/tumblingETestScoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingETestScoreFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingETestScoreFragment"
+        android:label="fragment_tumbling_e_test_score"
+        tools:layout="@layout/fragment_tumbling_e_test_score" >
+        <action
+            android:id="@+id/action_tumblingETestScoreFragment_to_tumblingEAssessFragment"
+            app:destination="@id/tumblingEAssessFragment" />
+    </fragment>
+</navigation>

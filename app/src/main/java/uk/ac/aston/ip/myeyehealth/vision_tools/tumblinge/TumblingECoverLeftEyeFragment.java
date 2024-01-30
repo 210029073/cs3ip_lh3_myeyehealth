@@ -61,11 +61,11 @@ public class TumblingECoverLeftEyeFragment extends Fragment {
                 NavHostFragment.findNavController(TumblingECoverLeftEyeFragment.this)
                         .popBackStack(R.id.visionToolsFragment, false);
 
-                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-                toolbar.setVisibility(View.VISIBLE);
-
-                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
-                bottomNavigationView.setVisibility(View.VISIBLE);
+//                Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+//                toolbar.setVisibility(View.VISIBLE);
+//
+//                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+//                bottomNavigationView.setVisibility(View.VISIBLE);
             }
         });
 

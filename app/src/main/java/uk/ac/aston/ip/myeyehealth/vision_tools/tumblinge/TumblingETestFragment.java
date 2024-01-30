@@ -48,11 +48,11 @@ public class TumblingETestFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-        toolbar.setVisibility(View.INVISIBLE);
-
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setVisibility(View.INVISIBLE);
+//        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+//        toolbar.setVisibility(View.INVISIBLE);
+//
+//        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+//        bottomNavigationView.setVisibility(View.INVISIBLE);
 
         int[] letterE = randomManipulateE();
 

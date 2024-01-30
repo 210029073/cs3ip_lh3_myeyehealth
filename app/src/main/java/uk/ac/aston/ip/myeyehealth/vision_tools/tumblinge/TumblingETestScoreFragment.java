@@ -137,16 +137,19 @@ public class TumblingETestScoreFragment extends Fragment {
             this.mViewModel.onCleared();
             this.viewModel.onCleared();
 
-            NavHostFragment.findNavController(TumblingETestScoreFragment.this)
-                    .popBackStack(R.id.homeFragment, false);
+//            NavHostFragment.findNavController(TumblingETestScoreFragment.this)
+//                    .popBackStack(R.id.homeFragment, false);
+//
+//            Navigation.findNavController(TumblingETestScoreFragment.this.getView()).navigateUp();
 
-            Navigation.findNavController(TumblingETestScoreFragment.this.getView()).navigateUp();
+            //terminate the activity
+            getActivity().finish();
 
-            Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
-            toolbar.setVisibility(View.VISIBLE);
-
-            BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
-            bottomNavigationView.setVisibility(View.VISIBLE);
+//            Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+//            toolbar.setVisibility(View.VISIBLE);
+//
+//            BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+//            bottomNavigationView.setVisibility(View.VISIBLE);
 
         });
 

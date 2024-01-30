@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentVisionToolsBinding;
+import uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.activity.TumblingEActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,8 +76,11 @@ public class VisionToolsFragment extends Fragment {
     private void bindActionButtons() {
         binding.optionTumblingE.setOnClickListener(item -> {
             Toast.makeText(this.getContext(), "This should launch the tumbling E test...", Toast.LENGTH_SHORT).show();
-            NavHostFragment.findNavController(VisionToolsFragment.this)
-                    .navigate(R.id.action_visionToolsFragment_to_tumblingECoverLeftEyeFragment);
+//            NavHostFragment.findNavController(VisionToolsFragment.this)
+//                    .navigate(R.id.action_visionToolsFragment_to_tumblingECoverLeftEyeFragment);
+            //Start the activity
+            Intent intent = new Intent(getContext(), TumblingEActivity.class);
+            startActivity(intent);
         });
 
         binding.optionMetricConversion.setOnClickListener(item -> {

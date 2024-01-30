@@ -216,6 +216,7 @@ public class TumblingEAssessFragment extends Fragment {
 
 //                    mViewModel.setLeftEyeScore(viewModel.getLeftEyeScore().getValue());
 //                    mViewModel.setRightEyeScore(viewModel.getRightEyeScore().getValue());
+
                     Navigation.findNavController(TumblingEAssessFragment.this.getView()).navigate(R.id.action_tumblingEAssessFragment_to_tumblingETestScoreFragment);
 
                     return;
@@ -231,7 +232,6 @@ public class TumblingEAssessFragment extends Fragment {
                     viewModel.setRightEyeScore(oldScore + 1);
                     mViewModel.setRightEyeScore(oldScore + 1);
                 }
-
                 //switch back to test
                 NavHostFragment.findNavController(TumblingEAssessFragment.this)
                         .navigate(R.id.action_tumblingEAssessFragment_to_tumblingETestFragment);
