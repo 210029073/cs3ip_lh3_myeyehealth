@@ -7,13 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
@@ -22,6 +22,7 @@ import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentReminderTrackerBinding;
 import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
+import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -91,7 +92,7 @@ public class ReminderTrackerFragment extends Fragment {
         String reminderName = reminderTrackerViewModel.reminderName.getValue();
         String reminderType = reminderTrackerViewModel.reminderType.getValue();
         int reminderNo = reminderTrackerViewModel.reminderNo.getValue();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             reminderTime = String.valueOf(LocalTime.ofNanoOfDay(reminderTrackerViewModel.reminderTime.getValue()));
         }
         float reminderDose = reminderTrackerViewModel.reminderDose.getValue();
@@ -106,7 +107,7 @@ public class ReminderTrackerFragment extends Fragment {
         binding.btnTakenMedicine.setOnClickListener(listener -> {
             Thread thread = new Thread(() -> {
                 //create object
-                MedicationLog medicationLog = createMedicationLog(reminderNo, true);
+                MedicationLog medicationLog = updateMedicationLog(reminderNo, true);
 
                 //Store object to database
                 MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO().insertMedicationLog(medicationLog);
@@ -122,10 +123,35 @@ public class ReminderTrackerFragment extends Fragment {
         binding.btnNotTakenMedicine.setOnClickListener(listener -> {
             Thread thread = new Thread(() -> {
                 //create object
-                MedicationLog medicationLog = createMedicationLog(reminderNo, false);
+//                MedicationLog medicationLog = updateMedicationLog(reminderNo, false);
 
                 //Store object to database
-                MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO().insertMedicationLog(medicationLog);
+                MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO().getMedicationLogs().forEach(medicationLog -> {
+                    long todays_date = LocalDate.now().toEpochDay();
+
+                    long yesterday = LocalDate.ofEpochDay(todays_date).minusDays(1).toEpochDay();
+
+                    Reminders reminder = MyEyeHealthDatabase.getInstance(getContext())
+                            .remindersDAO().findRemindersById(medicationLog.remindersNo);
+
+                    if(medicationLog.medicationTimeTaken < todays_date && medicationLog.medicationTimeTaken > yesterday) {
+                        if(medicationLog.remindersNo == reminder.reminderNo) {
+
+                        }
+
+                        else if(medicationLog.isMedicationTaken) {
+
+                        }
+                    }
+
+                    else {
+                        MedicationLog oldMedicationLog = medicationLog;
+                        medicationLog.remindersNo = reminder.reminderNo;
+                        medicationLog.isMedicationTaken = true;
+                        MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO()
+                                .updateMedicationLog(oldMedicationLog, medicationLog);
+                    }
+                });
             });
             thread.start();
             //return back to reminders fragment
@@ -140,7 +166,7 @@ public class ReminderTrackerFragment extends Fragment {
     }
 
     @NonNull
-    private static MedicationLog createMedicationLog(int reminderNo, boolean hasChecked) {
+    private static MedicationLog updateMedicationLog(int reminderNo, boolean hasChecked) {
         MedicationLog medicationLog = new MedicationLog();
         medicationLog.isMedicationTaken = hasChecked;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

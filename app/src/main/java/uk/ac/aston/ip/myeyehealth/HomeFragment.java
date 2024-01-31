@@ -20,11 +20,17 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -182,6 +188,54 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(new ListRemindersNotTakenAdapter(remindersCarousel));
         recyclerView.setVisibility(View.VISIBLE);
 
+        prepareMedicationRemindersLog();
+
+    }
+
+    private void prepareMedicationRemindersLog() {
+        MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
+        MedicationLog medicationLog = new MedicationLog();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+        List<MedicationLog> logs = MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO().getMedicationLogs();
+        LocalDate localDate = LocalDate.now();
+        long todays_date = localDate.toEpochDay();
+        long yesterday = Instant.ofEpochMilli(todays_date).minus(Period.ofDays(1)).getEpochSecond();
+        for(Reminders reminder : database.remindersDAO().getAll()) {
+            int size = database.medicationLogsDAO().getMedicationLogs().size();
+            if (database.medicationLogsDAO().getMedicationLogs().size() > 0) {
+
+                List<Long> dates = new ArrayList<>();
+
+                database.medicationLogsDAO().getMedicationLogs().forEach(medicationLog1 -> dates.add(medicationLog1.medicationTimeTaken));
+
+                for(MedicationLog medicationLog1 : database.medicationLogsDAO().getMedicationLogs()) {
+
+
+                        if (medicationLog1.remindersNo != reminder.reminderNo) {
+
+                        }
+
+                        else if(dates.contains(todays_date)) {
+
+                        }
+
+
+                        else {
+                            medicationLog.remindersNo = reminder.reminderNo;
+                            medicationLog.isMedicationTaken = false;
+                            medicationLog.medicationTimeTaken = todays_date;
+                            database.medicationLogsDAO().insertMedicationLog(medicationLog);
+                        }
+                }
+            }
+
+            else {
+                medicationLog.remindersNo = reminder.reminderNo;
+                medicationLog.isMedicationTaken = false;
+                medicationLog.medicationTimeTaken = todays_date;
+                database.medicationLogsDAO().insertMedicationLog(medicationLog);
+            }
+        }
     }
 
     @Override

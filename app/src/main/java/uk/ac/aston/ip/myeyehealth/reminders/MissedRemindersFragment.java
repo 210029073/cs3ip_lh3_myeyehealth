@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,30 +73,25 @@ public class MissedRemindersFragment extends Fragment {
         HashMap<LocalDate, List<MedicationLog>> visitedMissedReminders = new HashMap<>();
 
         for (MedicationLog medicationLog : remindersTaken) {
-            long currentDate = medicationLog.medicationTimeTaken;
-            Instant instant = Instant.ofEpochSecond(currentDate);
-            LocalDate reminderDate = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
-            int reminderNo = medicationLog.remindersNo;
-
-            // Update the HashMap
-            if (!visitedRemindersMap.containsKey(reminderDate)) {
-                visitedRemindersMap.put(reminderDate, new ArrayList<>());
-                visitedMissedReminders.put(reminderDate, new ArrayList<>());
-            }
-            visitedRemindersMap.get(reminderDate).add(reminderNo);
-            visitedMissedReminders.get(reminderDate).add(medicationLog);
-        }
-
-        for(Map.Entry<LocalDate, List<Integer>> entry : visitedRemindersMap.entrySet()) {
-            for(Reminders reminder : reminders) {
-                if(!entry.getValue().contains(reminder.reminderNo)) {
-
+            if(!medicationLog.isMedicationTaken) {
+                    Reminders reminder = database.remindersDAO().findRemindersById(medicationLog.remindersNo);
                     MissedReminder missedReminder =
-                            new MissedReminder(reminder.reminderNo, reminder.reminderName, reminder.reminderType, reminder.dose, visitedMissedReminders.get(entry.getKey()).stream().findFirst().get().medicationTimeTaken, reminder.isRepeated);
+                            new MissedReminder(reminder.reminderNo, reminder.reminderName, reminder.reminderType, reminder.dose, medicationLog.medicationTimeTaken, reminder.isRepeated);
                     tmp.add(missedReminder);
-                }
             }
         }
+
+        Log.d("missed reminders", ""+tmp.size());
+//        for(Map.Entry<LocalDate, List<Integer>> entry : visitedRemindersMap.entrySet()) {
+//            for(Reminders reminder : reminders) {
+//                if(!entry.getValue().contains(reminder.reminderNo)) {
+//
+//                    MissedReminder missedReminder =
+//                            new MissedReminder(reminder.reminderNo, reminder.reminderName, reminder.reminderType, reminder.dose, visitedMissedReminders.get(entry.getKey()).stream().findFirst().get().medicationTimeTaken, reminder.isRepeated);
+//                    tmp.add(missedReminder);
+//                }
+//            }
+//        }
 
         // Now visitedRemindersMap contains the mapping of reminder dates to lists of reminder numbers
 

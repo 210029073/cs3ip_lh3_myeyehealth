@@ -34,4 +34,9 @@ public interface MedicationLogDAO {
                     "WHERE medicationTimeTaken < :time AND medicationTaken = 0")
     List<MissedMedicationViews> findMissedDoses(Long time);
 
+//    @Query("SELECT * FROM medicationlog " +
+//            "INNER JOIN reminders ON reminderNo == medicationlog.reminderNo " +
+//            "WHERE medicationlog.medicationTaken IS FALSE")
+//    MedicationLog findMedicationLogByReminderId(int id);
+
 }

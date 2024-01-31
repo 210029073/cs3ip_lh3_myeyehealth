@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
@@ -83,7 +84,7 @@ public class ListMissedRemindersAdapter extends RecyclerView.Adapter<ListMissedR
             holder.getReminderDose().setText("Dose: " + String.valueOf(remindersList.get(position).dose));
         }
 //        holder.getReminderTimeAMPM().setText("Date Missed: " + remindersList.get(position).timeStamp);
-        holder.getReminderTimeAMPM().setText("Date Missed: " + String.valueOf(LocalDateTime.ofEpochSecond(remindersList.get(position).timeStamp, 0 , ZoneOffset.UTC).toLocalDate().toString()));
+        holder.getReminderTimeAMPM().setText("Date Missed: " + String.valueOf(LocalDate.ofEpochDay(remindersList.get(position).timeStamp).toString()));
 
     }
 

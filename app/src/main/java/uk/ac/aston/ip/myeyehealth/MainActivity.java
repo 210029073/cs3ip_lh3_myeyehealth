@@ -42,10 +42,12 @@ import android.widget.ImageSwitcher;
 import android.widget.TextView;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -183,6 +185,8 @@ public class MainActivity extends AppCompatActivity {
         });
         //temporarily hiding
         binding.fab.setVisibility(View.INVISIBLE);
+
+
     }
 
     @Override
