@@ -200,8 +200,21 @@ public class HomeFragment extends Fragment {
         LocalDate localDate = LocalDate.now();
         long todays_date = localDate.toEpochDay();
         long yesterday = Instant.ofEpochMilli(todays_date).minus(Period.ofDays(1)).getEpochSecond();
+
+        List<Integer> reminderIds = database.medicationLogsDAO().findRemindersNotTakenToday(todays_date);
+//        database.medicationLogsDAO().getMedicationLogs().forEach(medicationLog1 -> {
+//            reminderIds.add(medicationLog1.remindersNo);
+//        });
+
         for(Reminders reminder : database.remindersDAO().getAll()) {
             int size = database.medicationLogsDAO().getMedicationLogs().size();
+            if(!reminderIds.contains(reminder.reminderNo)) {
+                medicationLog.remindersNo = reminder.reminderNo;
+                medicationLog.isMedicationTaken = false;
+                medicationLog.medicationTimeTaken = todays_date;
+                database.medicationLogsDAO().insertMedicationLog(medicationLog);
+            }
+
             if (database.medicationLogsDAO().getMedicationLogs().size() > 0) {
 
                 List<Long> dates = new ArrayList<>();
@@ -211,16 +224,13 @@ public class HomeFragment extends Fragment {
                 for(MedicationLog medicationLog1 : database.medicationLogsDAO().getMedicationLogs()) {
 
 
-                        if (medicationLog1.remindersNo != reminder.reminderNo) {
+                        if (medicationLog1.remindersNo == reminder.reminderNo) {
 
                         }
 
                         else if(dates.contains(todays_date)) {
 
-                        }
-
-
-                        else {
+                        } else {
                             medicationLog.remindersNo = reminder.reminderNo;
                             medicationLog.isMedicationTaken = false;
                             medicationLog.medicationTimeTaken = todays_date;
@@ -228,6 +238,7 @@ public class HomeFragment extends Fragment {
                         }
                 }
             }
+
 
             else {
                 medicationLog.remindersNo = reminder.reminderNo;
