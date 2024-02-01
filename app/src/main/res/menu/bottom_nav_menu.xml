@@ -14,5 +14,10 @@
         android:id="@+id/remindersFragment"
         android:checked="false"
         android:title="Reminders"
+        android:icon="@drawable/medication_64"/>
+    <item
+        android:id="@+id/missedRemindersFragment"
+        android:checked="false"
+        android:title="Missed Doses"
         android:icon="@drawable/reminder_60"/>
 </menu>
