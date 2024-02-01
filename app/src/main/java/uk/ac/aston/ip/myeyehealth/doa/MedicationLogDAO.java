@@ -23,7 +23,7 @@ public interface MedicationLogDAO {
     void insertMedicationLog(MedicationLog medicationLog);
 
     @Update
-    void updateMedicationLog(MedicationLog oldMedicationLog, MedicationLog newMedicationLog);
+    void updateMedicationLog(MedicationLog newMedicationLog);
 
     @Delete
     void deleteMedicationLog(MedicationLog medicationLog);
@@ -37,6 +37,10 @@ public interface MedicationLogDAO {
     @Query("SELECT reminderNo from medicationlog " +
             "WHERE medicationTimeTaken == :time")
     List<Integer> findRemindersNotTakenToday(Long time);
+
+    @Query("SELECT * from medicationlog " +
+            "WHERE medicationTimeTaken == :time AND medicationlog.reminderNo = :reminderNo")
+    MedicationLog findMedicationLogByReminderId(int reminderNo, Long time);
 //    @Query("SELECT * FROM medicationlog " +
 //            "INNER JOIN reminders ON reminderNo == medicationlog.reminderNo " +
 //            "WHERE medicationlog.medicationTaken IS FALSE")

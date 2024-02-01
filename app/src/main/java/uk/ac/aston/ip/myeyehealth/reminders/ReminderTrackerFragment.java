@@ -106,11 +106,25 @@ public class ReminderTrackerFragment extends Fragment {
 
         binding.btnTakenMedicine.setOnClickListener(listener -> {
             Thread thread = new Thread(() -> {
-                //create object
-                MedicationLog medicationLog = updateMedicationLog(reminderNo, true);
-
                 //Store object to database
-                MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO().insertMedicationLog(medicationLog);
+                long todays_date = LocalDate.now().toEpochDay();
+
+                long yesterday = LocalDate.ofEpochDay(todays_date).minusDays(1).toEpochDay();
+
+                MedicationLog targetMedicationLog = MyEyeHealthDatabase.getInstance(getContext())
+                        .medicationLogsDAO().findMedicationLogByReminderId(reminderNo, todays_date);
+
+                Reminders reminder = MyEyeHealthDatabase.getInstance(getContext())
+                        .remindersDAO().findRemindersById(targetMedicationLog.remindersNo);
+
+                if(targetMedicationLog.isMedicationTaken) {
+                }
+
+                else {
+                    targetMedicationLog.isMedicationTaken = true;
+                    MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO()
+                            .updateMedicationLog(targetMedicationLog);
+                }
             });
             thread.start();
             //return back to reminders fragment
@@ -126,32 +140,25 @@ public class ReminderTrackerFragment extends Fragment {
 //                MedicationLog medicationLog = updateMedicationLog(reminderNo, false);
 
                 //Store object to database
-                MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO().getMedicationLogs().forEach(medicationLog -> {
-                    long todays_date = LocalDate.now().toEpochDay();
+                long todays_date = LocalDate.now().toEpochDay();
 
-                    long yesterday = LocalDate.ofEpochDay(todays_date).minusDays(1).toEpochDay();
+                long yesterday = LocalDate.ofEpochDay(todays_date).minusDays(1).toEpochDay();
 
-                    Reminders reminder = MyEyeHealthDatabase.getInstance(getContext())
-                            .remindersDAO().findRemindersById(medicationLog.remindersNo);
+                MedicationLog targetMedicationLog = MyEyeHealthDatabase.getInstance(getContext())
+                    .medicationLogsDAO().findMedicationLogByReminderId(reminderNo, todays_date);
 
-                    if(medicationLog.medicationTimeTaken < todays_date && medicationLog.medicationTimeTaken > yesterday) {
-                        if(medicationLog.remindersNo == reminder.reminderNo) {
+                Reminders reminder = MyEyeHealthDatabase.getInstance(getContext())
+                        .remindersDAO().findRemindersById(targetMedicationLog.remindersNo);
 
-                        }
+                if(targetMedicationLog.isMedicationTaken) {
+                }
 
-                        else if(medicationLog.isMedicationTaken) {
+                else {
+                    targetMedicationLog.isMedicationTaken = false;
+                    MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO()
+                            .updateMedicationLog(targetMedicationLog);
+                }
 
-                        }
-                    }
-
-                    else {
-                        MedicationLog oldMedicationLog = medicationLog;
-                        medicationLog.remindersNo = reminder.reminderNo;
-                        medicationLog.isMedicationTaken = true;
-                        MyEyeHealthDatabase.getInstance(getContext()).medicationLogsDAO()
-                                .updateMedicationLog(oldMedicationLog, medicationLog);
-                    }
-                });
             });
             thread.start();
             //return back to reminders fragment
