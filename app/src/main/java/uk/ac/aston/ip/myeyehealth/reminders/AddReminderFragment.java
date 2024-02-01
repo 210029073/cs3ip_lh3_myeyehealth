@@ -65,7 +65,8 @@ public class AddReminderFragment extends Fragment {
         reminder_types[2] = "Capsules";
         reminder_types[3] = "Tablets";
 
-        binding.txtReminderTypeList.setSimpleItems(reminder_types);
+        binding.txtReminderTypeList.setAdapter(new ArrayAdapter<String>(getContext(), R.layout.list_items, reminder_types));
+//        binding.txtReminderTypeList.setSimpleItems(reminder_types);
 
         binding.txtReminderTypeList.setOnClickListener(v -> {
             binding.txtReminderTypeList.showDropDown();
