@@ -21,6 +21,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Period;
@@ -60,8 +61,8 @@ public class RemindersFragment extends Fragment {
         List<Reminders> reminders = database.remindersDAO().getAll();
         Instant date = Instant.ofEpochSecond(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
         long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
-        long today = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        List<MedicationLog> remindersTaken = database.remindersDAO().findRemindersTakenToday(today, yesterday);
+        long today = LocalDate.now().toEpochDay();
+        List<MedicationLog> remindersTaken = database.remindersDAO().findRemindersTakenToday(today);
         Log.i("remindersTaken", "onViewCreated: " + remindersTaken.size());
 
         if(reminders.size() > 0) {
@@ -74,13 +75,13 @@ public class RemindersFragment extends Fragment {
                 for(MedicationLog reminderTaken : remindersTaken) {
                     Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
                     Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
-                    if(reminderTaken.remindersNo == reminder.reminderNo && reminderTaken.medicationTimeTaken < today && reminderTaken.medicationTimeTaken > yesterday) {
+                    if(!reminderTaken.isMedicationTaken && reminderTaken.remindersNo == reminder.reminderNo) {
                         addedReminder.add(reminder.reminderNo);
                     }
                 }
 
                 binding.listRemindersAll.addView(generateReminderCardsForDailyMedication(reminder));
-                if(!addedReminder.contains(reminder.reminderNo)) {
+                if(addedReminder.contains(reminder.reminderNo)) {
                     //TODO: Use recycler view.
                     //TODO: Need to do this via xml and duplicate the element to make it easy to control the dimensions
                     binding.tmpPlaceholderMsg.setVisibility(View.INVISIBLE);

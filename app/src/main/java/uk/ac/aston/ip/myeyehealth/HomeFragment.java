@@ -154,21 +154,25 @@ public class HomeFragment extends Fragment {
 
         Instant date = Instant.ofEpochSecond(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
         long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
-        long today = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-        List<MedicationLog> remindersTaken = database.remindersDAO().findRemindersTakenToday(today, yesterday);
+        long today = LocalDate.now().toEpochDay();
+        List<MedicationLog> remindersTaken = database.remindersDAO().findRemindersTakenToday(today);
         ArrayList<Integer> addedReminder = new ArrayList<>();
         List<Reminders> remindersCarousel = new ArrayList<>();
-        for(Reminders reminder : reminders) {
-            boolean hasTaken = false;
-            for(MedicationLog reminderTaken : remindersTaken) {
-                Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
-                Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
-                if(reminderTaken.remindersNo == reminder.reminderNo && reminderTaken.medicationTimeTaken < today && reminderTaken.medicationTimeTaken > yesterday) {
-                    addedReminder.add(reminder.reminderNo);
-                }
-            }
 
-            if(!addedReminder.contains(reminder.reminderNo)) {
+        boolean hasTaken = false;
+        for(MedicationLog reminderTaken : remindersTaken) {
+            Reminders reminder = database.remindersDAO().findRemindersById(reminderTaken.remindersNo);
+            Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
+            Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
+            if(!reminderTaken.isMedicationTaken) {
+                addedReminder.add(reminder.reminderNo);
+            }
+        }
+
+
+        database.remindersDAO().getAll().forEach(reminder -> {
+
+            if(addedReminder.contains(reminder.reminderNo)) {
                 //TODO: Use recycler view.
                 //TODO: Need to do this via xml and duplicate the element to make it easy to control the dimensions
                 remindersCarousel.add(reminder);
@@ -176,7 +180,9 @@ public class HomeFragment extends Fragment {
 
             else {
             }
-        }
+
+        });
+
         ImageSwitcher noRemindersMsg = view.findViewById(R.id.msg_no_reminders_carousel);
 
         if(remindersCarousel.size() > 0) {

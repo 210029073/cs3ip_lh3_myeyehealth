@@ -34,8 +34,8 @@ public interface RemindersDAO {
     @Query(
             "SELECT * FROM medicationlog " +
                     "Inner JOIN reminders ON reminders.reminderNo == medicationlog.reminderNo " +
-                    "WHERE medicationTimeTaken < :time AND medicationTimeTaken > :yesterday AND medicationTaken == true")
-    public List<MedicationLog> findRemindersTakenToday(Long time, Long yesterday);
+                    "WHERE medicationTimeTaken == :time")
+    public List<MedicationLog> findRemindersTakenToday(Long time);
 
     @Query(
             "SELECT * FROM medicationlog " +
