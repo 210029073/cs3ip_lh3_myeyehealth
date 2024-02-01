@@ -15,11 +15,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -57,6 +59,18 @@ public class AddReminderFragment extends Fragment {
 
         AtomicReference<Float> medicationDose = new AtomicReference<>();
 
+        String[] reminder_types = new String[4];
+        reminder_types[0] = "Eye Drops";
+        reminder_types[1] = "Eye Gel";
+        reminder_types[2] = "Capsules";
+        reminder_types[3] = "Tablets";
+
+        binding.txtReminderTypeList.setSimpleItems(reminder_types);
+
+        binding.txtReminderTypeList.setOnClickListener(v -> {
+            binding.txtReminderTypeList.showDropDown();
+        });
+
         binding.btnReminderTime.setOnClickListener(listener -> {
             MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
                     .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -86,7 +100,7 @@ public class AddReminderFragment extends Fragment {
         binding.btnSubmit.setOnClickListener(listener -> {
             //gather inputs from medication name and type
             medicationName.set(binding.txtReminderName.getEditText().getText().toString());
-            medicationType.set(binding.txtReminderType.getEditText().getText().toString());
+            medicationType.set(binding.txtReminderTypeList.getText().toString());
             medicationDose.set(Float.valueOf(binding.txtReminderDose.getEditText().getText().toString()));
 
 //            MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());

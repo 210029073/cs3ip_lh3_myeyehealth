@@ -16,9 +16,9 @@
     </style>
 
 
-    <style name="Theme.MyEyeHealth.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
-        <item name="colorPrimaryContainer">@color/darkBlue</item>
-        <item name="colorOnPrimaryContainer">@color/white</item>
+    <style name="Theme.MyEyeHealth.FloatingActionButton" >
+        <item name="backgroundTint">@color/darkBlue</item>
+        <item name="tint">@color/white</item>
     </style>
 
 

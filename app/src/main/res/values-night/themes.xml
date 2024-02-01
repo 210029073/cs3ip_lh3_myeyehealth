@@ -41,4 +41,9 @@
         <item name="colorOnSecondaryContainer">@color/darkBlue</item>
     </style>
 
+    <style name="Theme.MyEyeHealth.FloatingActionButton" >
+        <item name="backgroundTint">@color/white</item>
+        <item name="tint">@color/darkBlue</item>
+    </style>
+
 </resources>
