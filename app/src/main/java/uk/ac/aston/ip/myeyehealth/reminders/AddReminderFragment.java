@@ -2,6 +2,7 @@ package uk.ac.aston.ip.myeyehealth.reminders;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,11 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -47,6 +51,7 @@ public class AddReminderFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -99,27 +104,47 @@ public class AddReminderFragment extends Fragment {
         });
 
         binding.btnSubmit.setOnClickListener(listener -> {
-            //gather inputs from medication name and type
-            medicationName.set(binding.txtReminderName.getEditText().getText().toString());
-            medicationType.set(binding.txtReminderTypeList.getText().toString());
-            medicationDose.set(Float.valueOf(binding.txtReminderDose.getEditText().getText().toString()));
 
-//            MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
-            Reminders reminder = new Reminders();
-            reminder.reminderName = medicationName.get();
-            reminder.reminderType = medicationType.get();
-            reminder.dose = medicationDose.get();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                reminder.time = LocalTime.of(hour.get(), minute.get()).toNanoOfDay();
+            if(binding.txtReminderName.getEditText().getText().toString().isEmpty()) {
+                binding.txtReminderName.setErrorEnabled(true);
+                binding.txtReminderName.setError("Please specify the medication name");
             }
-//            database.remindersDAO().addReminder(reminder);
-            AddReminderThread addReminderThread = new AddReminderThread(reminder, getContext());
-            Thread thread = new Thread(addReminderThread);
-            thread.start();
-            NavHostFragment.findNavController(AddReminderFragment.this)
-                    .popBackStack(R.id.addReminderFragment, false);
 
-            Navigation.findNavController(AddReminderFragment.this.getView()).navigateUp();
+            if (binding.txtReminderType.getEditText().getText().toString().isEmpty()) {
+                binding.txtReminderType.setErrorEnabled(true);
+                binding.txtReminderType.setError("Please select a medication type");
+            }
+
+
+            if (binding.txtReminderDose.getEditText().getText().toString().isEmpty()) {
+                binding.txtReminderDose.setErrorEnabled(true);
+                binding.txtReminderDose.setError("Please enter a medication dose");
+            }
+
+
+            else {
+
+                //gather inputs from medication name and type
+                medicationName.set(binding.txtReminderName.getEditText().getText().toString());
+                medicationType.set(binding.txtReminderTypeList.getText().toString());
+                medicationDose.set(Float.valueOf(binding.txtReminderDose.getEditText().getText().toString()));
+//            MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
+                Reminders reminder = new Reminders();
+                reminder.reminderName = medicationName.get();
+                reminder.reminderType = medicationType.get();
+                reminder.dose = medicationDose.get();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    reminder.time = LocalTime.of(hour.get(), minute.get()).toNanoOfDay();
+                }
+//            database.remindersDAO().addReminder(reminder);
+                AddReminderThread addReminderThread = new AddReminderThread(reminder, getContext());
+                Thread thread = new Thread(addReminderThread);
+                thread.start();
+                NavHostFragment.findNavController(AddReminderFragment.this)
+                        .popBackStack(R.id.addReminderFragment, false);
+
+                Navigation.findNavController(AddReminderFragment.this.getView()).navigateUp();
+            }
         });
     }
 
