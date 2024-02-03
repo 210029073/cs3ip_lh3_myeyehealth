@@ -10,7 +10,7 @@ public class TestRecord {
     public int testRecordNo;
 
     @ColumnInfo(name = "test_result_score")
-    public float testResultScore;
+    public String testResultScore;
 
     @ColumnInfo(name = "test_result_description")
     public String testResultDescription;

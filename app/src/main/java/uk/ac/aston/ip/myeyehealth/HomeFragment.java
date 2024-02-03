@@ -128,9 +128,8 @@ public class HomeFragment extends Fragment {
         });
 
         binding.cardMedicationReminders.setOnClickListener(card -> {
-            Snackbar.make(getView(), "Feature not added yet...", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .show();
+            NavHostFragment.findNavController(HomeFragment.this)
+                    .navigate(R.id.action_homeFragment_to_remindersFragment);
         });
 
         binding.cardMissedDoses.setOnClickListener(card -> {
@@ -142,9 +141,8 @@ public class HomeFragment extends Fragment {
         });
 
         binding.cardViewTestScores.setOnClickListener(card -> {
-            Snackbar.make(getView(), "Feature not added yet...", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null)
-                    .show();
+            NavHostFragment.findNavController(HomeFragment.this)
+                            .navigate(R.id.action_homeFragment_to_testScoreFragment);
         });
 
         RecyclerView recyclerView = view.findViewById(R.id.reminders_list_recycler_view);

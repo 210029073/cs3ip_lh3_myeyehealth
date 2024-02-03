@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,16 @@ import android.view.ViewGroup;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import uk.ac.aston.ip.myeyehealth.R;
+import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentTumblingEAssessBinding;
+import uk.ac.aston.ip.myeyehealth.entities.TestRecord;
 
 public class TumblingEAssessFragment extends Fragment {
 
@@ -210,6 +216,31 @@ public class TumblingEAssessFragment extends Fragment {
                 if(viewModel.numberOfTimesRightEyeTested.getValue() == 5) {
 //                    Snackbar.make(getView(),"Left Eye: " + viewModel.getLeftEyeScore().getValue() + "\nRight Eye: " + viewModel.getRightEyeScore().getValue(), Snackbar.LENGTH_LONG)
 //                            .show();
+                    TumblingETestViewModel.TumblingETestScore tumblingETestScore = new TumblingETestViewModel.TumblingETestScore();
+                    float leftEyeScore = viewModel.getLeftEyeScore().getValue() / 5f * 100;
+                    tumblingETestScore.setLeftEyeScore(leftEyeScore);
+
+                    float rightEyeScore = viewModel.getRightEyeScore().getValue() / 5f * 100;
+                    tumblingETestScore.setRightEyeScore(rightEyeScore);
+
+                    Gson gson = new Gson();
+                    String output = gson.toJson(tumblingETestScore);
+                    Log.d("Test Result Json", output);
+
+                    Log.d("Left Eye Score", String.valueOf(tumblingETestScore.getLeftEyeScore()));
+                    Log.d("Right Eye Score", String.valueOf(tumblingETestScore.getRightEyeScore()));
+
+                    MyEyeHealthDatabase myEyeHealthDatabase = MyEyeHealthDatabase.getInstance(getContext());
+                    Thread thread = new Thread(() -> {
+                        TestRecord testRecord = new TestRecord();
+                        testRecord.testResultScore = output;
+                        testRecord.testResultDescription = "Tumbling E Test";
+                        testRecord.testResultRecordTime = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+
+                        myEyeHealthDatabase.testRecordsDAO().insertTestRecord(testRecord);
+                        myEyeHealthDatabase.close();
+                    });
+                    thread.start();
                     viewModel.onCleared();
 //                    mViewModel.onCleared();
                     //switch back to test

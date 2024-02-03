@@ -42,6 +42,12 @@
         <action
             android:id="@+id/action_homeFragment_to_missedRemindersFragment"
             app:destination="@id/missedRemindersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_testScoreFragment"
+            app:destination="@id/testScoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/visionToolsFragment"
@@ -196,6 +202,15 @@
         tools:layout="@layout/fragment_missed_reminders" >
         <action
             android:id="@+id/action_missedRemindersFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/testScoreFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TestScoreFragment"
+        android:label="fragment_test_score"
+        tools:layout="@layout/fragment_test_score" >
+        <action
+            android:id="@+id/action_testScoreFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

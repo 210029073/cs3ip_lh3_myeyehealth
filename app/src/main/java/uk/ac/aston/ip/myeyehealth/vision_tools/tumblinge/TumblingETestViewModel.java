@@ -9,6 +9,28 @@ public class TumblingETestViewModel extends ViewModel {
 
     //TODO: Need to separate score for right and left eyes
 
+    static class TumblingETestScore {
+        private float leftEyeScore = 0;
+
+        private float rightEyeScore = 0;
+
+        public float getLeftEyeScore() {
+            return leftEyeScore;
+        }
+
+        public float getRightEyeScore() {
+            return rightEyeScore;
+        }
+
+        public void setLeftEyeScore(float leftEyeScore) {
+            this.leftEyeScore = leftEyeScore;
+        }
+
+        public void setRightEyeScore(float rightEyeScore) {
+            this.rightEyeScore = rightEyeScore;
+        }
+    }
+
     private MutableLiveData<Integer> leftEyeScore = new MutableLiveData<>(0);
 
     private MutableLiveData<Integer> rightEyeScore = new MutableLiveData<>(0);
