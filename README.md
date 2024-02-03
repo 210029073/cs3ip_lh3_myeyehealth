@@ -1,4 +1,5 @@
 # **MyEyeHealth - Eye Health Management Application**
+[![Android CI](https://github.com/210029073/cs3ip_lh3_myeyehealth/actions/workflows/android.yml/badge.svg)](https://github.com/210029073/cs3ip_lh3_myeyehealth/actions/workflows/android.yml)
 ## About
 For the purpose of CS3IP (Individual Project), my project is to create an eye health management mobile application designed for users to manage their eye heatlh.
 
