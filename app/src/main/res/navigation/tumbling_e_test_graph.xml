@@ -72,5 +72,8 @@
         <action
             android:id="@+id/action_tumblingETestScoreFragment_to_tumblingEAssessFragment"
             app:destination="@id/tumblingEAssessFragment" />
+        <action
+            android:id="@+id/action_tumblingETestScoreFragment_to_tumblingECoverLeftEyeFragment"
+            app:destination="@id/tumblingECoverLeftEyeFragment" />
     </fragment>
 </navigation>

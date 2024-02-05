@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentTumblingETestScoreBinding;
+import uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.activity.TumblingEActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,6 +110,7 @@ public class TumblingETestScoreFragment extends Fragment {
                 break;
             case 5:
                 binding.leftEyeBody.setText("Normal Vision.");
+                break;
             default:
                 binding.leftEyeBody.setText("N/A");
         }
@@ -131,6 +134,16 @@ public class TumblingETestScoreFragment extends Fragment {
                 binding.rightEyeBody.setText("N/A");
                 break;
         }
+
+        binding.btnTryAgain.setOnClickListener(v -> {
+            this.mViewModel.onCleared();
+            this.viewModel.onCleared();
+
+            Intent intent = getActivity().getIntent();
+            getActivity().finish();
+            startActivity(intent);
+        });
+
 
         binding.btnContinue.setOnClickListener(listener -> {
 

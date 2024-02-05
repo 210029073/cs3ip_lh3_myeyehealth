@@ -238,7 +238,7 @@ public class TumblingEAssessFragment extends Fragment {
                         testRecord.testResultRecordTime = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
 
                         myEyeHealthDatabase.testRecordsDAO().insertTestRecord(testRecord);
-                        myEyeHealthDatabase.close();
+//                        myEyeHealthDatabase.close();
                     });
                     thread.start();
                     viewModel.onCleared();
