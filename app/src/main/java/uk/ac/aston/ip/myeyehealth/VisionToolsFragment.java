@@ -83,6 +83,12 @@ public class VisionToolsFragment extends Fragment {
             startActivity(intent);
         });
 
+        binding.optionColorBlindnessTest.setOnClickListener(item -> {
+            Toast.makeText(this.getContext(), "This should launch the Color blindness test...", Toast.LENGTH_SHORT).show();
+            NavHostFragment.findNavController(VisionToolsFragment.this)
+                    .navigate(R.id.action_visionToolsFragment_to_colorBlindnessTest);
+        });
+
         binding.optionMetricConversion.setOnClickListener(item -> {
             Toast.makeText(this.getContext(), "This should launch the metric conversion tools...", Toast.LENGTH_SHORT).show();
             NavHostFragment.findNavController(VisionToolsFragment.this)

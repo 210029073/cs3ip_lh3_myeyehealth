@@ -63,6 +63,9 @@
         <action
             android:id="@+id/action_visionToolsFragment_to_tumblingECoverLeftEyeFragment"
             app:destination="@id/tumblingECoverLeftEyeFragment" />
+        <action
+            android:id="@+id/action_visionToolsFragment_to_colorBlindnessTest"
+            app:destination="@id/colorBlindnessTest" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -213,4 +216,9 @@
             android:id="@+id/action_testScoreFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/colorBlindnessTest"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindnessTest"
+        android:label="fragment_color_blindness_test"
+        tools:layout="@layout/fragment_color_blindness_test" />
 </navigation>

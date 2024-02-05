@@ -29,8 +29,30 @@
                 android:layout_height="wrap_content"
                 android:focusable="true"
                 android:padding="20dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 android:shadowColor="#959595"
                 android:text="Tumbling E Test" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/option_color_blindness_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:padding="20dp"
+                android:shadowColor="#959595"
+                android:text="Color Blindness Test" />
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -47,6 +69,8 @@
                 android:layout_height="wrap_content"
                 android:focusable="true"
                 android:padding="20dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 android:shadowColor="#959595"
                 android:text="Metric Conversion" />
         </com.google.android.material.card.MaterialCardView>
