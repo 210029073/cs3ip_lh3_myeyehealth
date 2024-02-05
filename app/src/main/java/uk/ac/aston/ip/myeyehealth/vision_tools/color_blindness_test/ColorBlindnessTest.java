@@ -2,6 +2,7 @@ package uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -125,15 +126,32 @@ public class ColorBlindnessTest extends Fragment {
 
             final int chosenId = new Random().nextInt(button_ids.length - 1);
 
-            binding.colorBlindnessOptionA.setText(String.valueOf(colorBlindQuestionGenerator.generateRandomCombination()));
-            binding.colorBlindnessOptionB.setText(String.valueOf(colorBlindQuestionGenerator.generateRandomCombination()));
-            binding.colorBlindnessOptionC.setText(String.valueOf(colorBlindQuestionGenerator.generateRandomCombination()));
-            binding.colorBlindnessOptionD.setText(String.valueOf(colorBlindQuestionGenerator.generateRandomCombination()));
+//            binding.colorBlindnessOptionA.setText(String.valueOf(colorBlindQuestionGenerator.generateRandomCombination()));
+//            binding.colorBlindnessOptionB.setText(String.valueOf(colorBlindQuestionGenerator.generateRandomCombination()));
+//            binding.colorBlindnessOptionC.setText(String.valueOf(colorBlindQuestionGenerator.generateRandomCombination()));
+//            binding.colorBlindnessOptionD.setText(String.valueOf(colorBlindQuestionGenerator.generateRandomCombination()));
 
-            View view = getView().findViewById(button_ids[chosenId]);
-            if (view instanceof Button) {
-                ((Button) view).setText(colorBlindQuestionGenerator.findKey(this.imageResource));
+//            View view = getView().findViewById(button_ids[chosenId]);
+            View view = getView().findViewById(R.id.color_blindness_options_container);
+            ViewGroup view1 = (ViewGroup) view;
+            for(int i = 0; i < view1.getChildCount(); i++) {
+                if (view1.getChildAt(i) instanceof Button) {
+                    Button button = (Button) view1.getChildAt(i);
+                        if(view1.getChildAt(i).getId() == button_ids[chosenId]) {
+                            button.setText(colorBlindQuestionGenerator.findKey(this.imageResource));
+                        }
+
+                        else {
+                            button.setText(String.valueOf(colorBlindQuestionGenerator.generateRandomCombination()));
+                        }
+
+                }
             }
+//            for(View view : view1.getChildCount())
+//            if (view instanceof Button) {
+//                ((Button) view).setText(colorBlindQuestionGenerator.findKey(this.imageResource));
+//            }
+
         }
         else {
             Bundle bundle = new Bundle();
