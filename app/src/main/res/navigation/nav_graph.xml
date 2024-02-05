@@ -220,5 +220,19 @@
         android:id="@+id/colorBlindnessTest"
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindnessTest"
         android:label="fragment_color_blindness_test"
-        tools:layout="@layout/fragment_color_blindness_test" />
+        tools:layout="@layout/fragment_color_blindness_test" >
+        <action
+            android:id="@+id/action_colorBlindnessTest_to_colorBlindnessTestScore2"
+            app:destination="@id/colorBlindnessTestScore2" />
+    </fragment>
+    <fragment
+        android:id="@+id/colorBlindnessTestScore2"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindnessTestScore"
+        android:label="fragment_color_blindness_test_score2"
+        tools:layout="@layout/fragment_color_blindness_test_score2" >
+        <argument
+            android:name="score"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
