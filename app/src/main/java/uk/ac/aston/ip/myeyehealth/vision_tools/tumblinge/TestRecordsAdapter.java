@@ -20,6 +20,7 @@ import java.util.List;
 import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.entities.TestRecord;
 import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListMissedRemindersAdapter;
+import uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindnessTestScore;
 
 public class TestRecordsAdapter extends RecyclerView.Adapter<TestRecordsAdapter.TestRecordsViewHolder> {
 
@@ -42,6 +43,10 @@ public class TestRecordsAdapter extends RecyclerView.Adapter<TestRecordsAdapter.
         if(testRecords.get(position).testResultDescription.equals("Tumbling E Test")) {
             TumblingETestViewModel.TumblingETestScore scoreObj = gson.fromJson(testRecords.get(position).testResultScore, TumblingETestViewModel.TumblingETestScore.class);
             holder.getScore().setText("Left Eye: " + Float.valueOf(scoreObj.getLeftEyeScore()).intValue() + "%\n\n" +"Right Eye: " +  Float.valueOf(scoreObj.getRightEyeScore()).intValue() + "%");
+        }
+        else if(testRecords.get(position).testResultDescription.equals("Color Blindness Test")) {
+            ColorBlindnessTestScore.ColorBlindTestModel scoreObj = gson.fromJson(testRecords.get(position).testResultScore, ColorBlindnessTestScore.ColorBlindTestModel.class);
+            holder.getScore().setText("Score: " + Float.valueOf(scoreObj.getScore()).intValue()+ "%");
         }
         else {
             holder.getScore().setText(testRecords.get(position).testResultScore);

@@ -13,8 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 import uk.ac.aston.ip.myeyehealth.R;
+import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentColorBlindnessTestScore2Binding;
+import uk.ac.aston.ip.myeyehealth.entities.TestRecord;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +40,19 @@ public class ColorBlindnessTestScore extends Fragment {
     private String mParam2;
 
     private ColorBlindnessTestViewModel mViewModel;
+
+
+    public static class ColorBlindTestModel {
+        private float score;
+
+        public ColorBlindTestModel(float score) {
+            this.score = score;
+        }
+
+        public float getScore() {
+            return score;
+        }
+    }
 
     private FragmentColorBlindnessTestScore2Binding binding;
 
@@ -81,10 +101,10 @@ public class ColorBlindnessTestScore extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity())
                 .get(ColorBlindnessTestViewModel.class);
-        int test_score = getArguments().getInt("score");
+        float test_score = (getArguments().getInt("score") / 5f) * 100f;
         Log.d("Score", String.valueOf(test_score));
         String score = String.valueOf(test_score);
-        binding.scoreValue.setText(score);
+        binding.scoreValue.setText(score + "%");
 
         binding.btnContinue.setOnClickListener(v ->
         {
@@ -94,6 +114,22 @@ public class ColorBlindnessTestScore extends Fragment {
                     .navigateUp();
 
             //TODO: need to store the test results
+            ColorBlindnessTestScore.ColorBlindTestModel colorBlindTestModel = new ColorBlindnessTestScore.ColorBlindTestModel(test_score);
+            Gson gson = new Gson();
+            String output = gson.toJson(colorBlindTestModel);
+
+            Thread thread = new Thread(() -> {
+
+                TestRecord testRecord = new TestRecord();
+                testRecord.testResultScore = output;
+                testRecord.testResultDescription = "Color Blindness Test";
+                testRecord.testResultRecordTime = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+
+                MyEyeHealthDatabase.getInstance(getContext())
+                        .testRecordsDAO().insertTestRecord(testRecord);
+            });
+
+            thread.start();
         });
     }
 }
