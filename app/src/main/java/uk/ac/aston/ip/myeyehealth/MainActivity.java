@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         //how to create notifications
         // the NotificationChannel class is not in the Support Library.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -95,21 +96,26 @@ public class MainActivity extends AppCompatActivity {
                     .setAutoCancel(true)
                     .setOnlyAlertOnce(true)
                     .addAction(R.drawable.medication_64, "REVIEW", pendingRemindersIntent);
-            if(!notificationManager.areNotificationsEnabled()) {
-                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 0);
-                notificationManager.notify(0, builder.build());
-            }
 
-            //TODO: check if there is no notifications
             MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getApplicationContext());
-            Instant date = Instant.ofEpochSecond(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-            long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
-            List<MedicationLog> medicationLogs = database.remindersDAO().findRemindersTakenTodayNotification(date.getEpochSecond(), yesterday);
-            //if there is medication reminders then notify the user.
-            Log.d("medicationLog", String.valueOf(medicationLogs.size()));
-            Log.d("reminders", "med reminders: " + database.remindersDAO().getAll().size() );
-            if(medicationLogs.size() < database.remindersDAO().getAll().size()) {
-                notificationManager.notify(0, builder.build());
+            int pendingMedications = database.medicationLogsDAO().findMissedDoses(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)).size();
+            if(pendingMedications > 0) {
+                if (!notificationManager.areNotificationsEnabled()) {
+                    requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 0);
+                    notificationManager.notify(0, builder.build());
+                }
+
+                //TODO: check if there is no notifications
+
+                Instant date = Instant.ofEpochSecond(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+                long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
+                List<MedicationLog> medicationLogs = database.remindersDAO().findRemindersTakenTodayNotification(date.getEpochSecond(), yesterday);
+                //if there is medication reminders then notify the user.
+                Log.d("medicationLog", String.valueOf(medicationLogs.size()));
+                Log.d("reminders", "med reminders: " + database.remindersDAO().getAll().size());
+                if (medicationLogs.size() < database.remindersDAO().getAll().size()) {
+                    notificationManager.notify(0, builder.build());
+                }
             }
         }
 
