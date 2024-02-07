@@ -39,6 +39,7 @@ import uk.ac.aston.ip.myeyehealth.databinding.FragmentHomeBinding;
 import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersNotTakenAdapter;
+import uk.ac.aston.ip.myeyehealth.views.MissedMedicationViews;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -160,9 +161,9 @@ public class HomeFragment extends Fragment {
         boolean hasTaken = false;
         for(MedicationLog reminderTaken : remindersTaken) {
             Reminders reminder = database.remindersDAO().findRemindersById(reminderTaken.remindersNo);
-            Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
-            Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
-            if(!reminderTaken.isMedicationTaken) {
+//            Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
+//            Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
+            if(!reminderTaken.isMedicationTaken && reminderTaken.medicationTimeTaken == today) {
                 addedReminder.add(reminder.reminderNo);
             }
         }
@@ -174,9 +175,6 @@ public class HomeFragment extends Fragment {
                 //TODO: Use recycler view.
                 //TODO: Need to do this via xml and duplicate the element to make it easy to control the dimensions
                 remindersCarousel.add(reminder);
-            }
-
-            else {
             }
 
         });

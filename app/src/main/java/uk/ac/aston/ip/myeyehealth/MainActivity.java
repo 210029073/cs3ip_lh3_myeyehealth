@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     .addAction(R.drawable.medication_64, "REVIEW", pendingRemindersIntent);
 
             MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getApplicationContext());
-            int pendingMedications = database.medicationLogsDAO().findMissedDoses(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)).size();
+            int pendingMedications = database.remindersDAO().findRemindersTakenToday(LocalDate.now().toEpochDay()).stream().filter(medicationLog -> !medicationLog.isMedicationTaken).toArray().length;
             if(pendingMedications > 0) {
                 if (!notificationManager.areNotificationsEnabled()) {
                     requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 0);
