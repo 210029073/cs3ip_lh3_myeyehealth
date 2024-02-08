@@ -42,6 +42,9 @@ import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersNotTakenAdapter
 import uk.ac.aston.ip.myeyehealth.views.MissedMedicationViews;
 
 /**
+ * {@link HomeFragment} represents the main menu of the application housing the navigation
+ * to reminders, missed doses, vision, tools and test results.
+ * It also shows reminders that needs to be taken by the user on time.
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -123,6 +126,8 @@ public class HomeFragment extends Fragment {
 //            return false;
 //        });
 
+        //The following below set the navigation to other fragments that are part of the Navigation graph
+        //using the NavHostFragment class
         binding.cardVisionTools.setOnClickListener(card -> {
             NavHostFragment.findNavController(HomeFragment.this)
                     .navigate(R.id.action_homeFragment_to_visionToolsFragment);
@@ -146,19 +151,25 @@ public class HomeFragment extends Fragment {
                             .navigate(R.id.action_homeFragment_to_testScoreFragment);
         });
 
+        //The following below prepares the list of reminders that have not been taken yet by
+        //the user for today using the RecyclerView class.
         RecyclerView recyclerView = view.findViewById(R.id.reminders_list_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
         List<Reminders> reminders = database.remindersDAO().getAll();
 
+        //This obtains today's and yesterday's date and stores them as long
         Instant date = Instant.ofEpochSecond(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
         long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
         long today = LocalDate.now().toEpochDay();
+        //fetches reminders that are taken today
         List<MedicationLog> remindersTaken = database.remindersDAO().findRemindersTakenToday(today);
         ArrayList<Integer> addedReminder = new ArrayList<>();
         List<Reminders> remindersCarousel = new ArrayList<>();
 
         boolean hasTaken = false;
+
+        //finds the medication reminders that were not taken, and are todays reminders
         for(MedicationLog reminderTaken : remindersTaken) {
             Reminders reminder = database.remindersDAO().findRemindersById(reminderTaken.remindersNo);
 //            Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
@@ -169,6 +180,7 @@ public class HomeFragment extends Fragment {
         }
 
 
+        //this adds reminders to the reminderCarousel object.
         database.remindersDAO().getAll().forEach(reminder -> {
 
             if(addedReminder.contains(reminder.reminderNo)) {
@@ -179,8 +191,13 @@ public class HomeFragment extends Fragment {
 
         });
 
+        //this gets the noReminderMsg that is shown on the HomeFragment if no reminders are added
+        //or if they have all been taken for today
         ImageSwitcher noRemindersMsg = view.findViewById(R.id.msg_no_reminders_carousel);
 
+        //checks if all medications are taken
+        //if taken it will show the message
+        //otherwise, hide the message.
         if(remindersCarousel.size() > 0) {
             noRemindersMsg.setVisibility(View.INVISIBLE);
         }
@@ -190,10 +207,16 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(new ListRemindersNotTakenAdapter(remindersCarousel));
         recyclerView.setVisibility(View.VISIBLE);
 
+        //This prepares the medication logs, to retrieve all of todays medications that needs
+        //to be taken by the user.
         prepareMedicationRemindersLog();
 
     }
 
+    /**
+     * The following prepares the medication logs for the user and stores them in a local database.
+     * @see MyEyeHealthDatabase
+     * */
     private void prepareMedicationRemindersLog() {
         MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
         MedicationLog medicationLog = new MedicationLog();
@@ -210,6 +233,8 @@ public class HomeFragment extends Fragment {
 
         for(Reminders reminder : database.remindersDAO().getAll()) {
             int size = database.medicationLogsDAO().getMedicationLogs().size();
+
+            //if the reminder does not exist, then insert it to the medication logs table.
             if(!reminderIds.contains(reminder.reminderNo)) {
                 medicationLog.remindersNo = reminder.reminderNo;
                 medicationLog.isMedicationTaken = false;
@@ -242,6 +267,8 @@ public class HomeFragment extends Fragment {
             }
 
 
+            //if there is no logs at all for the following reminder
+            //then add to the medication logs table
             else {
                 medicationLog.remindersNo = reminder.reminderNo;
                 medicationLog.isMedicationTaken = false;

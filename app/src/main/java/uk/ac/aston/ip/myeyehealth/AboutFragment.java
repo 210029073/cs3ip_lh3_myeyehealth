@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
+ * The {@link AboutFragment} class shows information about the application
+ * regarding the version that is installed.
  * A simple {@link Fragment} subclass.
  * Use the {@link AboutFragment#newInstance} factory method to
  * create an instance of this fragment.
