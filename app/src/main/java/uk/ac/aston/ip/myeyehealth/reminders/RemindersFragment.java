@@ -2,6 +2,7 @@ package uk.ac.aston.ip.myeyehealth.reminders;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -12,11 +13,14 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -28,6 +32,7 @@ import java.time.Period;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
@@ -55,6 +60,23 @@ public class RemindersFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        view.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+            @Override
+            public void onViewAttachedToWindow(@NonNull View v) {
+
+            }
+
+            @Override
+            public void onViewDetachedFromWindow(@NonNull View v) {
+                MaterialToolbar toolbar = getActivity().findViewById(R.id.toolbar);
+                toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);
+                toolbar.getMenu().findItem(R.id.action_update).setVisible(false);
+                toolbar.getMenu().findItem(R.id.action_cancel).setVisible(false);
+                toolbar.getMenu().findItem(R.id.action_abouts).setVisible(true);
+                toolbar.getMenu().findItem(R.id.action_settings).setVisible(true);
+            }
+        });
 
         //TODO: Create the local database using android room
         MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
@@ -222,6 +244,96 @@ public class RemindersFragment extends Fragment {
             NavHostFragment.findNavController(RemindersFragment.this)
                     .navigate(R.id.action_remindersFragment_to_reminderTrackerFragment);
         });
+
+        materialCardView.setOnLongClickListener(v -> {
+            MaterialToolbar toolbar = getActivity().findViewById(R.id.toolbar);
+            binding.remindersContainer.setOnTouchListener((v1, event) -> {
+                toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);
+                toolbar.getMenu().findItem(R.id.action_update).setVisible(false);
+                toolbar.getMenu().findItem(R.id.action_cancel).setVisible(false);
+                toolbar.getMenu().findItem(R.id.action_abouts).setVisible(true);
+                toolbar.getMenu().findItem(R.id.action_settings).setVisible(true);
+
+                materialCardView.setOnClickListener(reset -> {
+                    ReminderTrackerViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReminderTrackerViewModel.class);
+                    viewModel.reminderName.setValue(reminder.reminderName);
+                    viewModel.reminderNo.setValue(reminder.reminderNo);
+                    viewModel.reminderTime.setValue(reminder.time);
+                    viewModel.reminderType.setValue(reminder.reminderType);
+                    viewModel.reminderDose.setValue(reminder.dose);
+                    viewModel.isRepeated.setValue(reminder.isRepeated);
+
+                    //TODO: NEED TO NAVIGATE TO THE UPDATE REMINDER FRAGMENT
+
+                    Snackbar.make(getView(), reminderName.getText(), Snackbar.LENGTH_SHORT)
+                            .show();
+
+                    NavHostFragment.findNavController(RemindersFragment.this)
+                            .navigate(R.id.action_remindersFragment_to_reminderTrackerFragment);
+                });
+                return true;
+            });
+
+            materialCardView.setOnClickListener(listener -> {
+                toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);
+                toolbar.getMenu().findItem(R.id.action_update).setVisible(false);
+                toolbar.getMenu().findItem(R.id.action_cancel).setVisible(false);
+
+                toolbar.getMenu().findItem(R.id.action_abouts).setVisible(true);
+                toolbar.getMenu().findItem(R.id.action_settings).setVisible(true);
+
+                materialCardView.setOnClickListener(reset -> {
+                    ReminderTrackerViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReminderTrackerViewModel.class);
+                    viewModel.reminderName.setValue(reminder.reminderName);
+                    viewModel.reminderNo.setValue(reminder.reminderNo);
+                    viewModel.reminderTime.setValue(reminder.time);
+                    viewModel.reminderType.setValue(reminder.reminderType);
+                    viewModel.reminderDose.setValue(reminder.dose);
+                    viewModel.isRepeated.setValue(reminder.isRepeated);
+
+                    //TODO: NEED TO NAVIGATE TO THE UPDATE REMINDER FRAGMENT
+
+                    Snackbar.make(getView(), reminderName.getText(), Snackbar.LENGTH_SHORT)
+                            .show();
+
+                    NavHostFragment.findNavController(RemindersFragment.this)
+                            .navigate(R.id.action_remindersFragment_to_reminderTrackerFragment);
+                });
+            });
+
+            toolbar.getMenu().findItem(R.id.action_delete).setVisible(true);
+            toolbar.getMenu().findItem(R.id.action_update).setVisible(true);
+            toolbar.getMenu().findItem(R.id.action_cancel).setVisible(true);
+            toolbar.getMenu().findItem(R.id.action_cancel).setOnMenuItemClickListener(item -> {
+                toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);
+                toolbar.getMenu().findItem(R.id.action_update).setVisible(false);
+                toolbar.getMenu().findItem(R.id.action_cancel).setVisible(false);
+
+                toolbar.getMenu().findItem(R.id.action_abouts).setVisible(true);
+                toolbar.getMenu().findItem(R.id.action_settings).setVisible(true);
+                materialCardView.setOnClickListener(listener -> {
+                    ReminderTrackerViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReminderTrackerViewModel.class);
+                    viewModel.reminderName.setValue(reminder.reminderName);
+                    viewModel.reminderNo.setValue(reminder.reminderNo);
+                    viewModel.reminderTime.setValue(reminder.time);
+                    viewModel.reminderType.setValue(reminder.reminderType);
+                    viewModel.reminderDose.setValue(reminder.dose);
+                    viewModel.isRepeated.setValue(reminder.isRepeated);
+
+                    //TODO: NEED TO NAVIGATE TO THE UPDATE REMINDER FRAGMENT
+
+                    Snackbar.make(getView(), reminderName.getText(), Snackbar.LENGTH_SHORT)
+                            .show();
+
+                    NavHostFragment.findNavController(RemindersFragment.this)
+                            .navigate(R.id.action_remindersFragment_to_reminderTrackerFragment);
+                });
+                return true;
+            });
+            toolbar.getMenu().findItem(R.id.action_abouts).setVisible(false);
+            toolbar.getMenu().findItem(R.id.action_settings).setVisible(false);
+            return true;
+        });
         return materialCardView;
     }
 
@@ -232,4 +344,25 @@ public class RemindersFragment extends Fragment {
         // TODO: Use the ViewModel
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        MaterialToolbar toolbar = getActivity().findViewById(R.id.toolbar);
+        toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);
+        toolbar.getMenu().findItem(R.id.action_update).setVisible(false);
+        toolbar.getMenu().findItem(R.id.action_cancel).setVisible(false);
+        toolbar.getMenu().findItem(R.id.action_abouts).setVisible(true);
+        toolbar.getMenu().findItem(R.id.action_settings).setVisible(true);
+    }
+
+    @Override
+    public void setExitTransition(@Nullable Object transition) {
+        super.setExitTransition(transition);
+        MaterialToolbar toolbar = getActivity().findViewById(R.id.toolbar);
+            toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);
+            toolbar.getMenu().findItem(R.id.action_update).setVisible(false);
+            toolbar.getMenu().findItem(R.id.action_cancel).setVisible(false);
+            toolbar.getMenu().findItem(R.id.action_abouts).setVisible(true);
+            toolbar.getMenu().findItem(R.id.action_settings).setVisible(true);
+    }
 }

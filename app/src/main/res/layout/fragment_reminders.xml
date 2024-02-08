@@ -19,80 +19,83 @@
         />
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/reminders_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/list_reminders"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/list_reminders_all"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            android:layout_marginBottom="50dp"
-            android:orientation="vertical"
-            android:visibility="visible">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:id="@+id/your_daily_medication_intakes_title"
-                android:text="Your Daily Medication Intakes"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                />
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tmp_placeholder_msg"
+            <LinearLayout
+                android:id="@+id/list_reminders"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="There is currently no reminders.\nPress + to add a reminder to see them here."
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical"
                 android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@id/list_reminders_all"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/list_reminders"
-                app:layout_constraintVertical_bias="0.2287" />
-        </LinearLayout>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/list_reminders_all"
-            app:layout_constraintTop_toBottomOf="@id/list_reminders"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0.10"
-            android:orientation="vertical"
-            android:visibility="visible">
+                <TextView
+                    android:id="@+id/your_daily_medication_intakes_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Your Daily Medication Intakes"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your Reminders"
-                android:layout_margin="10dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
-            <TextView
-                android:id="@+id/tmp_placeholder_msg_1"
+                <TextView
+                    android:id="@+id/tmp_placeholder_msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="There is currently no reminders.\nPress + to add a reminder to see them here."
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@id/list_reminders_all"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/list_reminders"
+                    app:layout_constraintVertical_bias="0.2287" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/list_reminders_all"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/add_reminder_action_btn"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:text="There is currently no reminders.\nPress + to add a reminder to see them here."
-                android:visibility="visible"/>
-        </LinearLayout>
+                app:layout_constraintTop_toBottomOf="@id/list_reminders"
+                app:layout_constraintVertical_bias="0.10">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Your Reminders"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+                <TextView
+                    android:id="@+id/tmp_placeholder_msg_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="There is currently no reminders.\nPress + to add a reminder to see them here."
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@id/add_reminder_action_btn"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </LinearLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>
