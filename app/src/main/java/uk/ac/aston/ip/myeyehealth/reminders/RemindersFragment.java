@@ -1,8 +1,10 @@
 package uk.ac.aston.ip.myeyehealth.reminders;
 
+import android.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -302,6 +304,7 @@ public class RemindersFragment extends Fragment {
             });
 
             toolbar.getMenu().findItem(R.id.action_delete).setVisible(true);
+            setDeleteAction(toolbar.getMenu().findItem(R.id.action_delete), reminder, reminder.reminderNo);
             toolbar.getMenu().findItem(R.id.action_update).setVisible(true);
             toolbar.getMenu().findItem(R.id.action_cancel).setVisible(true);
             toolbar.getMenu().findItem(R.id.action_cancel).setOnMenuItemClickListener(item -> {
@@ -364,5 +367,27 @@ public class RemindersFragment extends Fragment {
             toolbar.getMenu().findItem(R.id.action_cancel).setVisible(false);
             toolbar.getMenu().findItem(R.id.action_abouts).setVisible(true);
             toolbar.getMenu().findItem(R.id.action_settings).setVisible(true);
+    }
+
+    private void setDeleteAction(MenuItem appToolBarItem, Reminders reminder, int id) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getContext())
+                .setMessage("Are you sure you want to delete " + reminder.reminderName + "?");
+
+        dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        appToolBarItem.setOnMenuItemClickListener(item -> {
+            dialog.create();
+            dialog.show();
+            return true;
+        });
     }
 }
