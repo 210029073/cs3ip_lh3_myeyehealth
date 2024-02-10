@@ -1,4 +1,4 @@
-package uk.ac.aston.ip.myeyehealth.test.medicationlogs;
+package uk.ac.aston.ip.myeyehealth.medicationlogstest;
 
 import static org.junit.Assert.assertNotEquals;
 
@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,20 +45,51 @@ public class MedicationRemindersTest {
         reminders.reminderName = "Hyloforte";
         reminders.reminderType = "Eye Drops";
         reminders.dose = 2.0f;
+
+        Reminders reminder1 = new Reminders();
+        reminders.reminderName = "Carbomer 0.2%";
+        reminders.reminderType = "Eye Gel";
+        reminders.dose = 4.0f;
         this.remindersDAO.addReminder(reminders);
+        this.remindersDAO.addReminder(reminder1);
+    }
+
+    private MedicationLog missedYesterdaysMedication() {
+        MedicationLog medicationLog = new MedicationLog();
+        medicationLog.remindersNo = 1;
+        medicationLog.isMedicationTaken = false;
+        medicationLog.medicationTimeTaken = LocalDate.now().minus(Period.ofDays(1)).toEpochDay();
+        return  medicationLog;
+    }
+
+    private MedicationLog takenNotTodayMedication() {
+        MedicationLog medicationLog1 = new MedicationLog();
+        medicationLog1.remindersNo = 2;
+        medicationLog1.isMedicationTaken = false;
+        medicationLog1.medicationTimeTaken = LocalDate.now().toEpochDay();
+        return medicationLog1;
+    }
+
+    private MedicationLog takenTodayMedication() {
+        MedicationLog medicationLog1 = new MedicationLog();
+        medicationLog1.remindersNo = 1;
+        medicationLog1.isMedicationTaken = true;
+        medicationLog1.medicationTimeTaken = LocalDate.now().toEpochDay();
+        return medicationLog1;
     }
 
     @Before
     public void prepareMedicationLogs() {
-        MedicationLog medicationLog = new MedicationLog();
-        medicationLog.remindersNo = 1;
-        medicationLog.isMedicationTaken = false;
-        medicationLog.medicationTimeTaken = LocalDate.now().toEpochDay();
+        MedicationLog medicationLog = missedYesterdaysMedication();
+        MedicationLog medicationLog1 = takenTodayMedication();
+        MedicationLog medicationLog2 = takenNotTodayMedication();
 
         this.database.medicationLogsDAO().insertMedicationLog(medicationLog);
+        this.database.medicationLogsDAO().insertMedicationLog(medicationLog1);
+        this.database.medicationLogsDAO().insertMedicationLog(medicationLog2);
     }
 
-    protected void prepareTest() throws IOException {
+    public void prepareTest() throws IOException {
         prepareDatabase();
         prepareReminders();
         prepareMedicationLogs();

@@ -1,8 +1,9 @@
-package uk.ac.aston.ip.myeyehealth.test.medicationlogs;
+package uk.ac.aston.ip.myeyehealth.medicationlogstest;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -16,22 +17,20 @@ import java.util.List;
 
 import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
 import uk.ac.aston.ip.myeyehealth.reminders.MedicationLogsRepository;
-import uk.ac.aston.ip.myeyehealth.views.MissedMedicationViews;
-import uk.ac.aston.ip.myeyehealth.views.MissedReminder;
 
 @RunWith(AndroidJUnit4.class)
 public class MissedMedicationRemindersTest {
     private MedicationLogsRepository repository;
     private MedicationRemindersTest medicationRemindersTest;
     @Before
-    public void prepareRepository() throws IOException {
-        this.repository = new MedicationLogsRepository(ApplicationProvider.getApplicationContext());
+    public void prepareMedicationRemindersTest() throws IOException {
         this.medicationRemindersTest = new MedicationRemindersTest();
         this.medicationRemindersTest.prepareTest();
     }
 
     @Test
     public void setRepository() {
+        this.repository = new MedicationLogsRepository(ApplicationProvider.getApplicationContext());
         Assert.assertNotNull(repository);
     }
 
@@ -39,6 +38,31 @@ public class MissedMedicationRemindersTest {
     public void getMissedRemindersForAllDurations() {
         List<MedicationLog> reMedicationViews = this.repository.getRemindersMissed();
         assertNotNull(reMedicationViews);
+
         assertNotEquals(0, reMedicationViews.size());
+    }
+
+    @Test
+    public void getPendingRemindersForToday() {
+        List<MedicationLog> reMedicationViews = this.repository.getPendingRemindersToday();
+        assertNotNull(reMedicationViews);
+
+        assertNotEquals(0, reMedicationViews.size());
+    }
+
+    @Test
+    public void getTakenForToday() {
+        List<MedicationLog> reMedicationViews = this.repository.getRemindersTakenToday();
+        assertNotNull(reMedicationViews);
+
+        assertNotEquals(0, reMedicationViews.size());
+    }
+
+    public void prepareTests() throws IOException {
+        this.prepareMedicationRemindersTest();
+        this.setRepository();
+        this.getMissedRemindersForAllDurations();
+        this.getTakenForToday();
+        this.getPendingRemindersForToday();
     }
 }

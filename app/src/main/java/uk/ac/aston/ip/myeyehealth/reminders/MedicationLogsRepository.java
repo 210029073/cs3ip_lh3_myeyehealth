@@ -2,6 +2,7 @@ package uk.ac.aston.ip.myeyehealth.reminders;
 
 import android.content.Context;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,38 @@ public class MedicationLogsRepository {
     }
 
     public List<MedicationLog> getRemindersMissed() {
-        return new ArrayList<>();
+        List<MedicationLog> medicationLogs = new ArrayList<>();
+        for(MedicationLog medicationLog : database.medicationLogsDAO().getMedicationLogs()) {
+            if(!medicationLog.isMedicationTaken) {
+                medicationLogs.add(medicationLog);
+            }
+        }
+
+        return medicationLogs;
+    }
+
+    public List<MedicationLog> getPendingRemindersToday() {
+        List<MedicationLog> medicationLogs = new ArrayList<>();
+        long today = LocalDate.now().toEpochDay();
+        for(MedicationLog medicationLog : database.medicationLogsDAO().getMedicationLogs()) {
+            if(!medicationLog.isMedicationTaken && medicationLog.medicationTimeTaken == today) {
+                medicationLogs.add(medicationLog);
+            }
+        }
+
+        return medicationLogs;
+    }
+
+    public List<MedicationLog> getRemindersTakenToday() {
+        List<MedicationLog> medicationLogs = new ArrayList<>();
+        long today = LocalDate.now().toEpochDay();
+        for(MedicationLog medicationLog : database.medicationLogsDAO().getMedicationLogs()) {
+            if(medicationLog.isMedicationTaken && medicationLog.medicationTimeTaken == today) {
+                medicationLogs.add(medicationLog);
+            }
+        }
+
+        return medicationLogs;
     }
 
 }
