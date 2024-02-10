@@ -5,6 +5,9 @@
       <entry key="ExampleInstrumentedTest">
         <State />
       </entry>
+      <entry key="MedicationRemindersIntegrationTest">
+        <State />
+      </entry>
       <entry key="MedicationRemindersTest">
         <State />
       </entry>
@@ -23,6 +26,9 @@
           </targetSelectedWithDropDown>
           <timeTargetWasSelectedWithDropDown value="2024-02-07T12:59:52.914945900Z" />
         </State>
+      </entry>
+      <entry key="runAddMedicationReminders()">
+        <State />
       </entry>
     </value>
   </component>
