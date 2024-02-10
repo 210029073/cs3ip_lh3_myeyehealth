@@ -25,9 +25,9 @@ import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 @RunWith(AndroidJUnit4.class)
 public class MedicationRemindersTest {
 
-    private MyEyeHealthDatabase database;
-    private RemindersDAO remindersDAO;
-    private MedicationLogDAO medicationLogDAO;
+    MyEyeHealthDatabase database;
+    RemindersDAO remindersDAO;
+    MedicationLogDAO medicationLogDAO;
 
     @Before
     public void prepareDatabase() {

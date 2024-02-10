@@ -11,6 +11,9 @@
       <entry key="MedicationRemindersTest">
         <State />
       </entry>
+      <entry key="MissedMedicationRemindersTest">
+        <State />
+      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
