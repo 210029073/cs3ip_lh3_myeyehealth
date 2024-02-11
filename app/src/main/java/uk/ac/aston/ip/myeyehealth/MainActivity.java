@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
+        int notificationId = 1;
         MedicationLogsRepository medicationLogsRepository = new MedicationLogsRepository(getApplicationContext());
         for(MedicationLog medicationLog : medicationLogsRepository.getPendingRemindersToday()) {
             //get the medication time
@@ -145,13 +145,13 @@ public class MainActivity extends AppCompatActivity {
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel.getId())
                         .setSmallIcon(R.drawable.medication_64)
-                        .setContentTitle("Reminder: " + reminder.reminderName + " - " + LocalTime.ofNanoOfDay(reminder.time))
+                        .setContentTitle(reminder.reminderName + " \u23F0 " + LocalTime.ofNanoOfDay(reminder.time))
                         .setContentText("You need to take your " + reminder.reminderName)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setAutoCancel(true)
                         .setOnlyAlertOnce(true);
 
-                notificationManager.notify(1, builder.build());
+                notificationManager.notify(notificationId++, builder.build());
             }
         }
 
