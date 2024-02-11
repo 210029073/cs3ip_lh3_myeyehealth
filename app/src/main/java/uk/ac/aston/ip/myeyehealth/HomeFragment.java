@@ -151,6 +151,10 @@ public class HomeFragment extends Fragment {
                             .navigate(R.id.action_homeFragment_to_testScoreFragment);
         });
 
+        //This prepares the medication logs, to retrieve all of todays medications that needs
+        //to be taken by the user.
+        prepareMedicationRemindersLog();
+
         //The following below prepares the list of reminders that have not been taken yet by
         //the user for today using the RecyclerView class.
         RecyclerView recyclerView = view.findViewById(R.id.reminders_list_recycler_view);
@@ -206,10 +210,6 @@ public class HomeFragment extends Fragment {
         }
         recyclerView.setAdapter(new ListRemindersNotTakenAdapter(remindersCarousel));
         recyclerView.setVisibility(View.VISIBLE);
-
-        //This prepares the medication logs, to retrieve all of todays medications that needs
-        //to be taken by the user.
-        prepareMedicationRemindersLog();
 
     }
 

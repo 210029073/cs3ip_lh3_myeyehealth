@@ -32,6 +32,7 @@ import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.ActivityMainBinding;
 import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
+import uk.ac.aston.ip.myeyehealth.reminders.MedicationLogsRepository;
 import uk.ac.aston.ip.myeyehealth.reminders.RemindersActivity;
 import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersAdapter;
 import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersNotTakenAdapter;
@@ -44,9 +45,13 @@ import android.widget.TextView;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Period;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         //how to create notifications
         // the NotificationChannel class is not in the Support Library.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        {
             CharSequence name = "Show Medication Reminders";
             String description = "You need to take your medications. Press review to continue.";
             int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -116,6 +121,37 @@ public class MainActivity extends AppCompatActivity {
                 if (medicationLogs.size() < database.remindersDAO().getAll().size()) {
                     notificationManager.notify(0, builder.build());
                 }
+            }
+        }
+
+        MedicationLogsRepository medicationLogsRepository = new MedicationLogsRepository(getApplicationContext());
+        for(MedicationLog medicationLog : medicationLogsRepository.getPendingRemindersToday()) {
+            //get the medication time
+            Reminders reminder = MyEyeHealthDatabase.getInstance(getApplicationContext()).remindersDAO().findRemindersById(medicationLog.remindersNo);
+            //check if it has not been taken, and the time is five minutes before actual time
+            long time = reminder.time;
+            long fiveMinTime = LocalTime.ofNanoOfDay(time).minus(Calendar.MINUTE - 5, ChronoUnit.MINUTES).toNanoOfDay();
+            if(!medicationLog.isMedicationTaken && LocalTime.now().toNanoOfDay() > fiveMinTime &&
+            LocalTime.now().toNanoOfDay() < time) {
+                //then create a notification prompt
+                CharSequence name = "Send Timely Medication Reminder";
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                NotificationChannel channel = new NotificationChannel("MyEyeHealth", name, importance);
+                channel.setDescription("Send timely medication reminder");
+                // Register the channel with the system. You can't change the importance
+                // or other notification behaviors after this.
+                NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                notificationManager.createNotificationChannel(channel);
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel.getId())
+                        .setSmallIcon(R.drawable.medication_64)
+                        .setContentTitle("Reminder: " + reminder.reminderName + " - " + LocalTime.ofNanoOfDay(reminder.time))
+                        .setContentText("You need to take your " + reminder.reminderName)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setAutoCancel(true)
+                        .setOnlyAlertOnce(true);
+
+                notificationManager.notify(1, builder.build());
             }
         }
 
@@ -193,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setVisibility(View.INVISIBLE);
 
 
+        prepareMedicationRemindersLog();
     }
 
     @Override
@@ -222,5 +259,70 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    /**
+     * The following prepares the medication logs for the user and stores them in a local database.
+     * @see MyEyeHealthDatabase
+     * */
+    private void prepareMedicationRemindersLog() {
+        MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getApplicationContext());
+        MedicationLog medicationLog = new MedicationLog();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
+        List<MedicationLog> logs = MyEyeHealthDatabase.getInstance(getApplicationContext()).medicationLogsDAO().getMedicationLogs();
+        LocalDate localDate = LocalDate.now();
+        long todays_date = localDate.toEpochDay();
+        long yesterday = Instant.ofEpochMilli(todays_date).minus(Period.ofDays(1)).getEpochSecond();
+
+        List<Integer> reminderIds = database.medicationLogsDAO().findRemindersNotTakenToday(todays_date);
+//        database.medicationLogsDAO().getMedicationLogs().forEach(medicationLog1 -> {
+//            reminderIds.add(medicationLog1.remindersNo);
+//        });
+
+        for(Reminders reminder : database.remindersDAO().getAll()) {
+            int size = database.medicationLogsDAO().getMedicationLogs().size();
+
+            //if the reminder does not exist, then insert it to the medication logs table.
+            if(!reminderIds.contains(reminder.reminderNo)) {
+                medicationLog.remindersNo = reminder.reminderNo;
+                medicationLog.isMedicationTaken = false;
+                medicationLog.medicationTimeTaken = todays_date;
+                database.medicationLogsDAO().insertMedicationLog(medicationLog);
+            }
+
+            if (database.medicationLogsDAO().getMedicationLogs().size() > 0) {
+
+                List<Long> dates = new ArrayList<>();
+
+                database.medicationLogsDAO().getMedicationLogs().forEach(medicationLog1 -> dates.add(medicationLog1.medicationTimeTaken));
+
+                for(MedicationLog medicationLog1 : database.medicationLogsDAO().getMedicationLogs()) {
+
+
+                    if (medicationLog1.remindersNo == reminder.reminderNo) {
+
+                    }
+
+                    else if(dates.contains(todays_date)) {
+
+                    } else {
+                        medicationLog.remindersNo = reminder.reminderNo;
+                        medicationLog.isMedicationTaken = false;
+                        medicationLog.medicationTimeTaken = todays_date;
+                        database.medicationLogsDAO().insertMedicationLog(medicationLog);
+                    }
+                }
+            }
+
+
+            //if there is no logs at all for the following reminder
+            //then add to the medication logs table
+            else {
+                medicationLog.remindersNo = reminder.reminderNo;
+                medicationLog.isMedicationTaken = false;
+                medicationLog.medicationTimeTaken = todays_date;
+                database.medicationLogsDAO().insertMedicationLog(medicationLog);
+            }
+        }
     }
 }
