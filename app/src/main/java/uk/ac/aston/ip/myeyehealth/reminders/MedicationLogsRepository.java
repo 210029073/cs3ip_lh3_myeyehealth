@@ -8,6 +8,7 @@ import java.util.List;
 
 import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
+import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 import uk.ac.aston.ip.myeyehealth.views.MissedReminder;
 
 public class MedicationLogsRepository {
@@ -42,6 +43,18 @@ public class MedicationLogsRepository {
         }
 
         return medicationLogs;
+    }
+
+    public List<Reminders> getRemindersNotTakenTodayInReminders() {
+        List<Reminders> remindersNotTakenToday = new ArrayList<>();
+        List<MedicationLog> medicationLogs = this.getPendingRemindersToday();
+
+        for(MedicationLog log : medicationLogs) {
+            Reminders reminder = this.database.remindersDAO().findRemindersById(log.remindersNo);
+            remindersNotTakenToday.add(reminder);
+        }
+
+        return remindersNotTakenToday;
     }
 
     public List<MedicationLog> getRemindersTakenToday() {
