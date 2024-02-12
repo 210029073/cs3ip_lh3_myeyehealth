@@ -192,32 +192,6 @@ public class RemindersFragment extends Fragment {
         if(getActivity().getLocalClassName().equals("MainActivity")) {
             materialCardView.setOnLongClickListener(v -> {
                 MaterialToolbar toolbar = getActivity().findViewById(R.id.toolbar);
-                binding.remindersContainer.setOnTouchListener((v1, event) -> {
-                    toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);
-                    toolbar.getMenu().findItem(R.id.action_update).setVisible(false);
-                    toolbar.getMenu().findItem(R.id.action_cancel).setVisible(false);
-                    toolbar.getMenu().findItem(R.id.action_abouts).setVisible(true);
-                    toolbar.getMenu().findItem(R.id.action_settings).setVisible(true);
-
-                    materialCardView.setOnClickListener(reset -> {
-                        ReminderTrackerViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReminderTrackerViewModel.class);
-                        viewModel.reminderName.setValue(reminder.reminderName);
-                        viewModel.reminderNo.setValue(reminder.reminderNo);
-                        viewModel.reminderTime.setValue(reminder.time);
-                        viewModel.reminderType.setValue(reminder.reminderType);
-                        viewModel.reminderDose.setValue(reminder.dose);
-                        viewModel.isRepeated.setValue(reminder.isRepeated);
-
-                        //TODO: NEED TO NAVIGATE TO THE UPDATE REMINDER FRAGMENT
-
-                        Snackbar.make(getView(), reminderName.getText(), Snackbar.LENGTH_SHORT)
-                                .show();
-
-                        NavHostFragment.findNavController(RemindersFragment.this)
-                                .navigate(R.id.action_remindersFragment_to_reminderTrackerFragment);
-                    });
-                    return true;
-                });
 
                 materialCardView.setOnClickListener(listener -> {
                     toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);
@@ -344,32 +318,6 @@ public class RemindersFragment extends Fragment {
         if(getActivity().getLocalClassName().equals("MainActivity")) {
             materialCardView.setOnLongClickListener(v -> {
                 MaterialToolbar toolbar = getActivity().findViewById(R.id.toolbar);
-                binding.remindersContainer.setOnTouchListener((v1, event) -> {
-                    toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);
-                    toolbar.getMenu().findItem(R.id.action_update).setVisible(false);
-                    toolbar.getMenu().findItem(R.id.action_cancel).setVisible(false);
-                    toolbar.getMenu().findItem(R.id.action_abouts).setVisible(true);
-                    toolbar.getMenu().findItem(R.id.action_settings).setVisible(true);
-
-                    materialCardView.setOnClickListener(reset -> {
-                        ReminderTrackerViewModel viewModel = new ViewModelProvider(requireActivity()).get(ReminderTrackerViewModel.class);
-                        viewModel.reminderName.setValue(reminder.reminderName);
-                        viewModel.reminderNo.setValue(reminder.reminderNo);
-                        viewModel.reminderTime.setValue(reminder.time);
-                        viewModel.reminderType.setValue(reminder.reminderType);
-                        viewModel.reminderDose.setValue(reminder.dose);
-                        viewModel.isRepeated.setValue(reminder.isRepeated);
-
-                        //TODO: NEED TO NAVIGATE TO THE UPDATE REMINDER FRAGMENT
-
-                        Snackbar.make(getView(), reminderName.getText(), Snackbar.LENGTH_SHORT)
-                                .show();
-
-                        NavHostFragment.findNavController(RemindersFragment.this)
-                                .navigate(R.id.action_remindersFragment_to_reminderTrackerFragment);
-                    });
-                    return true;
-                });
 
                 materialCardView.setOnClickListener(listener -> {
                     toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);
