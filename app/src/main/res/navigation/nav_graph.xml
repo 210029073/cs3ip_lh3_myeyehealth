@@ -167,6 +167,9 @@
         <action
             android:id="@+id/action_remindersFragment_to_reminderTrackerFragment"
             app:destination="@id/reminderTrackerFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_updateReminders"
+            app:destination="@id/updateReminders" />
     </fragment>
     <fragment
         android:id="@+id/addReminderFragment"
@@ -235,4 +238,9 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <fragment
+        android:id="@+id/updateReminders"
+        android:name="uk.ac.aston.ip.myeyehealth.reminders.UpdateReminders"
+        android:label="fragment_update_reminders"
+        tools:layout="@layout/fragment_update_reminders" />
 </navigation>

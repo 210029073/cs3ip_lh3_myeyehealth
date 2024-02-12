@@ -296,7 +296,7 @@ public class RemindersFragment extends Fragment {
 
         LinearLayout linearLayout = new LinearLayout(getContext());
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-
+        int id = reminder.reminderNo;
         reminderName.setText(reminder.reminderName);
         reminderName.setTextSize(16);
 //                reminderName.setTextAppearance(R.style.TextAppearance_AppCompat_Headline);
@@ -401,6 +401,21 @@ public class RemindersFragment extends Fragment {
                 toolbar.getMenu().findItem(R.id.action_delete).setVisible(true);
                 setDeleteAction(toolbar.getMenu().findItem(R.id.action_delete), reminder, reminder.reminderNo);
                 toolbar.getMenu().findItem(R.id.action_update).setVisible(true);
+                toolbar.getMenu().findItem(R.id.action_update).setOnMenuItemClickListener(item -> {
+                    UpdateRemindersViewModel updateRemindersViewModel = new ViewModelProvider(requireActivity())
+                            .get(UpdateRemindersViewModel.class);
+                    updateRemindersViewModel.setReminderName(reminder.reminderName);
+                    updateRemindersViewModel.setReminderType(reminder.reminderType);
+                    updateRemindersViewModel.setDose(reminder.dose);
+                    updateRemindersViewModel.setTime(reminder.time);
+
+                    updateRemindersViewModel.setReminderId(id);
+                    updateRemindersViewModel.setRepeated(reminder.isRepeated);
+
+                    NavHostFragment.findNavController(RemindersFragment.this)
+                            .navigate(R.id.action_remindersFragment_to_updateReminders);
+                    return true;
+                });
                 toolbar.getMenu().findItem(R.id.action_cancel).setVisible(true);
                 toolbar.getMenu().findItem(R.id.action_cancel).setOnMenuItemClickListener(item -> {
                     toolbar.getMenu().findItem(R.id.action_delete).setVisible(false);

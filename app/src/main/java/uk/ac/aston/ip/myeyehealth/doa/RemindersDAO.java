@@ -2,6 +2,7 @@ package uk.ac.aston.ip.myeyehealth.doa;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
+import androidx.room.Entity;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -23,7 +24,7 @@ public interface RemindersDAO {
     void addAllReminders(Reminders ... r);
 
     @Update
-    void updateReminder(Reminders old, Reminders updated);
+    void updateReminder(Reminders updated);
 
     @Delete
     void deleteReminder(Reminders candidate);
