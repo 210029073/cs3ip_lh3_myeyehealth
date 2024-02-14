@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -101,6 +102,13 @@ public class AddReminderFragment extends Fragment {
                 }
             });
 
+        });
+        binding.txtReminderTypeUnit.setEnabled(false);
+        binding.txtReminderTypeList.setOnDismissListener(() -> {
+            ReminderTypeMap reminderTypeMap = new ReminderTypeMap();
+            binding.txtReminderTypeUnit.setEnabled(true);
+            binding.txtReminderTypeUnit.getEditText().setText(reminderTypeMap.getMedicationUnit(binding.txtReminderTypeList.getText().toString()));
+            binding.txtReminderTypeUnit.setEnabled(false);
         });
 
         binding.btnSubmit.setOnClickListener(listener -> {

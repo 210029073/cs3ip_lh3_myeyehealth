@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             Reminders reminder = MyEyeHealthDatabase.getInstance(getApplicationContext()).remindersDAO().findRemindersById(medicationLog.remindersNo);
             //check if it has not been taken, and the time is five minutes before actual time
             long time = reminder.time;
-            long fiveMinTime = LocalTime.ofNanoOfDay(time).minus(Calendar.MINUTE - 5, ChronoUnit.MINUTES).toNanoOfDay();
+            long fiveMinTime = LocalTime.ofNanoOfDay(time).minus(5, ChronoUnit.MINUTES).toNanoOfDay();
             if(!medicationLog.isMedicationTaken && LocalTime.now().toNanoOfDay() > fiveMinTime &&
             LocalTime.now().toNanoOfDay() < time) {
                 //then create a notification prompt
