@@ -64,78 +64,84 @@ public class RemindersFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        prepareMedicationRemindersLog();
 
-        binding.btnViewReminders.setOnClickListener(v -> {
-            Navigation.findNavController(getView())
-                    .navigate(R.id.action_remindersFragment_to_showAllRemindersFragment);
-        });
-        if(getActivity().getLocalClassName().equals("MainActivity")) {
-            view.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
-                @Override
-                public void onViewAttachedToWindow(@NonNull View v) {
-
-                }
-
-                @Override
-                public void onViewDetachedFromWindow(@NonNull View v) {
-                    hideReminderOptionsFromAppBar();
-                }
-            });
+        List<Reminders> reminders1 = MyEyeHealthDatabase.getInstance(getContext()).remindersDAO().getAll();
+        if(reminders1.size() < 1) {
+            binding.remindersContainer.setVisibility(View.GONE);
+            binding.noRemindersMsg.setVisibility(View.VISIBLE);
         }
 
-        //TODO: Create the local database using android room
-        MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
-        List<Reminders> reminders = database.remindersDAO().getAll();
-        Instant date = Instant.ofEpochSecond(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-        long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
-        long today = LocalDate.now().toEpochDay();
-        List<MedicationLog> remindersTaken = database.remindersDAO().findRemindersTakenToday(today);
-        Log.i("remindersTaken", "onViewCreated: " + remindersTaken.size());
+        else {
 
-        if(reminders.size() > 0) {
-            binding.tmpPlaceholderMsg.setVisibility(View.INVISIBLE);
-            binding.tmpPlaceholderMsg1.setVisibility(View.INVISIBLE);
-            //keep track of the list
-            ArrayList<Integer> addedReminder = new ArrayList<>();
-            for(Reminders reminder : reminders) {
-                boolean hasTaken = false;
-                for(MedicationLog reminderTaken : remindersTaken) {
-                    Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
-                    Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
-                    if(!reminderTaken.isMedicationTaken && reminderTaken.remindersNo == reminder.reminderNo) {
-                        addedReminder.add(reminder.reminderNo);
+            prepareMedicationRemindersLog();
+
+            binding.btnViewReminders.setOnClickListener(v -> {
+                Navigation.findNavController(getView())
+                        .navigate(R.id.action_remindersFragment_to_showAllRemindersFragment);
+            });
+            if (getActivity().getLocalClassName().equals("MainActivity")) {
+                view.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                    @Override
+                    public void onViewAttachedToWindow(@NonNull View v) {
+
                     }
-                }
+
+                    @Override
+                    public void onViewDetachedFromWindow(@NonNull View v) {
+                        hideReminderOptionsFromAppBar();
+                    }
+                });
+            }
+
+            //TODO: Create the local database using android room
+            MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
+            List<Reminders> reminders = database.remindersDAO().getAll();
+            Instant date = Instant.ofEpochSecond(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
+            long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
+            long today = LocalDate.now().toEpochDay();
+            List<MedicationLog> remindersTaken = database.remindersDAO().findRemindersTakenToday(today);
+            Log.i("remindersTaken", "onViewCreated: " + remindersTaken.size());
+
+            if (reminders.size() > 0) {
+                binding.tmpPlaceholderMsg.setVisibility(View.INVISIBLE);
+                //keep track of the list
+                ArrayList<Integer> addedReminder = new ArrayList<>();
+                for (Reminders reminder : reminders) {
+                    boolean hasTaken = false;
+                    for (MedicationLog reminderTaken : remindersTaken) {
+                        Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
+                        Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
+                        if (!reminderTaken.isMedicationTaken && reminderTaken.remindersNo == reminder.reminderNo) {
+                            addedReminder.add(reminder.reminderNo);
+                        }
+                    }
 
 //                binding.listRemindersAll.addView(generateReminderCardsForDailyMedication(reminder));
-                if(addedReminder.contains(reminder.reminderNo)) {
-                    //TODO: Use recycler view.
-                    //TODO: Need to do this via xml and duplicate the element to make it easy to control the dimensions
-                    binding.tmpPlaceholderMsg.setVisibility(View.INVISIBLE);
-                    MaterialCardView materialCardView = generateReminderCardsForDailyMedicationIntake(reminder);
+                    if (addedReminder.contains(reminder.reminderNo)) {
+                        //TODO: Use recycler view.
+                        //TODO: Need to do this via xml and duplicate the element to make it easy to control the dimensions
+                        binding.tmpPlaceholderMsg.setVisibility(View.INVISIBLE);
+                        MaterialCardView materialCardView = generateReminderCardsForDailyMedicationIntake(reminder);
 
-                    binding.listReminders.addView(materialCardView);
+                        binding.listReminders.addView(materialCardView);
+                    } else {
+                        binding.tmpPlaceholderMsg.setVisibility(View.VISIBLE);
+                        binding.tmpPlaceholderMsg.setText("You have checked all your medications.\nYour Done for the Day");
+                    }
                 }
-
-                else {
-                    binding.tmpPlaceholderMsg.setVisibility(View.VISIBLE);
-                    binding.tmpPlaceholderMsg.setText("You have checked all your medications.\nYour Done for the Day");
-                }
+            } else {
+                binding.tmpPlaceholderMsg.setVisibility(View.VISIBLE);
+                binding.tmpPlaceholderMsg.setText("You currently have no medication.\nAdd a medication reminder to see them here...");
             }
-        }
-        else {
-            binding.tmpPlaceholderMsg.setVisibility(View.VISIBLE);
-            binding.tmpPlaceholderMsg1.setVisibility(View.VISIBLE);
-            binding.tmpPlaceholderMsg.setText("You currently have no medication.\nAdd a medication reminder to see them here...");
-        }
 
+        }
 
         binding.addReminderActionBtn.setOnClickListener(click -> {
             NavHostFragment.findNavController(RemindersFragment.this)
                     .navigate(R.id.action_remindersFragment_to_addReminderFragment);
         });
     }
+
 
     @NonNull
     private MaterialCardView generateReminderCardsForDailyMedicationIntake(Reminders reminder) {

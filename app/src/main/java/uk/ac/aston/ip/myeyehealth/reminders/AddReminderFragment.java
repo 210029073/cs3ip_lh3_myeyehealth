@@ -141,6 +141,7 @@ public class AddReminderFragment extends Fragment {
                 reminder.reminderName = medicationName.get();
                 reminder.reminderType = medicationType.get();
                 reminder.dose = medicationDose.get();
+                reminder.isRepeated = binding.checkboxIsRepeat.isChecked();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     reminder.time = LocalTime.of(hour.get(), minute.get()).toNanoOfDay();
                 }

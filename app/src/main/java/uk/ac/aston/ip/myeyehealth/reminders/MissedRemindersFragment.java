@@ -73,15 +73,15 @@ public class MissedRemindersFragment extends Fragment {
         HashMap<LocalDate, List<MedicationLog>> visitedMissedReminders = new HashMap<>();
 
         for (MedicationLog medicationLog : remindersTaken) {
-            if(!medicationLog.isMedicationTaken) {
-                    Reminders reminder = database.remindersDAO().findRemindersById(medicationLog.remindersNo);
-                    MissedReminder missedReminder =
-                            new MissedReminder(reminder.reminderNo, reminder.reminderName, reminder.reminderType, reminder.dose, medicationLog.medicationTimeTaken, reminder.isRepeated);
-                    tmp.add(missedReminder);
+            if (!medicationLog.isMedicationTaken) {
+                Reminders reminder = database.remindersDAO().findRemindersById(medicationLog.remindersNo);
+                MissedReminder missedReminder =
+                        new MissedReminder(reminder.reminderNo, reminder.reminderName, reminder.reminderType, reminder.dose, medicationLog.medicationTimeTaken, reminder.isRepeated);
+                tmp.add(missedReminder);
             }
         }
 
-        Log.d("missed reminders", ""+tmp.size());
+        Log.d("missed reminders", "" + tmp.size());
 //        for(Map.Entry<LocalDate, List<Integer>> entry : visitedRemindersMap.entrySet()) {
 //            for(Reminders reminder : reminders) {
 //                if(!entry.getValue().contains(reminder.reminderNo)) {
@@ -94,8 +94,6 @@ public class MissedRemindersFragment extends Fragment {
 //        }
 
         // Now visitedRemindersMap contains the mapping of reminder dates to lists of reminder numbers
-
-
 
 
 //        for(MedicationLog medicationLog : remindersTaken) {
@@ -121,9 +119,15 @@ public class MissedRemindersFragment extends Fragment {
 //
 //        }
 
-        RecyclerView recyclerView = view.findViewById(R.id.reminders_list_recycler_view);
-        recyclerView.setAdapter(new ListMissedRemindersAdapter(tmp));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (tmp.size() < 1) {
+            binding.remindersListRecyclerView.setVisibility(View.GONE);
+            binding.noRemindersMsg.setVisibility(View.VISIBLE);
+        } else {
+            RecyclerView recyclerView = view.findViewById(R.id.reminders_list_recycler_view);
+            recyclerView.setAdapter(new ListMissedRemindersAdapter(tmp));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        }
     }
 
     @Override

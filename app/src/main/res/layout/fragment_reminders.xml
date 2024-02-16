@@ -18,26 +18,37 @@
         android:src="@drawable/baseline_add_24_white"
         />
 
+    <TextView
+        android:id="@+id/no_reminders_msg"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="There is currently no reminders. Press + to add a reminder."
+        />
+
     <ScrollView
         android:id="@+id/reminders_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <LinearLayout
                 android:id="@+id/list_reminders"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="50dp"
                 android:orientation="vertical"
                 android:visibility="visible"
-                app:layout_constraintBottom_toTopOf="@id/list_reminders_all"
+                app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="10dp"
                 app:layout_constraintVertical_bias="0.0">
 
                 <TextView
@@ -69,7 +80,12 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:visibility="visible"
+                android:layout_marginTop="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/list_reminders"
@@ -81,18 +97,6 @@
                     android:layout_margin="10dp"
                     android:text="Your Reminders"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-
-                <TextView
-                    android:id="@+id/tmp_placeholder_msg_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="There is currently no reminders.\nPress + to add a reminder to see them here."
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toTopOf="@id/add_reminder_action_btn"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -101,15 +105,16 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-
+                android:layout_gravity="center"
                 android:text="Manage Reminders"
                 android:padding="5dp"
+                android:layout_margin="10dp"
                 app:icon="@drawable/medication_64"
                 app:iconGravity="top"
                 app:iconSize="36dp"
                 android:textSize="16dp"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
     </ScrollView>
 </FrameLayout>
