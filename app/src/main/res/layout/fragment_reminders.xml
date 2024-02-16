@@ -95,7 +95,21 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_view_reminders"
+                app:layout_constraintTop_toBottomOf="@id/list_reminders_all"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
 
+                android:text="Manage Reminders"
+                android:padding="5dp"
+                app:icon="@drawable/medication_64"
+                app:iconGravity="top"
+                app:iconSize="36dp"
+                android:textSize="16dp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>

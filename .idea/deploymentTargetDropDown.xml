@@ -8,12 +8,6 @@
       <entry key="MedicationRemindersIntegrationTest">
         <State />
       </entry>
-      <entry key="MedicationRemindersTest">
-        <State />
-      </entry>
-      <entry key="MissedMedicationRemindersTest">
-        <State />
-      </entry>
       <entry key="app">
         <State>
           <targetSelectedWithDropDown>
@@ -22,16 +16,13 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Ibrahim Ahmad\.android\avd\S20_Plus_API_34.avd" />
+                  <value value="C:\Users\Ibrahim Ahmad\.android\avd\Pixel_4_API_26.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-02-07T12:59:52.914945900Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-02-16T11:40:40.243636800Z" />
         </State>
-      </entry>
-      <entry key="runAddMedicationReminders()">
-        <State />
       </entry>
     </value>
   </component>

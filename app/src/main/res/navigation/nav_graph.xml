@@ -170,6 +170,9 @@
         <action
             android:id="@+id/action_remindersFragment_to_updateReminders"
             app:destination="@id/updateReminders" />
+        <action
+            android:id="@+id/action_remindersFragment_to_showAllRemindersFragment"
+            app:destination="@id/showAllRemindersFragment" />
     </fragment>
     <fragment
         android:id="@+id/addReminderFragment"
@@ -243,4 +246,28 @@
         android:name="uk.ac.aston.ip.myeyehealth.reminders.UpdateReminders"
         android:label="fragment_update_reminders"
         tools:layout="@layout/fragment_update_reminders" />
+    <fragment
+        android:id="@+id/showAllRemindersFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.ShowAllRemindersFragment"
+        android:label="fragment_show_all_reminders"
+        tools:layout="@layout/fragment_show_all_reminders" >
+        <action
+            android:id="@+id/action_showAllRemindersFragment_to_reminderTrackerFragment"
+            app:destination="@id/reminderTrackerFragment" />
+        <action
+            android:id="@+id/action_showAllRemindersFragment_to_manageRemindersFragment"
+            app:destination="@id/manageRemindersFragment" />
+        <action
+            android:id="@+id/action_showAllRemindersFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageRemindersFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.reminders.ManageRemindersFragment"
+        android:label="fragment_manage_reminders"
+        tools:layout="@layout/fragment_manage_reminders" >
+        <action
+            android:id="@+id/action_manageRemindersFragment_to_updateReminders"
+            app:destination="@id/updateReminders" />
+    </fragment>
 </navigation>

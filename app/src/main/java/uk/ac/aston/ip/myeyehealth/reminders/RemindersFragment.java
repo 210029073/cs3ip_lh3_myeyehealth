@@ -66,6 +66,10 @@ public class RemindersFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         prepareMedicationRemindersLog();
 
+        binding.btnViewReminders.setOnClickListener(v -> {
+            Navigation.findNavController(getView())
+                    .navigate(R.id.action_remindersFragment_to_showAllRemindersFragment);
+        });
         if(getActivity().getLocalClassName().equals("MainActivity")) {
             view.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
                 @Override
@@ -104,7 +108,7 @@ public class RemindersFragment extends Fragment {
                     }
                 }
 
-                binding.listRemindersAll.addView(generateReminderCardsForDailyMedication(reminder));
+//                binding.listRemindersAll.addView(generateReminderCardsForDailyMedication(reminder));
                 if(addedReminder.contains(reminder.reminderNo)) {
                     //TODO: Use recycler view.
                     //TODO: Need to do this via xml and duplicate the element to make it easy to control the dimensions
