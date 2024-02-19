@@ -108,7 +108,7 @@ public class TumblingETestFragment extends Fragment {
     private int[] randomManipulateE() {
         Random random = new Random();
         int[] randomRotate = {0, 90, 180, 270, 360};
-        int[] randomSize = {8, 16, 32, 64, 128};
+        int[] randomSize = {96, 192, 288, 384, 480};
         int letterEAngleRotation = randomRotate[random.nextInt(randomRotate.length - 1)];
         int letterESize = randomSize[random.nextInt(randomSize.length - 1)];
 
