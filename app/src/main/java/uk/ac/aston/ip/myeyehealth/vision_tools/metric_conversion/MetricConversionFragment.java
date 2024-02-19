@@ -108,11 +108,18 @@ public class MetricConversionFragment extends Fragment {
                     testScoreOutput.setText(testScoreOutputStr.getValue());
                 }
                 else {
-                    testingDistance.setValue(Integer.parseInt(binding.testingDistance.getEditText().getText().toString()));
-                    int testDistanceFeet = (int) Integer.valueOf(testingDistance.getValue() * 10/3);
-                    int distanceFeet = (int) Integer.valueOf(distance.getValue() * 10/3);
-                    testScoreOutputStr.setValue(testDistanceFeet + "/" + distanceFeet);
-                    testScoreOutput.setText(testScoreOutputStr.getValue());
+                    try {
+                        testingDistance.setValue(Integer.parseInt(binding.testingDistance.getEditText().getText().toString()));
+                        int distanceFeet = Integer.valueOf(distance.getValue() / (10 / 3));
+                        int testDistanceFeet = Integer.valueOf(testingDistance.getValue() / (10 / 3));
+                        testScoreOutputStr.setValue(testDistanceFeet + "/" + distanceFeet);
+                        testScoreOutput.setText(testScoreOutputStr.getValue());
+                    }
+
+                    catch (NumberFormatException e) {
+                        int distanceFeet = Integer.valueOf(distance.getValue() / (10 / 3));
+                        testScoreOutputStr.setValue(0 + "/" + distanceFeet);
+                    }
                 }
             }
 
@@ -130,15 +137,22 @@ public class MetricConversionFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.equals("")) {
+                if(s == null || s.equals("")) {
                     testScoreOutputStr.setValue(testingDistance.getValue() + "/" + 0);
                 }
                 else {
-                    distance.setValue(Integer.parseInt(binding.distance.getEditText().getText().toString()));
-                    int testDistanceFeet = (int) Integer.valueOf(testingDistance.getValue() * 10/3);
-                    int distanceFeet = (int) Integer.valueOf(distance.getValue() * 10/3);
-                    testScoreOutputStr.setValue(testDistanceFeet + "/" + distanceFeet);
-                    testScoreOutput.setText(testScoreOutputStr.getValue());
+                    try {
+                        distance.setValue(Integer.parseInt(binding.distance.getEditText().getText().toString()));
+                        int testDistanceFeet = Integer.valueOf(testingDistance.getValue() / (10/3)*10);
+                        int distanceFeet = Integer.valueOf(distance.getValue() / (10/3)*10);
+                        testScoreOutputStr.setValue(testDistanceFeet + "/" + distanceFeet);
+                        testScoreOutput.setText(testScoreOutputStr.getValue());
+                    }
+                    catch (NumberFormatException e) {
+                        int testDistanceFeet = Integer.valueOf(testingDistance.getValue() / 1/3);
+                        testScoreOutputStr.setValue(testDistanceFeet + "/" + 0);
+                        testScoreOutput.setText(testScoreOutputStr.getValue());
+                    }
                 }
             }
 

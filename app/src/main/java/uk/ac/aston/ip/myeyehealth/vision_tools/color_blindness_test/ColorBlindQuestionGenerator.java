@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 import uk.ac.aston.ip.myeyehealth.R;
 
@@ -23,7 +23,7 @@ public class ColorBlindQuestionGenerator {
     private void performHouseKeeping() {
         colorBlindQuestions.put("12", R.drawable.color_vision_12);
         colorBlindQuestions.put("8", R.drawable.color_vision_8);
-        colorBlindQuestions.put("9", R.drawable.color_vision_9);
+        colorBlindQuestions.put("6", R.drawable.color_vision_6);
         colorBlindQuestions.put("15", R.drawable.color_vision_15);
         colorBlindQuestions.put("3", R.drawable.color_vision_3);
         colorBlindQuestions.put("5", R.drawable.color_vision_5);
@@ -74,6 +74,17 @@ public class ColorBlindQuestionGenerator {
 
         return null;
     }
+
+    public void removeKeyPair(int value) {
+        AtomicReference<String> key = new AtomicReference<>("");
+        colorBlindQuestions.entrySet().forEach(stringIntegerEntry -> {
+            if(stringIntegerEntry.getValue().intValue() == value) {
+                key.set(stringIntegerEntry.getKey());
+            }
+        });
+        colorBlindQuestions.remove(key, value);
+    }
+
 
     public int generateRandomCombination() {
         return random.nextInt(100);

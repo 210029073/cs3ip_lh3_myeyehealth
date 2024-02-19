@@ -18,6 +18,7 @@ import android.widget.Button;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import uk.ac.aston.ip.myeyehealth.R;
@@ -29,6 +30,8 @@ public class ColorBlindnessTest extends Fragment {
 
     private FragmentColorBlindnessTestBinding binding;
 
+    //Stores the type of numbers accessed
+    private ArrayList<String> combinationsAccessed;
     public static ColorBlindnessTest newInstance() {
         return new ColorBlindnessTest();
     }
@@ -39,6 +42,7 @@ public class ColorBlindnessTest extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentColorBlindnessTestBinding.inflate(inflater, container, false);
+        this.combinationsAccessed = new ArrayList<>();
         return binding.getRoot();
     }
 
@@ -64,6 +68,7 @@ public class ColorBlindnessTest extends Fragment {
                     mViewModel.score.setValue(tmp);
                 }
                 mViewModel.numberOfTries.setValue(mViewModel.getNumberOfTries() + 1);
+                colorBlindQuestionGenerator.removeKeyPair(this.imageResource);
                 generateRandomQuestion(colorBlindQuestionGenerator);
                 Log.d("ColorBlindTest", "onViewCreated: " + mViewModel.getScore());
 
@@ -77,6 +82,7 @@ public class ColorBlindnessTest extends Fragment {
                     mViewModel.score.setValue(tmp);
                 }
                 mViewModel.numberOfTries.setValue(mViewModel.getNumberOfTries() + 1);
+                colorBlindQuestionGenerator.removeKeyPair(this.imageResource);
                 generateRandomQuestion(colorBlindQuestionGenerator);
                 Log.d("ColorBlindTest", "onViewCreated: " + mViewModel.getScore());
 
@@ -90,6 +96,7 @@ public class ColorBlindnessTest extends Fragment {
                     mViewModel.score.setValue(tmp);
                 }
                 mViewModel.numberOfTries.setValue(mViewModel.getNumberOfTries() + 1);
+                colorBlindQuestionGenerator.removeKeyPair(this.imageResource);
                 generateRandomQuestion(colorBlindQuestionGenerator);
                 Log.d("ColorBlindTest", "onViewCreated: " + mViewModel.getScore());
 
@@ -103,6 +110,7 @@ public class ColorBlindnessTest extends Fragment {
                     mViewModel.score.setValue(tmp);
                 }
                 mViewModel.numberOfTries.setValue(mViewModel.getNumberOfTries() + 1);
+                colorBlindQuestionGenerator.removeKeyPair(this.imageResource);
                 generateRandomQuestion(colorBlindQuestionGenerator);
                 Log.d("ColorBlindTest", "onViewCreated: " + mViewModel.getScore());
             });
@@ -139,6 +147,11 @@ public class ColorBlindnessTest extends Fragment {
                     Button button = (Button) view1.getChildAt(i);
                         if(view1.getChildAt(i).getId() == button_ids[chosenId]) {
                             button.setText(colorBlindQuestionGenerator.findKey(this.imageResource));
+
+                            if(this.combinationsAccessed.contains(colorBlindQuestionGenerator.findKey(this.imageResource))) {
+                                button.setText(colorBlindQuestionGenerator.findKey(this.imageResource));
+                            }
+                            this.combinationsAccessed.add(colorBlindQuestionGenerator.findKey(this.imageResource));
                         }
 
                         else {
