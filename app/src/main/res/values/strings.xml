@@ -9,6 +9,10 @@
     <string name="fragment_vision_tools">Vision Tools</string>
     <string name="fragment_metric_conversion_label">Metric Conversion</string>
     <string name="fragment_tumbling_e_label">Tumbling E Test</string>
+    <string name="fragment_color_blind_test">Isihara Color Blind Test</string>
+    <string name="fragment_test_results">Test Summary</string>
+    <string name="fragment_past_test_results">Past Test Results</string>
+    <string name="fragment_medication_reminders">Your Reminders</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 

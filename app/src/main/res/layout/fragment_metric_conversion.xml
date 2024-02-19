@@ -4,19 +4,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".vision_tools.metric_conversion.MetricConversionFragment">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:hint="Visual Acuity Score (metres)"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Visual Acuity in Metres"
+        android:textSize="24dp"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="10dp"
+        android:id="@+id/testing_distance"
+        android:layout_width="match_parent"
+        android:hint="Testing Distance (metres)"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.slider.RangeSlider
+<!--        <com.google.android.material.slider.RangeSlider-->
+<!--            android:layout_width="match_parent"-->
+<!--            style="@style/Theme.MyEyeHealth.Slider"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            />-->
+        <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
-            style="@style/Theme.MyEyeHealth.Slider"
             android:layout_height="wrap_content"
-            />
+            android:inputType="number"/>
+
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/distance"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:hint="Distance (metres)"
+        android:layout_height="wrap_content">
+
+        <!--        <com.google.android.material.slider.RangeSlider-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            style="@style/Theme.MyEyeHealth.Slider"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            />-->
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- May need to provide options in a list view for converting units -->
+    <!-- Into either feet or metres -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Visual Acuity Score in Feet"
+                android:textSize="24dp"
+                />
+
+            <TextView
+                android:id="@+id/visual_acuity_Score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="0/0"
+                android:textStyle="bold"
+                android:textSize="28dp"
+                />
+    </LinearLayout>
 </LinearLayout>

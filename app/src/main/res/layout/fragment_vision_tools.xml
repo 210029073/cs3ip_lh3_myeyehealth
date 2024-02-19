@@ -76,13 +76,13 @@
 
 
                     <ImageView
-                        android:tint="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="72dp"
                         android:layout_gravity="top"
                         android:layout_marginTop="35dp"
                         android:layout_marginBottom="15dp"
-                        android:src="@drawable/palette_512"/>
+                        android:src="@drawable/palette_512"
+                        app:tint="@color/white" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -184,7 +184,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/option_metric_conversionb"
                     app:cardCornerRadius="25dp"
-                    app:cardBackgroundColor="@color/darkBlue"
+                    app:cardBackgroundColor="@color/yellow"
                     android:layout_weight=".50"
                     android:layout_width="0dp"
                     android:layout_height="200dp"

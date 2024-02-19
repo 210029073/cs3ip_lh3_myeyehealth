@@ -216,8 +216,8 @@
     <fragment
         android:id="@+id/testScoreFragment"
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TestScoreFragment"
-        android:label="fragment_test_score"
-        tools:layout="@layout/fragment_test_score" >
+        android:label="@string/fragment_past_test_results"
+        tools:layout="@layout/fragment_test_score">
         <action
             android:id="@+id/action_testScoreFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -225,8 +225,8 @@
     <fragment
         android:id="@+id/colorBlindnessTest"
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindnessTest"
-        android:label="fragment_color_blindness_test"
-        tools:layout="@layout/fragment_color_blindness_test" >
+        android:label="@string/fragment_color_blind_test"
+        tools:layout="@layout/fragment_color_blindness_test">
         <action
             android:id="@+id/action_colorBlindnessTest_to_colorBlindnessTestScore2"
             app:destination="@id/colorBlindnessTestScore2" />
@@ -234,23 +234,23 @@
     <fragment
         android:id="@+id/colorBlindnessTestScore2"
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindnessTestScore"
-        android:label="fragment_color_blindness_test_score2"
-        tools:layout="@layout/fragment_color_blindness_test_score2" >
+        android:label="@string/fragment_test_results"
+        tools:layout="@layout/fragment_color_blindness_test_score2">
         <argument
             android:name="score"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/updateReminders"
         android:name="uk.ac.aston.ip.myeyehealth.reminders.UpdateReminders"
-        android:label="fragment_update_reminders"
+        android:label="Update Reminder"
         tools:layout="@layout/fragment_update_reminders" />
     <fragment
         android:id="@+id/showAllRemindersFragment"
         android:name="uk.ac.aston.ip.myeyehealth.ShowAllRemindersFragment"
-        android:label="fragment_show_all_reminders"
-        tools:layout="@layout/fragment_show_all_reminders" >
+        android:label="@string/fragment_medication_reminders"
+        tools:layout="@layout/fragment_show_all_reminders">
         <action
             android:id="@+id/action_showAllRemindersFragment_to_reminderTrackerFragment"
             app:destination="@id/reminderTrackerFragment" />
