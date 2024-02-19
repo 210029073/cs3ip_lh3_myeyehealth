@@ -1,79 +1,257 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".VisionToolsFragment">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/option_tumbling_e"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:clickable="true"
-            android:focusable="true"
-            tools:ignore="MissingConstraints">
-
-            <TextView
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="true"
-                android:padding="20dp"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:shadowColor="#959595"
-                android:text="Tumbling E Test" />
-        </com.google.android.material.card.MaterialCardView>
+                android:orientation="horizontal"
+                android:id="@+id/card_container_primary"
+                android:padding="5dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/option_color_blindness_test"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:clickable="true"
-            android:focusable="true"
-            tools:ignore="MissingConstraints">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/option_tumbling_e"
+                    android:layout_weight=".50"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="25dp"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="true"
+                    app:cardBackgroundColor="@color/darkBlue"
+                    android:focusable="true"
+                    tools:ignore="MissingConstraints">
 
-            <TextView
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:padding="20dp"
+                        android:textSize="72dp"
+                        android:layout_gravity="top"
+                        android:textStyle="bold"
+                        android:shadowColor="#959595"
+                        android:text="E"
+                        android:textAlignment="center"
+                        tools:ignore="RtlCompat" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:padding="20dp"
+                        android:layout_gravity="bottom"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:shadowColor="#959595"
+                        android:text="Tumbling E Test" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    app:cardBackgroundColor="@color/yellow"
+                    android:id="@+id/option_color_blindness_test"
+                    app:cardCornerRadius="25dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    tools:ignore="MissingConstraints">
+
+
+                    <ImageView
+                        android:tint="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/palette_512"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:layout_gravity="bottom"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:padding="20dp"
+                        android:shadowColor="#959595"
+                        android:text="Color Blind Test" />
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/card_container_secondary"
                 android:layout_width="match_parent"
+                android:orientation="horizontal"
                 android:layout_height="wrap_content"
-                android:focusable="true"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:padding="20dp"
-                android:shadowColor="#959595"
-                android:text="Color Blindness Test" />
-        </com.google.android.material.card.MaterialCardView>
+                android:padding="5dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/option_metric_conversion"
+                    app:cardCornerRadius="25dp"
+                    android:layout_weight=".50"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="@color/green"
+                    tools:ignore="MissingConstraints">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/option_metric_conversion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:clickable="true"
-            android:focusable="true"
-            tools:ignore="MissingConstraints">
+                    <ImageView
+                        app:tint="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/ruler_vertical_7931249"/>
 
-            <TextView
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:layout_gravity="bottom"
+                        android:padding="20dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:shadowColor="#959595"
+                        android:text="Metric Conversion" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/option_metric_conversiona"
+                    app:cardCornerRadius="25dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardBackgroundColor="@color/red"
+                    android:clickable="true"
+                    android:focusable="true"
+                    tools:ignore="MissingConstraints">
+
+                    <ImageView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"
+                        app:tint="@color/white"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/wishlist_heart_24"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:focusable="true"
+                        android:layout_gravity="bottom"
+                        android:padding="20dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:shadowColor="#959595"
+                        android:text="Record Blood Pressure" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/card_container_third"
                 android:layout_width="match_parent"
+                android:orientation="horizontal"
                 android:layout_height="wrap_content"
-                android:focusable="true"
-                android:padding="20dp"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:shadowColor="#959595"
-                android:text="Metric Conversion" />
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+                android:padding="5dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/option_metric_conversionb"
+                    app:cardCornerRadius="25dp"
+                    app:cardBackgroundColor="@color/darkBlue"
+                    android:layout_weight=".50"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        app:tint="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/medication_64" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:layout_gravity="bottom"
+                        android:padding="20dp"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:shadowColor="#959595"
+                        android:text="View Blood Pressure" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/option_metric_conversionc"
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="200dp"
+                    android:layout_margin="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    tools:ignore="MissingConstraints">
+
+                    <ImageView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"
+                        android:layout_gravity="top"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/medication_64"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:layout_gravity="bottom"
+                        android:padding="20dp"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:shadowColor="#959595"
+                        android:text="PLACEHOLDER" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>
