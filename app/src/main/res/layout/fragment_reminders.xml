@@ -99,22 +99,46 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_view_reminders"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/list_reminders_all"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_gravity="center"
-                android:text="Manage Reminders"
-                android:padding="5dp"
-                android:layout_margin="10dp"
-                app:icon="@drawable/medication_64"
-                app:iconGravity="top"
-                app:iconSize="36dp"
-                android:textSize="16dp"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_view_reminders"
+
+                    android:layout_gravity="center"
+                    android:text="Manage Reminders"
+                    android:layout_margin="10dp"
+                    app:cornerRadius="25dp"
+                    app:icon="@drawable/medication_64"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    android:textSize="16dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="match_parent"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_view_reminders_history"
+
+                    android:layout_gravity="center"
+                    android:text="Reminder History"
+                    android:layout_margin="10dp"
+                    app:icon="@drawable/medication_64"
+                    app:iconGravity="top"
+                    app:iconSize="36dp"
+                    app:cornerRadius="25dp"
+                    android:textSize="16dp"
+                    android:layout_width="0dp"
+                    android:layout_weight=".50"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
             </LinearLayout>
     </ScrollView>
 </FrameLayout>

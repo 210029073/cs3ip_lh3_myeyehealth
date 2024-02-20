@@ -74,15 +74,16 @@ public class ListRemindersAdapter extends RecyclerView.Adapter<ListRemindersAdap
     @Override
     public void onBindViewHolder(@NonNull RemindersListViewHolder holder, int position) {
         holder.getId().setText(String.valueOf(remindersList.get(position).reminderNo));
-        holder.getReminderName().setText("Medication Name:\t"+remindersList.get(position).reminderName);
-        if(remindersList.get(position).reminderType.equalsIgnoreCase("Eye Drops")) {
-            holder.getReminderType().setText("Reminder Type: "+remindersList.get(position).reminderType);
+        holder.getReminderName().setText(remindersList.get(position).reminderName);
+        if(remindersList.get(position).reminderType.equalsIgnoreCase("Eye Drops") ||
+                remindersList.get(position).reminderType.equalsIgnoreCase("Eye Gel")) {
+            holder.getReminderType().setText(remindersList.get(position).reminderType);
             String doseAndUnit = remindersList.get(position).dose+" drops";
             holder.getReminderDose().setText("Dose: " + doseAndUnit);
 
         }
         else {
-            holder.getReminderType().setText("Reminder Type: " + remindersList.get(position).reminderType);
+            holder.getReminderType().setText(remindersList.get(position).reminderType);
             holder.getReminderDose().setText("Dose: " + String.valueOf(remindersList.get(position).dose));
         }
         holder.getReminderTimeAMPM().setText("Time: " + String.valueOf(LocalTime.ofNanoOfDay(remindersList.get(position).time)));
