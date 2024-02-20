@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -110,14 +112,14 @@ public class MetricConversionFragment extends Fragment {
                 else {
                     try {
                         testingDistance.setValue(Integer.parseInt(binding.testingDistance.getEditText().getText().toString()));
-                        int distanceFeet = Integer.valueOf(distance.getValue() / (10 / 3));
-                        int testDistanceFeet = Integer.valueOf(testingDistance.getValue() / (10 / 3));
+                        int distanceFeet = Math.round(distance.getValue() * (10f / 3));
+                        int testDistanceFeet = Math.round(testingDistance.getValue() * (10f / 3));
                         testScoreOutputStr.setValue(testDistanceFeet + "/" + distanceFeet);
                         testScoreOutput.setText(testScoreOutputStr.getValue());
                     }
 
                     catch (NumberFormatException e) {
-                        int distanceFeet = Integer.valueOf(distance.getValue() / (10 / 3));
+                        int distanceFeet = Math.round(distance.getValue() * (10f / 3));
                         testScoreOutputStr.setValue(0 + "/" + distanceFeet);
                     }
                 }
@@ -143,13 +145,13 @@ public class MetricConversionFragment extends Fragment {
                 else {
                     try {
                         distance.setValue(Integer.parseInt(binding.distance.getEditText().getText().toString()));
-                        int testDistanceFeet = Integer.valueOf(testingDistance.getValue() / (10/3)*10);
-                        int distanceFeet = Integer.valueOf(distance.getValue() / (10/3)*10);
+                        int testDistanceFeet = Math.round(testingDistance.getValue() * (10f/3));
+                        int distanceFeet = Integer.valueOf(Math.round(distance.getValue() * (10f/3)));
                         testScoreOutputStr.setValue(testDistanceFeet + "/" + distanceFeet);
                         testScoreOutput.setText(testScoreOutputStr.getValue());
                     }
                     catch (NumberFormatException e) {
-                        int testDistanceFeet = Integer.valueOf(testingDistance.getValue() / 1/3);
+                        int testDistanceFeet = Math.round(testingDistance.getValue() * (10f/3));
                         testScoreOutputStr.setValue(testDistanceFeet + "/" + 0);
                         testScoreOutput.setText(testScoreOutputStr.getValue());
                     }
