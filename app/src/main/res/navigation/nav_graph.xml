@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_visionToolsFragment_to_colorBlindnessTest"
             app:destination="@id/colorBlindnessTest" />
+        <action
+            android:id="@+id/action_visionToolsFragment_to_recordBloodPressureFragment"
+            app:destination="@id/recordBloodPressureFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -264,10 +267,15 @@
     <fragment
         android:id="@+id/manageRemindersFragment"
         android:name="uk.ac.aston.ip.myeyehealth.reminders.ManageRemindersFragment"
-        android:label="fragment_manage_reminders"
-        tools:layout="@layout/fragment_manage_reminders" >
+        android:label="Manage reminder"
+        tools:layout="@layout/fragment_manage_reminders">
         <action
             android:id="@+id/action_manageRemindersFragment_to_updateReminders"
             app:destination="@id/updateReminders" />
     </fragment>
+    <fragment
+        android:id="@+id/recordBloodPressureFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.record_blood_pressure.RecordBloodPressureFragment"
+        android:label="@string/fragment_record_blood_pressure"
+        tools:layout="@layout/fragment_record_blood_pressure" />
 </navigation>

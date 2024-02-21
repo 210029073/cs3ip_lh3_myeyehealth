@@ -1,7 +1,15 @@
 plugins {
     id 'com.android.application'
     id 'androidx.navigation.safeargs'
+    //this must be included in order to perform the autoMigrations
+    id 'androidx.room'
 }
+
+//this is set in order to store the schemas for each migration done.
+room {
+    schemaDirectory "$projectDir/schemas"
+}
+
 
 android {
     namespace 'uk.ac.aston.ip.myeyehealth'
@@ -11,8 +19,8 @@ android {
         applicationId "uk.ac.aston.ip.myeyehealth"
         minSdk 26
         targetSdk 34
-        versionCode 1
-        versionName "1.1"
+        versionCode 2
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,9 +54,29 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    def room_version = "2.6.1"
 
+    //This stores the room database dependencies
+    //the version
+    def room_version = "2.6.1"
+    // run time library
     implementation "androidx.room:room-runtime:$room_version"
-    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // optional - Paging 3 Integration
+    implementation "androidx.room:room-paging:$room_version"
+
+    // optional - RxJava2 support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"
+
+    // optional - RxJava3 support for Room
+    implementation "androidx.room:room-rxjava3:$room_version"
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "androidx.room:room-guava:$room_version"
+
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    implementation 'com.google.code.gson:gson:2.10.1'
+
 }

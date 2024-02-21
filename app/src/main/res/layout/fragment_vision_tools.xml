@@ -141,7 +141,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/option_metric_conversiona"
+                    android:id="@+id/option_record_blood_pressure"
                     app:cardCornerRadius="25dp"
                     android:layout_width="0dp"
                     android:layout_weight=".50"

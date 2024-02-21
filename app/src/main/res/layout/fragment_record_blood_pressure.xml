@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".vision_tools.record_blood_pressure.RecordBloodPressureFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="10dp"
+            android:id="@+id/dia_unit"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:hint="DIA (mmHg)"
+            android:layout_height="wrap_content">
+
+            <!--        <com.google.android.material.slider.RangeSlider-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            style="@style/Theme.MyEyeHealth.Slider"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            />-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/sys_unit"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:hint="SYS (mmHg)"
+            android:layout_height="wrap_content">
+
+            <!--        <com.google.android.material.slider.RangeSlider-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            style="@style/Theme.MyEyeHealth.Slider"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            />-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/bpm_unit"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:hint="BPM"
+            android:layout_height="wrap_content">
+
+            <!--        <com.google.android.material.slider.RangeSlider-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            style="@style/Theme.MyEyeHealth.Slider"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            />-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- May need to provide options in a list view for converting units -->
+        <!-- Into either feet or metres -->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Visual Acuity Score in Feet"
+            android:textSize="24dp"
+            />
+
+        <TextView
+            android:id="@+id/visual_acuity_Score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0/0"
+            android:textStyle="bold"
+            android:textSize="28dp"
+            />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+</LinearLayout>

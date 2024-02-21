@@ -9,6 +9,10 @@ buildscript {
     }
 }
 plugins {
-id 'com.android.application' version '8.2.0' apply false
+    id 'com.android.application' version '8.2.0' apply false
+
+    //This will need to be included in the Project Level
+    //in order to handle the db migration
+    id 'androidx.room' version '2.6.1' apply false
 
 }
