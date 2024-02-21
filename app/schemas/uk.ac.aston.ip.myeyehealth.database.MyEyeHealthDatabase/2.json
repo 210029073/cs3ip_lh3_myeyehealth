@@ -1,0 +1,199 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "644dd98f9507102ae9d6a8e9fa9a9d92",
+    "entities": [
+      {
+        "tableName": "Reminders",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`reminderNo` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reminder_name` TEXT, `reminder_type` TEXT, `reminder_dose` REAL NOT NULL, `reminder_time` INTEGER NOT NULL, `is_reminder_repeated` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "reminderNo",
+            "columnName": "reminderNo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reminderName",
+            "columnName": "reminder_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "reminderType",
+            "columnName": "reminder_type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dose",
+            "columnName": "reminder_dose",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "reminder_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isRepeated",
+            "columnName": "is_reminder_repeated",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "reminderNo"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "MedicationLog",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`medicationLogNo` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `reminderNo` INTEGER NOT NULL, `medicationTimeTaken` INTEGER NOT NULL, `medicationTaken` INTEGER NOT NULL, FOREIGN KEY(`reminderNo`) REFERENCES `Reminders`(`reminderNo`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "medicationLogNo",
+            "columnName": "medicationLogNo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "remindersNo",
+            "columnName": "reminderNo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "medicationTimeTaken",
+            "columnName": "medicationTimeTaken",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isMedicationTaken",
+            "columnName": "medicationTaken",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "medicationLogNo"
+          ]
+        },
+        "indices": [
+          {
+            "name": "pk_fk_reminders_medicationlog",
+            "unique": false,
+            "columnNames": [
+              "reminderNo"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `pk_fk_reminders_medicationlog` ON `${TABLE_NAME}` (`reminderNo`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Reminders",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "reminderNo"
+            ],
+            "referencedColumns": [
+              "reminderNo"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "TestRecord",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`testRecordNo` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `test_result_score` TEXT, `test_result_description` TEXT, `test_result_record_time` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "testRecordNo",
+            "columnName": "testRecordNo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "testResultScore",
+            "columnName": "test_result_score",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "testResultDescription",
+            "columnName": "test_result_description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "testResultRecordTime",
+            "columnName": "test_result_record_time",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "testRecordNo"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Health",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`healthId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `health_type` TEXT, `health_data` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "healthId",
+            "columnName": "healthId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "healthType",
+            "columnName": "health_type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "healthData",
+            "columnName": "health_data",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "healthId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [
+      {
+        "viewName": "MissedMedicationViews",
+        "createSql": "CREATE VIEW `${VIEW_NAME}` AS SELECT * FROM medicationlog Inner JOIN reminders ON reminders.reminderNo == medicationlog.reminderNo WHERE (medicationTaken IS NULL)"
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '644dd98f9507102ae9d6a8e9fa9a9d92')"
+    ]
+  }
+}
