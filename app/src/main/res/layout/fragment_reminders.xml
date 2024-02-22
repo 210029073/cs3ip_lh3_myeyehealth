@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="15dp"
+        android:layout_margin="25dp"
         style="@style/Theme.MyEyeHealth.FloatingActionButton"
         android:contentDescription="Add"
         android:src="@drawable/baseline_add_24_white"
@@ -102,6 +102,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
                 app:layout_constraintTop_toBottomOf="@id/list_reminders_all"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
