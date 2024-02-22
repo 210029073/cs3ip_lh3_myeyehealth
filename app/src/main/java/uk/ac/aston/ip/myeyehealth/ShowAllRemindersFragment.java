@@ -50,20 +50,23 @@ public class ShowAllRemindersFragment extends Fragment {
         binding.remindersListRecyclerView.setAdapter(listRemindersAdapter);
         binding.remindersListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //This will handle the custom onclicklistener designed for the ListRemindersAdapater
         listRemindersAdapter.setOnClickListener(new ListRemindersAdapter.OnClickListener() {
             @Override
             public void onClick(int position, Reminders model) {
                 //get Reminder
                 Reminders reminder = MyEyeHealthDatabase.getInstance(getContext())
                         .remindersDAO().findRemindersById(model.reminderNo);
+
+                //find the reminders object. //not needed as we have access to this in the model param
                 ManageRemindersViewModel manageRemindersViewModel = new ViewModelProvider(requireActivity())
                         .get(ManageRemindersViewModel.class);
-                manageRemindersViewModel.getReminderNo().setValue(reminder.reminderNo);
-                manageRemindersViewModel.getReminderName().setValue(reminder.reminderName);
-                manageRemindersViewModel.getReminderType().setValue(reminder.reminderType);
-                manageRemindersViewModel.getReminderDose().setValue(reminder.dose);
-                manageRemindersViewModel.getReminderTime().setValue(reminder.time);
-                manageRemindersViewModel.getIsRepeated().setValue(reminder.isRepeated);
+                manageRemindersViewModel.getReminderNo().setValue(model.reminderNo);
+                manageRemindersViewModel.getReminderName().setValue(model.reminderName);
+                manageRemindersViewModel.getReminderType().setValue(model.reminderType);
+                manageRemindersViewModel.getReminderDose().setValue(model.dose);
+                manageRemindersViewModel.getReminderTime().setValue(model.time);
+                manageRemindersViewModel.getIsRepeated().setValue(model.isRepeated);
                 NavHostFragment.findNavController(ShowAllRemindersFragment.this)
                                 .navigate(R.id.action_showAllRemindersFragment_to_manageRemindersFragment);
 
