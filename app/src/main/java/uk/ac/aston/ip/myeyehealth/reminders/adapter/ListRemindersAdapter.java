@@ -18,6 +18,8 @@ public class ListRemindersAdapter extends RecyclerView.Adapter<ListRemindersAdap
 
     private List<Reminders> remindersList;
 
+    private OnClickListener listener;
+
     public static class RemindersListViewHolder extends RecyclerView.ViewHolder {
         private final TextView id;
         private final TextView reminderName;
@@ -87,11 +89,28 @@ public class ListRemindersAdapter extends RecyclerView.Adapter<ListRemindersAdap
             holder.getReminderDose().setText("Dose: " + String.valueOf(remindersList.get(position).dose));
         }
         holder.getReminderTimeAMPM().setText("Time: " + String.valueOf(LocalTime.ofNanoOfDay(remindersList.get(position).time)));
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listener != null) {
+                    listener.onClick(position, remindersList.get(position));
+                    holder.itemView.setFocusable(true);
+                    holder.itemView.requestFocus();
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return remindersList.size();
+    }
+
+    public interface OnClickListener {
+        void onClick(int position, Reminders model);
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
     }
 }

@@ -6,7 +6,6 @@
     android:layout_marginBottom="5dp"
     android:clickable="true"
     android:focusable="true"
-    android:focusableInTouchMode="true"
     android:orientation="vertical"
     >
 
