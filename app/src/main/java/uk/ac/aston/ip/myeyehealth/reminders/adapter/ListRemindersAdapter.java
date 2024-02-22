@@ -106,7 +106,25 @@ public class ListRemindersAdapter extends RecyclerView.Adapter<ListRemindersAdap
         return remindersList.size();
     }
 
+    //This interface is needed in order to create the custom onClickListener for the recycler view
+    /**
+     * An OnClickListener for managing the onclick actions when an recycleview item has been
+     * collected from the Recycler view.
+     *
+     * @see uk.ac.aston.ip.myeyehealth.ShowAllRemindersFragment
+     * @see RecyclerView
+     * @see OnClickListener
+     *
+     * @author Ibrahim Ahmad
+     * @version 1.0.0*/
     public interface OnClickListener {
+        /**
+         * This will handle the users onclick action when accessing a reminder item in the ListRemindersAdapter
+         *
+         * @param model Represents the model of the Reminders Object. This is used to store the object needed for the onclick action
+         * @param position Represents the position of the recycle view item is located in the recyclerview
+         *
+         **/
         void onClick(int position, Reminders model);
     }
 
