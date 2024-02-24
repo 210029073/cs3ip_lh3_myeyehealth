@@ -20,7 +20,11 @@ import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 
 /**
- * A fragment representing a list of Items.
+ * MedicationTakenHistoryFragment - A fragment that allows the user to
+ * view their medication logs based on the medications that have been taken by them.
+ *
+ * @author Ibrahim Ahmad
+ * @version 1.0.0
  */
 public class MedicationTakenHistoryFragment extends Fragment {
 
