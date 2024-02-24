@@ -36,6 +36,7 @@ import uk.ac.aston.ip.myeyehealth.reminders.MedicationLogsRepository;
 import uk.ac.aston.ip.myeyehealth.reminders.RemindersActivity;
 import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersAdapter;
 import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersNotTakenAdapter;
+import uk.ac.aston.ip.myeyehealth.reminders.alarms.ReminderAlarmScheduler;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -283,6 +284,10 @@ public class MainActivity extends AppCompatActivity {
 //        });
 
         for(Reminders reminder : database.remindersDAO().getAll()) {
+            ReminderAlarmScheduler scheduler = new ReminderAlarmScheduler(getApplicationContext());
+            if(reminder.time > LocalTime.now().toNanoOfDay()) {
+                scheduler.onSchedule(reminder);
+            }
             int size = database.medicationLogsDAO().getMedicationLogs().size();
 
             //if the reminder does not exist, then insert it to the medication logs table.
