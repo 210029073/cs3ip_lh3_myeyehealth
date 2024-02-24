@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth.reminders.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,7 @@ public class ListRemindersAdapter extends RecyclerView.Adapter<ListRemindersAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RemindersListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RemindersListViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.getId().setText(String.valueOf(remindersList.get(position).reminderNo));
         holder.getReminderName().setText(remindersList.get(position).reminderName);
         if(remindersList.get(position).reminderType.equalsIgnoreCase("Eye Drops") ||
