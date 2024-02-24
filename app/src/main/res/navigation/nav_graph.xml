@@ -176,6 +176,9 @@
         <action
             android:id="@+id/action_remindersFragment_to_showAllRemindersFragment"
             app:destination="@id/showAllRemindersFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_medicationTakenHistoryFragment"
+            app:destination="@id/medicationTakenHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/addReminderFragment"
@@ -278,4 +281,9 @@
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.record_blood_pressure.RecordBloodPressureFragment"
         android:label="@string/fragment_record_blood_pressure"
         tools:layout="@layout/fragment_record_blood_pressure" />
+    <fragment
+        android:id="@+id/medicationTakenHistoryFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.reminders.MedicationTakenHistoryFragment"
+        android:label="@string/fragment_medication_taken"
+        tools:layout="@layout/fragment_medication_taken_history_list" />
 </navigation>

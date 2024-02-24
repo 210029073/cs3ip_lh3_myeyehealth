@@ -140,8 +140,10 @@ public class RemindersFragment extends Fragment {
             NavHostFragment.findNavController(RemindersFragment.this)
                     .navigate(R.id.action_remindersFragment_to_addReminderFragment);
         });
-        binding.btnViewRemindersHistory.bringToFront();
-        binding.btnViewRemindersHistory.invalidate();
+        binding.btnViewRemindersHistory.setOnClickListener(v -> {
+            NavHostFragment.findNavController(RemindersFragment.this)
+                    .navigate(R.id.action_remindersFragment_to_medicationTakenHistoryFragment);
+        });
     }
 
 
