@@ -31,8 +31,9 @@ public class ReminderAlarmReciever extends BroadcastReceiver {
         if(reminderName != null) {
             title = reminderName + " \u23F0 " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
             content = "You need to take your " + reminderName;
-
-            NotificationCompat.Builder notification = new NotificationCompat.Builder(context, "ReminderAlarmReciever").setSmallIcon(R.drawable.medication_64)
+            NotificationChannel channel = new NotificationChannel("ReminderAlarmReciever", "Send reminders when app is running", NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+            NotificationCompat.Builder notification = new NotificationCompat.Builder(context, channel.getId()).setSmallIcon(R.drawable.medication_64)
                     .setContentTitle(title)
                     .setContentText(content)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
