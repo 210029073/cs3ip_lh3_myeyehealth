@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import uk.ac.aston.ip.myeyehealth.R;
 
@@ -24,16 +25,31 @@ public class ReminderAlarmReciever extends BroadcastReceiver {
         String reminderName = intent.getStringExtra("REMINDER_NAME");
         System.out.println("This is a Test...");
         System.out.println("You need to take " + reminderName);
-//        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-//        NotificationChannel channel = new NotificationChannel("ReminderAlarmReciever", "Send Reminders at Exact Time", NotificationManager.IMPORTANCE_HIGH);
-//        notificationManager.createNotificationChannel(channel);
-//
-//        NotificationCompat.Builder notification = new NotificationCompat.Builder(context, channel.getId()).setSmallIcon(R.drawable.medication_64)
-//                .setContentTitle(reminderName + " \u23F0 " + LocalTime.now().toString())
-//                .setContentText("You need to take your " + reminderName)
-//                .setPriority(NotificationCompat.PRIORITY_HIGH)
-//                .setAutoCancel(true)
-//                .setOnlyAlertOnce(true);
-//        notificationManager.notify(1000, notification.build());
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        String title = "";
+        String content = "";
+        if(reminderName != null) {
+            title = reminderName + " \u23F0 " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+            content = "You need to take your " + reminderName;
+
+            NotificationCompat.Builder notification = new NotificationCompat.Builder(context, "ReminderAlarmReciever").setSmallIcon(R.drawable.medication_64)
+                    .setContentTitle(title)
+                    .setContentText(content)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setAutoCancel(true)
+                    .setOnlyAlertOnce(false);
+            NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            notificationManager.notify(intent.hashCode(), notification.build());
+        }
     }
 }

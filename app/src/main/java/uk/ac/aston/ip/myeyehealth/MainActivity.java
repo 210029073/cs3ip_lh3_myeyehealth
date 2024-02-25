@@ -1,10 +1,12 @@
 package uk.ac.aston.ip.myeyehealth;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +38,7 @@ import uk.ac.aston.ip.myeyehealth.reminders.MedicationLogsRepository;
 import uk.ac.aston.ip.myeyehealth.reminders.RemindersActivity;
 import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersAdapter;
 import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersNotTakenAdapter;
+import uk.ac.aston.ip.myeyehealth.reminders.alarms.ReminderAlarmReciever;
 import uk.ac.aston.ip.myeyehealth.reminders.alarms.ReminderAlarmScheduler;
 
 import android.view.Menu;
@@ -48,6 +51,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Period;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -55,6 +59,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -234,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         prepareMedicationRemindersLog();
+        setAlarms();
     }
 
     @Override
@@ -265,6 +271,37 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    private void setAlarms() {
+        List<Reminders> reminders = new MedicationLogsRepository(getApplicationContext()).getRemindersNotTakenTodayInReminders();
+        for(Reminders reminder : reminders) {
+                AlarmManager alarmManager = getApplicationContext().getSystemService(AlarmManager.class);
+
+                Intent intent = new Intent(getApplicationContext(), ReminderAlarmReciever.class);
+                getApplicationContext().sendBroadcast(intent);
+                intent.putExtra("REMINDER_NAME", reminder.reminderName);
+                LocalTime localTime = LocalTime.ofNanoOfDay(reminder.time);
+                LocalDateTime dateTimeNow = LocalDateTime.now();
+                LocalDateTime localDateTime = LocalDateTime.of(dateTimeNow.getYear(), dateTimeNow.getMonthValue(), dateTimeNow.getDayOfMonth(), localTime.getHour(), localTime.getMinute());
+                System.out.println(localDateTime);
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getDayOfMonth(),
+                        localDateTime.getHour(), localDateTime.getMinute());
+
+                alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        localDateTime.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000,
+                        PendingIntent.getBroadcast(
+                                getApplicationContext(),
+                                reminder.hashCode(),
+                                intent,
+                                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                        )
+
+                );
+
+        }
+    }
+
     /**
      * The following prepares the medication logs for the user and stores them in a local database.
      * @see MyEyeHealthDatabase
@@ -285,9 +322,8 @@ public class MainActivity extends AppCompatActivity {
 
         for(Reminders reminder : database.remindersDAO().getAll()) {
             ReminderAlarmScheduler scheduler = new ReminderAlarmScheduler(getApplicationContext());
-            if(reminder.time > LocalTime.now().toNanoOfDay()) {
-                scheduler.onSchedule(reminder);
-            }
+
+
             int size = database.medicationLogsDAO().getMedicationLogs().size();
 
             //if the reminder does not exist, then insert it to the medication logs table.
