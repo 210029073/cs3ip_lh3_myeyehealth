@@ -15,6 +15,7 @@
     <string name="fragment_past_test_results">Past Test Results</string>
     <string name="fragment_medication_reminders">Your Reminders</string>
     <string name="fragment_record_blood_pressure">Record blood pressure</string>
+    <string name="fragment_blood_pressure_history">Blood Pressure History</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="lorem_ipsum">

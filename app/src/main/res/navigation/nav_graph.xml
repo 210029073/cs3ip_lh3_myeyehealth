@@ -292,7 +292,7 @@
     <fragment
         android:id="@+id/listBloodPressureFragment"
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.record_blood_pressure.list_blood_pressure_history.ListBloodPressureFragment"
-        android:label="fragment_list_blood_pressure_list"
+        android:label="@string/fragment_blood_pressure_history"
         tools:layout="@layout/fragment_list_blood_pressure_list" >
         <action
             android:id="@+id/action_listBloodPressureFragment_to_visionToolsFragment"
