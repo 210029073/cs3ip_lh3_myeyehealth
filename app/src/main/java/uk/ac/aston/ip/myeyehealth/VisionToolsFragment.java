@@ -99,6 +99,11 @@ public class VisionToolsFragment extends Fragment {
             NavHostFragment.findNavController(VisionToolsFragment.this)
                     .navigate(R.id.action_visionToolsFragment_to_recordBloodPressureFragment);
         });
+
+        binding.optionViewBloodPressure.setOnClickListener(button -> {
+            NavHostFragment.findNavController(VisionToolsFragment.this)
+                    .navigate(R.id.action_visionToolsFragment_to_listBloodPressureFragment);
+        });
     }
 
     @Override

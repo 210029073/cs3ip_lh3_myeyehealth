@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp">
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/option_metric_conversionb"
+                    android:id="@+id/option_view_blood_pressure"
                     app:cardCornerRadius="25dp"
                     app:cardBackgroundColor="@color/yellow"
                     android:layout_weight=".50"
