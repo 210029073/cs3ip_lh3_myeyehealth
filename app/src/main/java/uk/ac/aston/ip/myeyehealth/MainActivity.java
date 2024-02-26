@@ -280,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ReminderAlarmReciever.class);
                 getApplicationContext().sendBroadcast(intent);
                 intent.putExtra("REMINDER_NAME", reminder.reminderName);
+                intent.putExtra("REMINDER_ID", reminder.reminderNo);
                 intent.putExtra("REMINDER_TIME", LocalTime.ofNanoOfDay(reminder.time).format(DateTimeFormatter.ofPattern("HH:mm")));
                 LocalTime localTime = LocalTime.ofNanoOfDay(reminder.time);
                 LocalDateTime dateTimeNow = LocalDateTime.now();
@@ -294,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
                         localDateTime.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000,
                         PendingIntent.getBroadcast(
                                 getApplicationContext(),
-                                reminder.hashCode(),
+                                reminder.reminderNo,
                                 intent,
                                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
                         )

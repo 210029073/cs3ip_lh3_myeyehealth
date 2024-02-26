@@ -38,7 +38,7 @@ public class ReminderAlarmReciever extends BroadcastReceiver {
                     .setContentText(content)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setAutoCancel(true)
-                    .setOnlyAlertOnce(false);
+                    .setOnlyAlertOnce(true);
             NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
@@ -50,7 +50,7 @@ public class ReminderAlarmReciever extends BroadcastReceiver {
                 // for ActivityCompat#requestPermissions for more details.
                 return;
             }
-            notificationManager.notify(intent.hashCode(), notification.build());
+            notificationManager.notify(intent.getIntExtra("REMINDER_ID", 0), notification.build());
         }
     }
 }
