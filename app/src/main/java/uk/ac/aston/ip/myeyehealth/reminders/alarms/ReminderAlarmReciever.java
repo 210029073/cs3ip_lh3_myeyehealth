@@ -29,7 +29,7 @@ public class ReminderAlarmReciever extends BroadcastReceiver {
         String title = "";
         String content = "";
         if(reminderName != null) {
-            title = reminderName + " \u23F0 " + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+            title = reminderName + " \u23F0 " + intent.getStringExtra("REMINDER_TIME");
             content = "You need to take your " + reminderName;
             NotificationChannel channel = new NotificationChannel("ReminderAlarmReciever", "Send reminders when app is running", NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);

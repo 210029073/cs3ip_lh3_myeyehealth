@@ -86,21 +86,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Visual Acuity Score in Feet"
-            android:textSize="24dp"
-            />
-
-        <TextView
-            android:id="@+id/visual_acuity_Score"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0/0"
-            android:textStyle="bold"
-            android:textSize="28dp"
-            />
 
         <Button
             android:id="@+id/btn_submit"

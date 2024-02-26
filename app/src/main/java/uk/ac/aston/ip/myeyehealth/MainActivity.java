@@ -240,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
 
         prepareMedicationRemindersLog();
         setAlarms();
+
     }
 
     @Override
@@ -279,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ReminderAlarmReciever.class);
                 getApplicationContext().sendBroadcast(intent);
                 intent.putExtra("REMINDER_NAME", reminder.reminderName);
+                intent.putExtra("REMINDER_TIME", LocalTime.ofNanoOfDay(reminder.time).format(DateTimeFormatter.ofPattern("HH:mm")));
                 LocalTime localTime = LocalTime.ofNanoOfDay(reminder.time);
                 LocalDateTime dateTimeNow = LocalDateTime.now();
                 LocalDateTime localDateTime = LocalDateTime.of(dateTimeNow.getYear(), dateTimeNow.getMonthValue(), dateTimeNow.getDayOfMonth(), localTime.getHour(), localTime.getMinute());

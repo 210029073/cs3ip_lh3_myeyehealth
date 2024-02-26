@@ -78,7 +78,6 @@ public class RecordBloodPressureFragment extends Fragment {
                 binding.bpmUnit.setErrorEnabled(true);
             }
 
-            binding.visualAcuityScore.setText(dia.getValue() + "\n" + sys.getValue() + "\n" + bpm.getValue());
 
             //Store the health logs in an object
             Health health = new Health();
