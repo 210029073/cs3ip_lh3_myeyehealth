@@ -32,4 +32,13 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="Notifications">
+        <SwitchPreferenceCompat
+            app:isPreferenceVisible="false"
+                app:key="IS_NOTIFICATIONS_ENABLED"
+                app:summary="This will turn on, or off notifications"
+                app:title="Recieving Notifications whilst the app is running."
+            />
+    </PreferenceCategory>
+
 </PreferenceScreen>

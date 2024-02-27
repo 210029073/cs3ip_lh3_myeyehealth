@@ -48,6 +48,24 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.7.5'
     implementation 'androidx.navigation:navigation-ui:2.7.5'
     implementation 'androidx.preference:preference:1.2.1'
+
+    //data store api
+    implementation "androidx.datastore:datastore:1.0.0"
+
+    // optional - RxJava2 support
+    implementation "androidx.datastore:datastore-rxjava2:1.0.0"
+
+    // optional - RxJava3 support
+    implementation "androidx.datastore:datastore-rxjava3:1.0.0"
+
+
+    //data store for storing user settings
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    // optional - RxJava2 support
+    implementation "androidx.datastore:datastore-preferences-rxjava2:1.0.0"
+
+    // optional - RxJava3 support
+    implementation "androidx.datastore:datastore-preferences-rxjava3:1.0.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'

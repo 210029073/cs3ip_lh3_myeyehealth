@@ -60,6 +60,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(!getPreferences(0).contains("RUN_FIRST_TIME_APP")) {
+            getPreferences(0).edit().putBoolean("RUN_FIRST_TIME_APP", true).commit();
+        }
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -108,14 +113,16 @@ public class MainActivity extends AppCompatActivity {
                     .setOnlyAlertOnce(true)
                     .addAction(R.drawable.medication_64, "REVIEW", pendingRemindersIntent);
 
-            if (!notificationManager.areNotificationsEnabled()) {
+            if (!notificationManager.areNotificationsEnabled() && getPreferences(0).getBoolean("RUN_FIRST_TIME_APP", true)) {
                 requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 0);
+                getPreferences(0).edit().putBoolean("RUN_FIRST_TIME_APP", false).commit();
             }
             MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getApplicationContext());
             int pendingMedications = database.remindersDAO().findRemindersTakenToday(LocalDate.now().toEpochDay()).stream().filter(medicationLog -> !medicationLog.isMedicationTaken).toArray().length;
             if(pendingMedications > 0) {
                 if (!notificationManager.areNotificationsEnabled()) {
                     requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 0);
+                    getPreferences(0).edit().putBoolean("RUN_FIRST_TIME_APP", false).commit();
                     notificationManager.notify(0, builder.build());
                 }
 
@@ -127,43 +134,44 @@ public class MainActivity extends AppCompatActivity {
                 //if there is medication reminders then notify the user.
                 Log.d("medicationLog", String.valueOf(medicationLogs.size()));
                 Log.d("reminders", "med reminders: " + database.remindersDAO().getAll().size());
-                if (medicationLogs.size() < database.remindersDAO().getAll().size()) {
+                if (medicationLogs.size() < database.remindersDAO().getAll().size() && getPreferences(0).getBoolean("IS_NOTIFICATIONS_ENABLED", true)) {
                     notificationManager.notify(0, builder.build());
                 }
             }
         }
-        int notificationId = 1;
-        MedicationLogsRepository medicationLogsRepository = new MedicationLogsRepository(getApplicationContext());
-        for(MedicationLog medicationLog : medicationLogsRepository.getPendingRemindersToday()) {
-            //get the medication time
-            Reminders reminder = MyEyeHealthDatabase.getInstance(getApplicationContext()).remindersDAO().findRemindersById(medicationLog.remindersNo);
-            //check if it has not been taken, and the time is five minutes before actual time
-            long time = reminder.time;
-            long fiveMinTime = LocalTime.ofNanoOfDay(time).minus(5, ChronoUnit.MINUTES).toNanoOfDay();
-            if(!medicationLog.isMedicationTaken && LocalTime.now().toNanoOfDay() > fiveMinTime &&
-            LocalTime.now().toNanoOfDay() < time) {
-                //then create a notification prompt
-                CharSequence name = "Send Timely Medication Reminder";
-                int importance = NotificationManager.IMPORTANCE_HIGH;
-                NotificationChannel channel = new NotificationChannel("MyEyeHealth", name, importance);
-                channel.setDescription("Send timely medication reminder");
-                // Register the channel with the system. You can't change the importance
-                // or other notification behaviors after this.
-                NotificationManager notificationManager = getSystemService(NotificationManager.class);
-                notificationManager.createNotificationChannel(channel);
+        if(getPreferences(0).getBoolean("IS_NOTIFICATIONS_ENABLED", true)) {
+            int notificationId = 1;
+            MedicationLogsRepository medicationLogsRepository = new MedicationLogsRepository(getApplicationContext());
+            for (MedicationLog medicationLog : medicationLogsRepository.getPendingRemindersToday()) {
+                //get the medication time
+                Reminders reminder = MyEyeHealthDatabase.getInstance(getApplicationContext()).remindersDAO().findRemindersById(medicationLog.remindersNo);
+                //check if it has not been taken, and the time is five minutes before actual time
+                long time = reminder.time;
+                long fiveMinTime = LocalTime.ofNanoOfDay(time).minus(5, ChronoUnit.MINUTES).toNanoOfDay();
+                if (!medicationLog.isMedicationTaken && LocalTime.now().toNanoOfDay() > fiveMinTime &&
+                        LocalTime.now().toNanoOfDay() < time) {
+                    //then create a notification prompt
+                    CharSequence name = "Send Timely Medication Reminder";
+                    int importance = NotificationManager.IMPORTANCE_HIGH;
+                    NotificationChannel channel = new NotificationChannel("MyEyeHealth", name, importance);
+                    channel.setDescription("Send timely medication reminder");
+                    // Register the channel with the system. You can't change the importance
+                    // or other notification behaviors after this.
+                    NotificationManager notificationManager = getSystemService(NotificationManager.class);
+                    notificationManager.createNotificationChannel(channel);
 
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel.getId())
-                        .setSmallIcon(R.drawable.medication_64)
-                        .setContentTitle(reminder.reminderName + " \u23F0 " + LocalTime.ofNanoOfDay(reminder.time))
-                        .setContentText("You need to take your " + reminder.reminderName)
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setAutoCancel(true)
-                        .setOnlyAlertOnce(true);
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel.getId())
+                            .setSmallIcon(R.drawable.medication_64)
+                            .setContentTitle(reminder.reminderName + " \u23F0 " + LocalTime.ofNanoOfDay(reminder.time))
+                            .setContentText("You need to take your " + reminder.reminderName)
+                            .setPriority(NotificationCompat.PRIORITY_HIGH)
+                            .setAutoCancel(true)
+                            .setOnlyAlertOnce(true);
 
-                notificationManager.notify(notificationId++, builder.build());
+                    notificationManager.notify(notificationId++, builder.build());
+                }
             }
         }
-
         setSupportActionBar(binding.toolbar);
         NavigationView navigationView = binding.navView;
 
@@ -172,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
                 .setOpenableLayout(binding.navDrawerLayout)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationUI.setupWithNavController(binding.navView, navController);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
@@ -239,7 +246,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         prepareMedicationRemindersLog();
-        setAlarms();
+        System.out.println(getPreferences(0).getAll().keySet());
+        if(getPreferences(0).getBoolean("IS_NOTIFICATIONS_ENABLED", true)) {
+            setAlarms();
+        }
 
     }
 
