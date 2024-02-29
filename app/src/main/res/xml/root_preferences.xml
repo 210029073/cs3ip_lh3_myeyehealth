@@ -1,43 +1,75 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory app:title="@string/messages_header">
+<!--    <PreferenceCategory app:title="@string/messages_header">-->
 
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
+<!--        <EditTextPreference-->
+<!--            app:key="signature"-->
+<!--            app:title="@string/signature_title"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
 
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
+<!--        <ListPreference-->
+<!--            app:defaultValue="reply"-->
+<!--            app:entries="@array/reply_entries"-->
+<!--            app:entryValues="@array/reply_values"-->
+<!--            app:key="reply"-->
+<!--            app:title="@string/reply_title"-->
+<!--            app:useSimpleSummaryProvider="true" />-->
 
+<!--    </PreferenceCategory>-->
+
+<!--    <PreferenceCategory app:title="@string/sync_header">-->
+
+<!--        <SwitchPreferenceCompat-->
+<!--            app:key="sync"-->
+<!--            app:title="@string/sync_title" />-->
+
+<!--        <SwitchPreferenceCompat-->
+<!--            app:dependency="sync"-->
+<!--            app:key="attachment"-->
+<!--            app:summaryOff="@string/attachment_summary_off"-->
+<!--            app:summaryOn="@string/attachment_summary_on"-->
+<!--            app:title="@string/attachment_title" />-->
+
+<!--    </PreferenceCategory>-->
+
+    <PreferenceCategory app:iconSpaceReserved="false" app:summary="Look and Feel" app:title="Appearance">
+        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="true"
+            app:key="TEXT_SIZE_RANGE"
+            app:summary="Set the font size"
+            app:title="Adjust Font Size"
+            />
+
+        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="true"
+            app:key="IS_HIGH_CONTRAST_ENABLED"
+            app:summaryOn="Toggle to turn on High Contrast"
+            app:summaryOff="Toggle to turn off Contrast"
+            app:title="High Contrast"
+            />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
-
+    <PreferenceCategory app:iconSpaceReserved="false" app:summary="Manage Notifications" app:title="Notifications">
         <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="Notifications">
-        <SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
             app:isPreferenceVisible="false"
                 app:key="IS_NOTIFICATIONS_ENABLED"
-                app:summary="This will turn on, or off notifications"
-                app:title="Recieving Notifications whilst the app is running."
+                app:summaryOn="Toggle to turn off reminders"
+                app:summaryOff="Toggle to receive reminders"
+                app:title="Receive Medication Reminders"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:iconSpaceReserved="false" app:summary="About" app:title="About">
+        <Preference
+            app:iconSpaceReserved="true"
+            app:icon="@drawable/about_24"
+            app:key="VIEW_ABOUT"
+            app:summary="About App"
+            app:title="About"
             />
     </PreferenceCategory>
 

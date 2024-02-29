@@ -12,8 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.datastore.preferences.core.MutablePreferences;
 import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.preferences.core.PreferencesKeys;
 import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava3.RxDataStore;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceFragmentCompat;
@@ -44,19 +46,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private void toggleTimelyNotificationsSetting() {
         NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
         SwitchPreferenceCompat switchPreferenceCompat = findPreference("IS_NOTIFICATIONS_ENABLED");
-        this.preferenceRxDataStore.updateDataAsync(preferences -> {
-            MutablePreferences mutablePreferences = preferences.toMutablePreferences();
-//            ((Map<String, Boolean>) mutablePreferences.set("IS_NOTIFICATIONS_ENABLED", ));
-            return Single.just(mutablePreferences.toPreferences());
+
+        findPreference("VIEW_ABOUT").setOnPreferenceClickListener(preference -> {
+            NavHostFragment.findNavController(SettingsFragment.this)
+                    .navigate(R.id.aboutFragment);
+            return true;
         });
         if(!getPreferenceManager().getSharedPreferences().contains("IS_NOTIFICATIONS_ENABLED")) {
             if (notificationManager.areNotificationsEnabled()) {
-                getPreferenceManager().getSharedPreferences().edit().putBoolean("IS_NOTIFICATIONS_ENABLED", true).commit();
-                switchPreferenceCompat.setChecked(((HashMap<String, Boolean>) getPreferenceManager().getSharedPreferences().getAll()).get("IS_NOTIFICATIONS_ENABLED"));
+                requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("IS_NOTIFICATIONS_ENABLED", true).commit();
+                switchPreferenceCompat.setChecked(((HashMap<String, Boolean>) requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).getAll()).get("IS_NOTIFICATIONS_ENABLED"));
             }
             else {
-                getPreferenceManager().getSharedPreferences().edit().putBoolean("IS_NOTIFICATIONS_ENABLED", false).commit();
-                switchPreferenceCompat.setChecked(((HashMap<String, Boolean>) getPreferenceManager().getSharedPreferences().getAll()).get("IS_NOTIFICATIONS_ENABLED"));
+                requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("IS_NOTIFICATIONS_ENABLED", false).commit();
+                switchPreferenceCompat.setChecked(((HashMap<String, Boolean>) requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).getAll()).get("IS_NOTIFICATIONS_ENABLED"));
             }
         }
 
@@ -66,17 +69,35 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         );
         switchPreferenceCompat.setOnPreferenceClickListener(preference -> {
             if(switchPreferenceCompat.isChecked()) {
+                this.preferenceRxDataStore.updateDataAsync(preferences -> {
+                    MutablePreferences mutablePreferences = preferences.toMutablePreferences();
+                    Preferences.Key<Boolean> isEnabledKey = PreferencesKeys.booleanKey("IS_NOTIFICATIONS_ENABLED");
+                    mutablePreferences.set(isEnabledKey, true);
+                    return Single.just(mutablePreferences.toPreferences());
+                });
+                this.preferenceRxDataStore.updateDataAsync(preferences -> {
+                    MutablePreferences mutablePreferences = preferences.toMutablePreferences();
+                    mutablePreferences.set(new Preferences.Key<>("IS_NOTIFICATIONS_ENABLED"), true);
+                    return Single.just(mutablePreferences.toPreferences());
+                });
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     notificationManager.createNotificationChannel(new NotificationChannel("ReminderAlarmReciever", "Send reminders when app is running", NotificationManager.IMPORTANCE_HIGH));
-                    getPreferenceManager().getSharedPreferences().edit().putBoolean("IS_NOTIFICATIONS_ENABLED", true).commit();
+                    requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("IS_NOTIFICATIONS_ENABLED", true).commit();
                     switchPreferenceCompat.setChecked(true);
                 }
                 return true;
             }
             else {
+
+                this.preferenceRxDataStore.updateDataAsync(preferences -> {
+                    MutablePreferences mutablePreferences = preferences.toMutablePreferences();
+                    Preferences.Key<Boolean> isEnabledKey = PreferencesKeys.booleanKey("IS_NOTIFICATIONS_ENABLED");
+                    mutablePreferences.set(isEnabledKey, false);
+                    return Single.just(mutablePreferences.toPreferences());
+                });
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     notificationManager.deleteNotificationChannel("ReminderAlarmReciever");
-                    getPreferenceManager().getSharedPreferences().edit().putBoolean("IS_NOTIFICATIONS_ENABLED", false).commit();
+                    requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("IS_NOTIFICATIONS_ENABLED", false).commit();
                     switchPreferenceCompat.setChecked(false);
                 }
                 return false;

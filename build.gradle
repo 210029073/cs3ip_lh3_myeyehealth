@@ -16,4 +16,5 @@ plugins {
     //in order to handle the db migration
     id 'androidx.room' version '2.6.1' apply false
 
+    id 'com.google.gms.google-services' version '4.4.1' apply false
 }
