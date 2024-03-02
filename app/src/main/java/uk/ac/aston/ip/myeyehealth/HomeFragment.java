@@ -101,9 +101,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        for(int i = 0; i < container.getChildCount(); i++) {
-            System.out.println(container.getChildAt(i).getClass().getName());
-        }
         return binding.getRoot();
     }
 
