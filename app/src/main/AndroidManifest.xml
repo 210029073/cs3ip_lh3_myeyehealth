@@ -19,7 +19,7 @@
         android:theme="@style/Theme.MyEyeHealth"
         tools:targetApi="33">
         <activity
-            android:name=".vision_tools.color_blindness_test.ColorBlindTestActivity"
+            android:name=".vision_tools.color_blindness_test.activity.ColorBlindTestActivity"
             android:exported="false"
             android:label="@string/title_activity_color_blind_test"
             android:theme="@style/Theme.MyEyeHealth" />

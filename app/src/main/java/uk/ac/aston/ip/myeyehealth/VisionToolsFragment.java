@@ -8,14 +8,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentVisionToolsBinding;
-import uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindTestActivity;
+import uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.activity.ColorBlindTestActivity;
 import uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.activity.TumblingEActivity;
 
 /**

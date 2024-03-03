@@ -109,7 +109,7 @@ public class ColorBlindnessTestScore extends Fragment {
         binding.btnContinue.setOnClickListener(v ->
         {
             System.out.println(getActivity().getClass().getName());
-            if(getActivity().getClass().getName().equals("uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindTestActivity")) {
+            if(getActivity().getClass().getName().equals("uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.activity.ColorBlindTestActivity")) {
                 getActivity().finish();
             }
             else {

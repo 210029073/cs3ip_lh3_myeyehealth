@@ -1,4 +1,4 @@
-package uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test;
+package uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
