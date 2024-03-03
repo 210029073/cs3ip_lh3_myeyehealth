@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph2"
+    app:startDestination="@id/colorBlindnessTest">
+
+    <fragment
+        android:id="@+id/colorBlindnessTest"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindnessTest"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_color_blindness_test">
+
+        <action
+            android:id="@+id/action_colorBlindnessTest_to_colorBlindnessTestScore2"
+            app:destination="@id/colorBlindnessTestScore2" />
+    </fragment>
+    <fragment
+        android:id="@+id/colorBlindnessTestScore2"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindnessTestScore"
+        android:label="Color Blind Test Summary"
+        tools:layout="@layout/fragment_color_blindness_test_score2">
+    </fragment>
+</navigation>

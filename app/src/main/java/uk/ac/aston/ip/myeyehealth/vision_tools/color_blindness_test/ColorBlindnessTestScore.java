@@ -108,11 +108,16 @@ public class ColorBlindnessTestScore extends Fragment {
 
         binding.btnContinue.setOnClickListener(v ->
         {
-            NavHostFragment.findNavController(ColorBlindnessTestScore.this)
-                    .popBackStack(R.id.colorBlindnessTest, false);
-            NavHostFragment.findNavController(ColorBlindnessTestScore.this)
-                    .navigateUp();
-
+            System.out.println(getActivity().getClass().getName());
+            if(getActivity().getClass().getName().equals("uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindTestActivity")) {
+                getActivity().finish();
+            }
+            else {
+                NavHostFragment.findNavController(ColorBlindnessTestScore.this)
+                        .popBackStack(R.id.colorBlindnessTest, false);
+                NavHostFragment.findNavController(ColorBlindnessTestScore.this)
+                        .navigateUp();
+            }
             //TODO: need to store the test results
             ColorBlindnessTestScore.ColorBlindTestModel colorBlindTestModel = new ColorBlindnessTestScore.ColorBlindTestModel(test_score);
             Gson gson = new Gson();

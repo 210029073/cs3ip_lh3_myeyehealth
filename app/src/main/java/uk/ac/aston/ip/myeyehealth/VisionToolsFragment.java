@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentVisionToolsBinding;
+import uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindTestActivity;
 import uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.activity.TumblingEActivity;
 
 /**
@@ -85,8 +86,10 @@ public class VisionToolsFragment extends Fragment {
 
         binding.optionColorBlindnessTest.setOnClickListener(item -> {
             Toast.makeText(this.getContext(), "This should launch the Color blindness test...", Toast.LENGTH_SHORT).show();
-            NavHostFragment.findNavController(VisionToolsFragment.this)
-                    .navigate(R.id.action_visionToolsFragment_to_colorBlindnessTest);
+//            NavHostFragment.findNavController(VisionToolsFragment.this)
+//                    .navigate(R.id.action_visionToolsFragment_to_colorBlindnessTest);
+            Intent intent = new Intent(getContext(), ColorBlindTestActivity.class);
+            startActivity(intent);
         });
 
         binding.optionMetricConversion.setOnClickListener(item -> {
