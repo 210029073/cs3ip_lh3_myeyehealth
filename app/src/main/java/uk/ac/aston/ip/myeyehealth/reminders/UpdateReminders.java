@@ -67,7 +67,7 @@ public class UpdateReminders extends Fragment {
                 .build();
 
         AtomicInteger hour = new AtomicInteger(reminderTime.getHour());
-        AtomicInteger minute = new AtomicInteger(reminderTime.getHour());
+        AtomicInteger minute = new AtomicInteger(reminderTime.getMinute());
 
         binding.btnReminderTime.setOnClickListener(v -> {
             materialTimePicker.show(getParentFragmentManager(), "atag");
@@ -109,7 +109,7 @@ public class UpdateReminders extends Fragment {
             thread.start();
 
             NavHostFragment.findNavController(UpdateReminders.this)
-                    .navigateUp();
+                            .navigateUp();
         });
     }
 
