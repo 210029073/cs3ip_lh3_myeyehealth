@@ -29,7 +29,7 @@ import uk.ac.aston.ip.myeyehealth.vision_tools.record_blood_pressure.entity.Bloo
  * Fragment designed for handling the user's input when recording their
  * blood pressure
  *
- * @version 1.0.1
+ * @version 1.1.0
  * @author Ibrahim Ahmad*/
 public class RecordBloodPressureFragment extends Fragment {
 
@@ -58,50 +58,23 @@ public class RecordBloodPressureFragment extends Fragment {
 
         binding.btnSubmit.setOnClickListener(button -> {
 
-            try {
-                dia.setValue(Integer.parseInt(binding.diaUnit.getEditText().getText().toString()));
-                binding.diaUnit.setErrorEnabled(false);
-            }
-            catch (NumberFormatException e) {
+            if(binding.diaUnit.getEditText().getText().toString().isEmpty()
+            ) {
                 binding.diaUnit.setError("Please enter a DIA value greater than zero in mmHg.");
                 binding.diaUnit.setErrorEnabled(true);
             }
 
-            try {
-                sys.setValue(Integer.parseInt(binding.sysUnit.getEditText().getText().toString()));
-                binding.sysUnit.setErrorEnabled(false);
-            }
-            catch (NumberFormatException e) {
+            else if(binding.sysUnit.getEditText().getText().toString().isEmpty()) {
                 binding.sysUnit.setError("Please enter a SYS value greater than zero in mmHg.");
                 binding.sysUnit.setErrorEnabled(true);
             }
 
-            try {
-                bpm.setValue(Integer.parseInt(binding.bpmUnit.getEditText().getText().toString()));
-                binding.bpmUnit.setErrorEnabled(false);
-            }
-            catch (NumberFormatException e) {
+            else if(binding.bpmUnit.getEditText().getText().toString().isEmpty()) {
                 binding.bpmUnit.setError("Please enter a BPM value greater than zero in bpm.");
                 binding.bpmUnit.setErrorEnabled(true);
             }
 
-//            if(binding.diaUnit.getEditText().getText().toString().isEmpty()
-//            ) {
-//                binding.diaUnit.setError("Please enter a DIA value greater than zero in mmHg.");
-//                binding.diaUnit.setErrorEnabled(true);
-//            }
-//
-//            else if(binding.sysUnit.getEditText().getText().toString().isEmpty()) {
-//                binding.sysUnit.setError("Please enter a SYS value greater than zero in mmHg.");
-//                binding.sysUnit.setErrorEnabled(true);
-//            }
-//
-//            else if(binding.bpmUnit.getEditText().getText().toString().isEmpty()) {
-//                binding.bpmUnit.setError("Please enter a BPM value greater than zero in bpm.");
-//                binding.bpmUnit.setErrorEnabled(true);
-//            }
-//
-//            else {
+            else {
                 //Store the health logs in an object
                 Health health = new Health();
                 health.healthType = "Blood Pressure";
@@ -122,7 +95,7 @@ public class RecordBloodPressureFragment extends Fragment {
 
                 NavHostFragment.findNavController(RecordBloodPressureFragment.this)
                         .navigateUp();
-//            }
+            }
         });
     }
 
