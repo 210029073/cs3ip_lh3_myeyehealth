@@ -87,6 +87,8 @@ public class RecordBloodPressureFragment extends Fragment {
                 Thread thread = new Thread(() -> {
                     MyEyeHealthDatabase.getInstance(getContext())
                             .healthDAO().insertHealth(health);
+
+                    //may need to remove this line
                     List<Health> health1 = MyEyeHealthDatabase.getInstance(getContext())
                             .healthDAO().getMedicationLogs();
                 });
