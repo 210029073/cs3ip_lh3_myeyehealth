@@ -118,13 +118,13 @@ public class AddReminderFragment extends Fragment {
                 binding.txtReminderName.setError("Please specify the medication name");
             }
 
-            if (binding.txtReminderType.getEditText().getText().toString().isEmpty()) {
+            else if (binding.txtReminderType.getEditText().getText().toString().isEmpty()) {
                 binding.txtReminderType.setErrorEnabled(true);
                 binding.txtReminderType.setError("Please select a medication type");
             }
 
 
-            if (binding.txtReminderDose.getEditText().getText().toString().isEmpty()) {
+            else if (binding.txtReminderDose.getEditText().getText().toString().isEmpty()) {
                 binding.txtReminderDose.setErrorEnabled(true);
                 binding.txtReminderDose.setError("Please enter a medication dose");
             }
