@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +57,36 @@ public class RecordBloodPressureFragment extends Fragment {
         MutableLiveData<Integer> dia = new MutableLiveData<>(0);
         MutableLiveData<Integer> sys = new MutableLiveData<>(0);
         MutableLiveData<Integer> bpm = new MutableLiveData<>(0);
+
+        //May need to create a re-usable version of this, as DRY code.
+        binding.bpmUnit.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            /**
+             * The following will check whilst the user is typing if they have specified
+             * a bpm unit value.
+             * If not, it will show an error, otherwise it will be disappeared.
+             * */
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(binding.bpmUnit.getEditText().getText().toString().isEmpty()) {
+                    binding.bpmUnit.setError("Please enter a BPM value greater than zero in bpm.");
+                    binding.bpmUnit.setErrorEnabled(true);
+                }
+
+                else {
+                    binding.bpmUnit.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         binding.btnSubmit.setOnClickListener(button -> {
 
