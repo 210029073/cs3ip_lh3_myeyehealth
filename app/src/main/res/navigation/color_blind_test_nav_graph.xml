@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/colorBlindnessTest"
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindnessTest"
-        android:label="@string/first_fragment_label"
+        android:label="@string/fragment_color_blind_test"
         tools:layout="@layout/fragment_color_blindness_test">
 
         <action
