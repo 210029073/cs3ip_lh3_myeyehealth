@@ -25,6 +25,7 @@ import uk.ac.aston.ip.myeyehealth.R;
 import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentRecordBloodPressureBinding;
 import uk.ac.aston.ip.myeyehealth.entities.Health;
+import uk.ac.aston.ip.myeyehealth.textwatcher.TextErrorChangeListener;
 import uk.ac.aston.ip.myeyehealth.vision_tools.record_blood_pressure.entity.BloodPressure;
 
 /**
@@ -58,28 +59,10 @@ public class RecordBloodPressureFragment extends Fragment {
         MutableLiveData<Integer> sys = new MutableLiveData<>(0);
         MutableLiveData<Integer> bpm = new MutableLiveData<>(0);
 
-        //May need to create a re-usable version of this, as DRY code.
-        binding.bpmUnit.getEditText().addTextChangedListener(new TextWatcher() {
+        binding.bpmUnit.getEditText().addTextChangedListener(new TextErrorChangeListener(binding.bpmUnit, "Please enter a BPM value greater than zero in bpm.") {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            /**
-             * The following will check whilst the user is typing if they have specified
-             * a bpm unit value.
-             * If not, it will show an error, otherwise it will be disappeared.
-             * */
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(binding.bpmUnit.getEditText().getText().toString().isEmpty()) {
-                    binding.bpmUnit.setError("Please enter a BPM value greater than zero in bpm.");
-                    binding.bpmUnit.setErrorEnabled(true);
-                }
-
-                else {
-                    binding.bpmUnit.setErrorEnabled(false);
-                }
             }
 
             @Override
@@ -87,6 +70,31 @@ public class RecordBloodPressureFragment extends Fragment {
 
             }
         });
+
+        binding.diaUnit.getEditText().addTextChangedListener(new TextErrorChangeListener(binding.diaUnit, "Please enter a DIA value greater than zero in mmHg.") {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        binding.sysUnit.getEditText().addTextChangedListener(new TextErrorChangeListener(binding.sysUnit, "Please enter a SYS value greater than zero in mmHg.") {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
         binding.btnSubmit.setOnClickListener(button -> {
 
