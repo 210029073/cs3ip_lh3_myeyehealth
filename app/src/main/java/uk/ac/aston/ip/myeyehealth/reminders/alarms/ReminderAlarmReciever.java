@@ -19,11 +19,16 @@ import java.time.format.DateTimeFormatter;
 
 import uk.ac.aston.ip.myeyehealth.R;
 
+/**
+ * Responsible for receiving alarm receivers via BroadcastReceiver.
+ * @see BroadcastReceiver
+ * @author Ibrahim Ahmad
+ * @version 1.0.1
+ * */
 public class ReminderAlarmReciever extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String reminderName = intent.getStringExtra("REMINDER_NAME");
-        System.out.println("This is a Test...");
         System.out.println("You need to take " + reminderName);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         String title = "";
