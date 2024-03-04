@@ -1,5 +1,6 @@
 package uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -118,23 +119,39 @@ public class ColorBlindnessTestScore extends Fragment {
                 NavHostFragment.findNavController(ColorBlindnessTestScore.this)
                         .navigateUp();
             }
-            //TODO: need to store the test results
-            ColorBlindnessTestScore.ColorBlindTestModel colorBlindTestModel = new ColorBlindnessTestScore.ColorBlindTestModel(test_score);
-            Gson gson = new Gson();
-            String output = gson.toJson(colorBlindTestModel);
-
-            Thread thread = new Thread(() -> {
-
-                TestRecord testRecord = new TestRecord();
-                testRecord.testResultScore = output;
-                testRecord.testResultDescription = "Color Blindness Test";
-                testRecord.testResultRecordTime = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
-
-                MyEyeHealthDatabase.getInstance(getContext())
-                        .testRecordsDAO().insertTestRecord(testRecord);
-            });
-
-            thread.start();
+            //save test results
+            saveTestResults(test_score);
         });
+
+        binding.btnTryAgain.setOnClickListener(v -> {
+            Intent oldIntent = getActivity().getIntent();
+            //save test results
+            saveTestResults(test_score);
+            getActivity().finish();
+            startActivity(oldIntent);
+        });
+    }
+
+    /**
+     * This saves the test results of the color blind test game.
+     * */
+    private void saveTestResults(float test_score) {
+        //TODO: need to store the test results
+        ColorBlindTestModel colorBlindTestModel = new ColorBlindTestModel(test_score);
+        Gson gson = new Gson();
+        String output = gson.toJson(colorBlindTestModel);
+
+        Thread thread = new Thread(() -> {
+
+            TestRecord testRecord = new TestRecord();
+            testRecord.testResultScore = output;
+            testRecord.testResultDescription = "Color Blindness Test";
+            testRecord.testResultRecordTime = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+
+            MyEyeHealthDatabase.getInstance(getContext())
+                    .testRecordsDAO().insertTestRecord(testRecord);
+        });
+
+        thread.start();
     }
 }

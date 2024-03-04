@@ -87,6 +87,6 @@ public class ColorBlindQuestionGenerator {
 
 
     public int generateRandomCombination() {
-        return random.nextInt(100);
+        return random.nextInt(30);
     }
 }
