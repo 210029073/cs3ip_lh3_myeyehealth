@@ -25,6 +25,12 @@ import uk.ac.aston.ip.myeyehealth.databinding.FragmentRecordBloodPressureBinding
 import uk.ac.aston.ip.myeyehealth.entities.Health;
 import uk.ac.aston.ip.myeyehealth.vision_tools.record_blood_pressure.entity.BloodPressure;
 
+/**
+ * Fragment designed for handling the user's input when recording their
+ * blood pressure
+ *
+ * @version 1.0.1
+ * @author Ibrahim Ahmad*/
 public class RecordBloodPressureFragment extends Fragment {
 
     private RecordBloodPressureViewModel mViewModel;
@@ -51,6 +57,7 @@ public class RecordBloodPressureFragment extends Fragment {
         MutableLiveData<Integer> bpm = new MutableLiveData<>(0);
 
         binding.btnSubmit.setOnClickListener(button -> {
+
             try {
                 dia.setValue(Integer.parseInt(binding.diaUnit.getEditText().getText().toString()));
                 binding.diaUnit.setErrorEnabled(false);
@@ -78,27 +85,44 @@ public class RecordBloodPressureFragment extends Fragment {
                 binding.bpmUnit.setErrorEnabled(true);
             }
 
+//            if(binding.diaUnit.getEditText().getText().toString().isEmpty()
+//            ) {
+//                binding.diaUnit.setError("Please enter a DIA value greater than zero in mmHg.");
+//                binding.diaUnit.setErrorEnabled(true);
+//            }
+//
+//            else if(binding.sysUnit.getEditText().getText().toString().isEmpty()) {
+//                binding.sysUnit.setError("Please enter a SYS value greater than zero in mmHg.");
+//                binding.sysUnit.setErrorEnabled(true);
+//            }
+//
+//            else if(binding.bpmUnit.getEditText().getText().toString().isEmpty()) {
+//                binding.bpmUnit.setError("Please enter a BPM value greater than zero in bpm.");
+//                binding.bpmUnit.setErrorEnabled(true);
+//            }
+//
+//            else {
+                //Store the health logs in an object
+                Health health = new Health();
+                health.healthType = "Blood Pressure";
+                health.healthData = new BloodPressure(sys.getValue(), dia.getValue())
+                        .setBpm(bpm.getValue())
+                        .build()
+                        .toString();
 
-            //Store the health logs in an object
-            Health health = new Health();
-            health.healthType = "Blood Pressure";
-            health.healthData = new BloodPressure(sys.getValue(), dia.getValue())
-                    .setBpm(bpm.getValue())
-                    .build()
-                    .toString();
+                //Store health logs in database
+                Thread thread = new Thread(() -> {
+                    MyEyeHealthDatabase.getInstance(getContext())
+                            .healthDAO().insertHealth(health);
+                    List<Health> health1 = MyEyeHealthDatabase.getInstance(getContext())
+                            .healthDAO().getMedicationLogs();
+                });
 
-            //Store health logs in database
-            Thread thread = new Thread(() -> {
-                MyEyeHealthDatabase.getInstance(getContext())
-                        .healthDAO().insertHealth(health);
-                List<Health> health1 = MyEyeHealthDatabase.getInstance(getContext())
-                        .healthDAO().getMedicationLogs();
-            });
+                thread.start();
 
-            thread.start();
-
-            NavHostFragment.findNavController(RecordBloodPressureFragment.this)
-                    .navigateUp();
+                NavHostFragment.findNavController(RecordBloodPressureFragment.this)
+                        .navigateUp();
+//            }
         });
     }
 
