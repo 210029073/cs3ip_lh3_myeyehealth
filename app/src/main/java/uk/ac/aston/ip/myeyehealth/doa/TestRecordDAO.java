@@ -31,4 +31,7 @@ public interface TestRecordDAO {
     @Delete
     void deleteRecord(TestRecord testRecord);
 
+    @Query("DELETE FROM testrecord")
+    void truncateTestRecords();
+
 }

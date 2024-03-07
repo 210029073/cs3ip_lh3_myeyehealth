@@ -52,4 +52,7 @@ public interface RemindersDAO {
 
     @Query("SELECT * FROM reminders WHERE reminderNo == :id")
     public Reminders findRemindersById(int id);
+
+    @Query("DELETE FROM reminders")
+    public void truncateReminders();
 }

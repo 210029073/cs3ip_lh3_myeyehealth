@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,17 +16,28 @@ import androidx.datastore.preferences.core.Preferences;
 import androidx.datastore.preferences.core.PreferencesKeys;
 import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava3.RxDataStore;
+import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.rxjava3.core.Single;
+import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
+import uk.ac.aston.ip.myeyehealth.entities.Reminders;
+import uk.ac.aston.ip.myeyehealth.entities.TestRecord;
 
+/**
+ * The SettingsFragment is responsible for managing the settings of the application
+ * @version 1.2.0
+ * @author Ibrahim Ahmad
+ * */
 public class SettingsFragment extends PreferenceFragmentCompat {
     private RxDataStore<Preferences> preferenceRxDataStore;
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
@@ -40,8 +52,91 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toggleTimelyNotificationsSetting();
+        prepareConfigurationSettingsForClearingData();
+    }
+
+    private void prepareConfigurationSettingsForClearingData() {
+        Preference clearAllReminders = findPreference("CLEAR_ALL_REMINDERS");
+        Preference clearAllTestResults = findPreference("CLEAR_ALL_TEST_RESULTS");
+
+        //This will check if there are reminders and test results are present.
+        //if they are present it will then enable the options
+        //otherwise disable them.
+        Thread threadMain = new Thread(() -> {
+            List<Reminders> remindersList = MyEyeHealthDatabase.getInstance(getContext()).remindersDAO().getAll();
+            List<TestRecord> testRecords = MyEyeHealthDatabase.getInstance(getContext()).testRecordsDAO().getAll();
+
+            //this will get the size
+            if(remindersList.size() > 0) {
+                clearAllReminders.setEnabled(true);
+            }
+
+            else {
+                clearAllReminders.setEnabled(false);
+            }
+
+            //this will get the size
+            if(testRecords.size() > 0) {
+                clearAllTestResults.setEnabled(true);
+            }
+
+            else {
+                clearAllTestResults.setEnabled(false);
+            }
+        });
+
+        threadMain.setName("CheckRemindersTestResults");
+        threadMain.start();
+
+        clearAllReminders.setOnPreferenceClickListener(preference -> {
+            Toast.makeText(getContext(), "The user has clicked clear all reminders", Toast.LENGTH_SHORT).show();
+
+            List<Reminders> remindersList = MyEyeHealthDatabase.getInstance(getContext()).remindersDAO().getAll();
+
+            //this will get the size
+            if(remindersList.size() > 0) {
+                Thread thread = new Thread(() -> {
+                    MyEyeHealthDatabase.getInstance(getContext()).remindersDAO().truncateReminders();
+                });
+
+                thread.setName("SynchroniseDBOperation");
+                thread.start();
+                clearAllReminders.setEnabled(false);
+                Toast.makeText(getContext(), "Successfully cleared all reminders.", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            else {
+                return false;
+            }
+
+        });
+
+        clearAllTestResults.setOnPreferenceClickListener(preference -> {
+            Toast.makeText(getContext(), "The user has clicked clear all test results", Toast.LENGTH_SHORT).show();
+
+            List<TestRecord> testRecords;
+
+            testRecords = MyEyeHealthDatabase.getInstance(getContext()).testRecordsDAO().getAll();
+
+            if(testRecords.size() > 0) {
+                Thread thread = new Thread(() -> {
+                    MyEyeHealthDatabase.getInstance(getContext()).testRecordsDAO().truncateTestRecords();
+                });
+
+                thread.start();
+
+                clearAllTestResults.setEnabled(false);
+                return true;
+            }
+
+            else {
+                return false;
+            }
+        });
 
     }
+
 
     private void toggleTimelyNotificationsSetting() {
         NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -64,6 +159,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         switchPreferenceCompat.setVisible(true);
+        findPreference("NOTIFICATION_REMINDER_TIME").setVisible(true);
+        findPreference("NOTIFICATION_REMINDER_TIME");
+
         switchPreferenceCompat.setChecked(
                 getPreferenceManager().getSharedPreferences().getBoolean("IS_NOTIFICATIONS_ENABLED", false)
         );

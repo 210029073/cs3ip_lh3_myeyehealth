@@ -33,7 +33,9 @@
 
 <!--    </PreferenceCategory>-->
 
-    <PreferenceCategory app:iconSpaceReserved="false" app:summary="Look and Feel" app:title="Appearance">
+    <PreferenceCategory
+        android:layout="@layout/custom_preference_category"
+        app:iconSpaceReserved="false" app:summary="Look and Feel" app:title="Appearance">
         <SwitchPreferenceCompat
             app:iconSpaceReserved="false"
             app:isPreferenceVisible="true"
@@ -52,7 +54,7 @@
             />
     </PreferenceCategory>
 
-    <PreferenceCategory app:iconSpaceReserved="false" app:summary="Manage Notifications" app:title="Notifications">
+    <PreferenceCategory app:layout="@layout/custom_preference_category" app:iconSpaceReserved="false" android:summary="Manage Notifications" app:title="Notifications">
         <SwitchPreferenceCompat
             app:iconSpaceReserved="false"
             app:isPreferenceVisible="false"
@@ -61,15 +63,55 @@
                 app:summaryOff="Toggle to receive reminders"
                 app:title="Receive Medication Reminders"
             />
+
+        <ListPreference
+            app:iconSpaceReserved="false"
+
+            app:isPreferenceVisible="false"
+            app:entries="@array/reminder_time_entries"
+            app:entryValues="@array/reminder_time_values"
+            app:key="NOTIFICATION_REMINDER_TIME"
+            app:summary="Select how long before the actual time to receive reminders."
+            app:title="Set notification reminder time"
+            />
     </PreferenceCategory>
 
-    <PreferenceCategory app:iconSpaceReserved="false" app:summary="About" app:title="About">
+    <PreferenceCategory
+        android:layout="@layout/custom_preference_category"
+        app:iconSpaceReserved="false"
+        app:summary="Manage your Data">
+        <Preference
+            app:iconSpaceReserved="false"
+            android:enabled="false"
+            app:key="CLEAR_ALL_REMINDERS"
+            app:title="Clear all medication reminders"
+            app:summary="This will clear all of your medication reminders"
+            />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            android:enabled="false"
+            app:key="CLEAR_ALL_TEST_RESULTS"
+            app:title="Clear all test results"
+            app:summary="This will clear all of your test results"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:layout="@layout/custom_preference_category"
+        app:iconSpaceReserved="false" app:summary="About" app:title="About">
         <Preference
             app:iconSpaceReserved="true"
             app:icon="@drawable/about_24"
             app:key="VIEW_ABOUT"
             app:summary="About App"
             app:title="About"
+            />
+        <Preference
+            app:iconSpaceReserved="false"
+            app:title="MyEyeHealth"
+            app:summary="v2.0"
+            app:selectable="false"
             />
     </PreferenceCategory>
 
