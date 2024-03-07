@@ -7,6 +7,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.commonsware.cwac.saferoom.SQLCipherUtils;
+
+import net.sqlcipher.database.SupportFactory;
+
+import java.io.IOException;
+
 import uk.ac.aston.ip.myeyehealth.doa.HealthDAO;
 import uk.ac.aston.ip.myeyehealth.doa.MedicationLogDAO;
 import uk.ac.aston.ip.myeyehealth.doa.RemindersDAO;
@@ -30,9 +36,23 @@ public abstract class MyEyeHealthDatabase extends RoomDatabase {
 
 
     public static synchronized MyEyeHealthDatabase getInstance(Context context) {
+
+        SQLCipherUtils.State state = SQLCipherUtils.getDatabaseState(context, "myeyehealth.db");
+        try {
+            if (state == SQLCipherUtils.State.UNENCRYPTED) {
+                SQLCipherUtils.encrypt(context, "myeyehealth.db", "ASTON_2024_cS3iP".getBytes());
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        SupportFactory factory = new SupportFactory("ASTON_2024_cS3iP".getBytes());
+
         if(MyEyeHealthDatabase.instance == null) {
             MyEyeHealthDatabase.instance = Room.databaseBuilder(context.getApplicationContext(), MyEyeHealthDatabase.class, "myeyehealth.db")
                     .allowMainThreadQueries()
+                    .openHelperFactory(factory)
                     .build();
         }
         return instance;
