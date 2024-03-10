@@ -36,7 +36,7 @@ import uk.ac.aston.ip.myeyehealth.entities.TestRecord;
 
 /**
  * The SettingsFragment is responsible for managing the settings of the application
- * @version 1.2.0
+ * @version 1.3.0
  * @author Ibrahim Ahmad
  * */
 public class SettingsFragment extends PreferenceFragmentCompat {
