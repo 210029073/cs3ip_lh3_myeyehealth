@@ -18,6 +18,7 @@ import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
 import androidx.datastore.rxjava3.RxDataStore;
 import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceFragmentCompat;
@@ -53,6 +54,28 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         super.onViewCreated(view, savedInstanceState);
         toggleTimelyNotificationsSetting();
         prepareConfigurationSettingsForClearingData();
+        setPreferenceForReceivingNotifications();
+    }
+
+    private void setPreferenceForReceivingNotifications() {
+        //if there is no preference already stored then set it to defaults, which is receiving on time
+        if(!requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).contains("REMINDER_TIME_PREFERENCE")) {
+            requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
+                    .putInt("REMINDER_TIME_PREFERENCE", 0);
+        }
+        //gets the preference
+        ListPreference listPreference = findPreference("NOTIFICATION_REMINDER_TIME");
+
+        //stores the state of the preference i.e minutes
+        String preferenceState = listPreference.getValue();
+
+        listPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            //stores in preference store
+            requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
+                    .putInt("REMINDER_TIME_PREFERENCE", Integer.parseInt(preferenceState));
+            Toast.makeText(getContext(), "Set notification reminder to be received " + newValue + "min before", Toast.LENGTH_SHORT).show();
+            return true;
+        });
     }
 
     private void prepareConfigurationSettingsForClearingData() {
