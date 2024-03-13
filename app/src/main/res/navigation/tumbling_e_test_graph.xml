@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tumbling_e_test_graph"
-    app:startDestination="@id/tumblingECoverLeftEyeFragment">
+    app:startDestination="@id/tumblingEWelcomeScreenFragment">
     <fragment
         android:id="@+id/tumblingECoverLeftEyeFragment"
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingECoverLeftEyeFragment"
@@ -74,6 +74,15 @@
             app:destination="@id/tumblingEAssessFragment" />
         <action
             android:id="@+id/action_tumblingETestScoreFragment_to_tumblingECoverLeftEyeFragment"
+            app:destination="@id/tumblingECoverLeftEyeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tumblingEWelcomeScreenFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.tumblinge.TumblingEWelcomeScreenFragment"
+        android:label="fragment_tumbling_e_welcome_screen"
+        tools:layout="@layout/fragment_tumbling_e_welcome_screen" >
+        <action
+            android:id="@+id/action_tumblingEWelcomeScreenFragment_to_tumblingECoverLeftEyeFragment"
             app:destination="@id/tumblingECoverLeftEyeFragment" />
     </fragment>
 </navigation>
