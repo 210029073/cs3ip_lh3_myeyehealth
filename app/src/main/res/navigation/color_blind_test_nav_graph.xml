@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph2"
-    app:startDestination="@id/colorBlindnessTest">
+    app:startDestination="@id/colourBlindTestWelcomeScreenFragment">
 
     <fragment
         android:id="@+id/colorBlindnessTest"
@@ -20,5 +20,14 @@
         android:name="uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColorBlindnessTestScore"
         android:label="Color Blind Test Summary"
         tools:layout="@layout/fragment_color_blindness_test_score2">
+    </fragment>
+    <fragment
+        android:id="@+id/colourBlindTestWelcomeScreenFragment"
+        android:name="uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.ColourBlindTestWelcomeScreenFragment"
+        android:label="fragment_colour_blind_test_welcome_screen"
+        tools:layout="@layout/fragment_colour_blind_test_welcome_screen" >
+        <action
+            android:id="@+id/action_colourBlindTestWelcomeScreenFragment_to_colorBlindnessTest"
+            app:destination="@id/colorBlindnessTest" />
     </fragment>
 </navigation>
