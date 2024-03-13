@@ -5,6 +5,7 @@
         <item name="android:navigationBarColor">@android:color/background_dark</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:buttonStyle">@style/Theme.MyEyeHealth.Button</item>
+        <item name="colorAccent">@color/darkBlue</item>
     </style>
 
     <style name="Theme.MyEyeHealth.Slider" parent="Widget.Material3.Slider">
