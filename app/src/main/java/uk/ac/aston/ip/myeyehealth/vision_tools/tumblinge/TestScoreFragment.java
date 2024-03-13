@@ -82,8 +82,13 @@ public class TestScoreFragment extends Fragment {
         MyEyeHealthDatabase database = MyEyeHealthDatabase.getInstance(getContext());
         List<TestRecord> testRecordList = database.testRecordsDAO().getAll();
 
-        RecyclerView recyclerView = view.findViewById(R.id.test_score_recycler_view);
-        recyclerView.setAdapter(new TestRecordsAdapter(testRecordList));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (testRecordList.size() == 0) {
+            binding.noMsg.setVisibility(View.VISIBLE);
+        } else {
+            binding.noMsg.setVisibility(View.GONE);
+            RecyclerView recyclerView = view.findViewById(R.id.test_score_recycler_view);
+            recyclerView.setAdapter(new TestRecordsAdapter(testRecordList));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        }
     }
 }
