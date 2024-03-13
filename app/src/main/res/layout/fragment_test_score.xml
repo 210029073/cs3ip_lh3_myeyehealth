@@ -4,7 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".vision_tools.tumblinge.TestScoreFragment">
-
+    <TextView
+        android:id="@+id/no_msg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Currently there is no test results."
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/test_score_recycler_view"
         android:layout_width="match_parent"
