@@ -148,11 +148,15 @@ public class AddReminderFragment extends Fragment {
 //            database.remindersDAO().addReminder(reminder);
                 AddReminderThread addReminderThread = new AddReminderThread(reminder, getContext());
                 Thread thread = new Thread(addReminderThread);
+                //Run addReminderThread asynchronously.
                 thread.start();
+
+                //once finished return back to Reminders
                 NavHostFragment.findNavController(AddReminderFragment.this)
                         .popBackStack(R.id.addReminderFragment, false);
-
-                Navigation.findNavController(AddReminderFragment.this.getView()).navigateUp();
+                NavHostFragment.findNavController(AddReminderFragment.this)
+                        .navigateUp();
+//                Navigation.findNavController(AddReminderFragment.this.getView()).navigateUp();
             }
         });
     }
