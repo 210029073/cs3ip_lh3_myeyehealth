@@ -23,6 +23,7 @@
                 >
 
                 <com.google.android.material.card.MaterialCardView
+                    android:contentDescription="Tumbling E Test"
                     android:id="@+id/option_tumbling_e"
                     android:layout_weight=".50"
                     android:layout_width="0dp"
@@ -62,6 +63,7 @@
 
                 <com.google.android.material.card.MaterialCardView
                     app:cardBackgroundColor="@color/white"
+                    android:contentDescription="Color Blind Test"
                     android:id="@+id/option_color_blindness_test"
                     app:cardCornerRadius="25dp"
                     android:layout_width="0dp"
@@ -104,6 +106,7 @@
                 android:padding="5dp">
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/option_metric_conversion"
+                    android:contentDescription="Metric Conversion"
                     app:cardCornerRadius="25dp"
                     android:layout_weight=".50"
                     android:layout_width="0dp"
@@ -136,6 +139,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:contentDescription="Record Blood Pressure"
                     android:id="@+id/option_record_blood_pressure"
                     app:cardCornerRadius="25dp"
                     android:layout_width="0dp"
@@ -180,7 +184,7 @@
                     android:id="@+id/option_view_blood_pressure"
                     app:cardCornerRadius="25dp"
                     app:cardBackgroundColor="@color/white"
-                    android:contentDescription=""
+                    android:contentDescription="View Blood Pressure"
                     android:layout_weight=".50"
                     android:layout_width="0dp"
                     android:layout_height="190dp"
