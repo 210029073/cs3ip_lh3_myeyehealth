@@ -51,6 +51,8 @@ import uk.ac.aston.ip.myeyehealth.views.MissedMedicationViews;
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
+ * @author Ibrahim Ahmad
+ * @version 1.4.2
  */
 public class HomeFragment extends Fragment {
 
@@ -208,9 +210,16 @@ public class HomeFragment extends Fragment {
         if(remindersCarousel.size() > 0) {
             noRemindersMsg.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
-            ViewGroup.LayoutParams layoutParams = recyclerView.getLayoutParams();
-            layoutParams.height = 750;
-            recyclerView.setLayoutParams(layoutParams);
+
+            //once reminders reach the threshold which is 4, then set the recyclerview
+            //with a fixed size
+            if(remindersCarousel.size() >= 4) {
+                //this will store the current layout parameters consisting width, height
+                //which is then set to 750
+                ViewGroup.LayoutParams layoutParams = recyclerView.getLayoutParams();
+                layoutParams.height = 750; //fixed size
+                recyclerView.setLayoutParams(layoutParams); //this applies the changes
+            }
         }
         else {
             noRemindersMsg.setVisibility(View.VISIBLE);
