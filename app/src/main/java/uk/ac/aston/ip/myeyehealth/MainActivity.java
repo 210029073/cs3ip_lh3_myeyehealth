@@ -106,14 +106,14 @@ public class MainActivity extends AppCompatActivity {
 
             PendingIntent pendingRemindersIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel.getId())
-                    .setSmallIcon(R.drawable.medication_64)
+                    .setSmallIcon(R.drawable.ic_stat_name)
                     .setContentTitle("Your Medication Reminders")
                     .setContentText(description)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setContentIntent(pendingRemindersIntent)
                     .setAutoCancel(true)
                     .setOnlyAlertOnce(true)
-                    .addAction(R.drawable.medication_64, "REVIEW", pendingRemindersIntent);
+                    .addAction(R.drawable.ic_stat_name, "REVIEW", pendingRemindersIntent);
 
             if (!notificationManager.areNotificationsEnabled() && getPreferences(0).getBoolean("RUN_FIRST_TIME_APP", true)) {
                 requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 0);
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                         notificationManager.createNotificationChannel(channel);
 
                         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channel.getId())
-                                .setSmallIcon(R.drawable.medication_64)
+                                .setSmallIcon(R.drawable.ic_stat_name)
                                 .setContentTitle(reminder.reminderName + " \u23F0 " + LocalTime.ofNanoOfDay(reminder.time))
                                 .setContentText("You need to take your " + reminder.reminderName)
                                 .setPriority(NotificationCompat.PRIORITY_HIGH)
