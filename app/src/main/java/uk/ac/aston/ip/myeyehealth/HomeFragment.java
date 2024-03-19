@@ -207,12 +207,16 @@ public class HomeFragment extends Fragment {
         //otherwise, hide the message.
         if(remindersCarousel.size() > 0) {
             noRemindersMsg.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+            ViewGroup.LayoutParams layoutParams = recyclerView.getLayoutParams();
+            layoutParams.height = 750;
+            recyclerView.setLayoutParams(layoutParams);
         }
         else {
             noRemindersMsg.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
         }
         recyclerView.setAdapter(new ListRemindersNotTakenAdapter(remindersCarousel));
-        recyclerView.setVisibility(View.VISIBLE);
 
     }
 
