@@ -61,7 +61,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         //if there is no preference already stored then set it to defaults, which is receiving on time
         if(!requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).contains("REMINDER_TIME_PREFERENCE")) {
             requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
-                    .putInt("REMINDER_TIME_PREFERENCE", 0);
+                    .putInt("REMINDER_TIME_PREFERENCE", 0).commit();
         }
         //gets the preference
         ListPreference listPreference = findPreference("NOTIFICATION_REMINDER_TIME");
@@ -72,7 +72,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         listPreference.setOnPreferenceChangeListener((preference, newValue) -> {
             //stores in preference store
             requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
-                    .putInt("REMINDER_TIME_PREFERENCE", Integer.parseInt(preferenceState));
+                    .putInt("REMINDER_TIME_PREFERENCE", Integer.parseInt(preferenceState)).commit();
+            System.out.println(requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE)
+                    .getInt("REMINDER_TIME_PREFERENCES", 0));
             Toast.makeText(getContext(), "Set notification reminder to be received " + newValue + "min before", Toast.LENGTH_SHORT).show();
             return true;
         });
@@ -85,12 +87,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         //This will check if there are reminders and test results are present.
         //if they are present it will then enable the options
         //otherwise disable them.
-        Thread threadMain = new Thread(() -> {
-            List<Reminders> remindersList = MyEyeHealthDatabase.getInstance(getContext()).remindersDAO().getAll();
-            List<TestRecord> testRecords = MyEyeHealthDatabase.getInstance(getContext()).testRecordsDAO().getAll();
+//        Thread threadMain = new Thread(() -> {
+            List<Reminders> remindersList1 = MyEyeHealthDatabase.getInstance(requireActivity().getApplicationContext()).remindersDAO().getAll();
+            List<TestRecord> testRecords1 = MyEyeHealthDatabase.getInstance(requireActivity().getApplicationContext()).testRecordsDAO().getAll();
 
             //this will get the size
-            if(remindersList.size() > 0) {
+            if(remindersList1.size() > 0) {
                 clearAllReminders.setEnabled(true);
             }
 
@@ -99,17 +101,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
 
             //this will get the size
-            if(testRecords.size() > 0) {
+            if(testRecords1.size() > 0) {
                 clearAllTestResults.setEnabled(true);
             }
 
             else {
                 clearAllTestResults.setEnabled(false);
             }
-        });
+//        });
 
-        threadMain.setName("CheckRemindersTestResults");
-        threadMain.start();
+//        threadMain.setName("CheckRemindersTestResults");
+//        threadMain.start();
 
         clearAllReminders.setOnPreferenceClickListener(preference -> {
             Toast.makeText(getContext(), "The user has clicked clear all reminders", Toast.LENGTH_SHORT).show();
