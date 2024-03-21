@@ -33,26 +33,26 @@
 
 <!--    </PreferenceCategory>-->
 
-    <PreferenceCategory
-        android:layout="@layout/custom_preference_category"
-        app:iconSpaceReserved="false" app:summary="Look and Feel" app:title="Appearance">
-        <SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
-            app:isPreferenceVisible="true"
-            app:key="TEXT_SIZE_RANGE"
-            app:summary="Set the font size"
-            app:title="Adjust Font Size"
-            />
+<!--    <PreferenceCategory-->
+<!--        android:layout="@layout/custom_preference_category"-->
+<!--        app:iconSpaceReserved="false" app:summary="Look and Feel" app:title="Appearance">-->
+<!--        <SwitchPreferenceCompat-->
+<!--            app:iconSpaceReserved="false"-->
+<!--            app:isPreferenceVisible="true"-->
+<!--            app:key="TEXT_SIZE_RANGE"-->
+<!--            app:summary="Set the font size"-->
+<!--            app:title="Adjust Font Size"-->
+<!--            />-->
 
-        <SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
-            app:isPreferenceVisible="true"
-            app:key="IS_HIGH_CONTRAST_ENABLED"
-            app:summaryOn="Toggle to turn on High Contrast"
-            app:summaryOff="Toggle to turn off Contrast"
-            app:title="High Contrast"
-            />
-    </PreferenceCategory>
+<!--        <SwitchPreferenceCompat-->
+<!--            app:iconSpaceReserved="false"-->
+<!--            app:isPreferenceVisible="true"-->
+<!--            app:key="IS_HIGH_CONTRAST_ENABLED"-->
+<!--            app:summaryOn="Toggle to turn on High Contrast"-->
+<!--            app:summaryOff="Toggle to turn off Contrast"-->
+<!--            app:title="High Contrast"-->
+<!--            />-->
+<!--    </PreferenceCategory>-->
 
     <PreferenceCategory app:layout="@layout/custom_preference_category" app:iconSpaceReserved="false" android:summary="Manage Notifications" app:title="Notifications">
         <SwitchPreferenceCompat

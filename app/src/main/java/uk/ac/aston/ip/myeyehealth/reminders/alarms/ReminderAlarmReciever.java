@@ -38,7 +38,7 @@ public class ReminderAlarmReciever extends BroadcastReceiver {
             content = "You need to take your " + reminderName;
             NotificationChannel channel = new NotificationChannel("ReminderAlarmReciever", "Send reminders when app is running", NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);
-            NotificationCompat.Builder notification = new NotificationCompat.Builder(context, channel.getId()).setSmallIcon(R.drawable.medication_64)
+            NotificationCompat.Builder notification = new NotificationCompat.Builder(context, channel.getId()).setSmallIcon(R.drawable.ic_stat_name)
                     .setContentTitle(title)
                     .setContentText(content)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)

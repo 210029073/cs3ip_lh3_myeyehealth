@@ -23,6 +23,7 @@
                 >
 
                 <com.google.android.material.card.MaterialCardView
+                    android:contentDescription="Tumbling E Test"
                     android:id="@+id/option_tumbling_e"
                     android:layout_weight=".50"
                     android:layout_width="0dp"
@@ -31,12 +32,11 @@
                     app:cardCornerRadius="25dp"
                     android:layout_marginBottom="10dp"
                     android:clickable="true"
-                    app:cardBackgroundColor="@color/darkBlue"
+                    app:cardBackgroundColor="@color/white"
                     android:focusable="true"
                     tools:ignore="MissingConstraints">
 
                     <TextView
-                        android:textColor="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="true"
@@ -55,7 +55,6 @@
                         android:focusable="true"
                         android:padding="20dp"
                         android:layout_gravity="bottom"
-                        android:textColor="@color/white"
                         android:textSize="20dp"
                         android:textStyle="bold"
                         android:shadowColor="#959595"
@@ -63,7 +62,8 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    app:cardBackgroundColor="@color/yellow"
+                    app:cardBackgroundColor="@color/white"
+                    android:contentDescription="Color Blind Test"
                     android:id="@+id/option_color_blindness_test"
                     app:cardCornerRadius="25dp"
                     android:layout_width="0dp"
@@ -83,14 +83,13 @@
                         android:layout_marginTop="35dp"
                         android:layout_marginBottom="15dp"
                         android:src="@drawable/palette_512"
-                        app:tint="@color/white" />
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="true"
                         android:layout_gravity="bottom"
-                        android:textColor="@color/white"
                         android:textSize="20dp"
                         android:textStyle="bold"
                         android:padding="20dp"
@@ -107,6 +106,7 @@
                 android:padding="5dp">
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/option_metric_conversion"
+                    android:contentDescription="Metric Conversion"
                     app:cardCornerRadius="25dp"
                     android:layout_weight=".50"
                     android:layout_width="0dp"
@@ -115,11 +115,10 @@
                     android:layout_marginBottom="10dp"
                     android:clickable="true"
                     android:focusable="true"
-                    app:cardBackgroundColor="@color/green"
+                    app:cardBackgroundColor="@color/white"
                     tools:ignore="MissingConstraints">
 
                     <ImageView
-                        app:tint="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="72dp"
                         android:layout_gravity="top"
@@ -128,7 +127,6 @@
                         android:src="@drawable/ruler_vertical_7931249"/>
 
                     <TextView
-                        android:textColor="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="true"
@@ -141,6 +139,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:contentDescription="Record Blood Pressure"
                     android:id="@+id/option_record_blood_pressure"
                     app:cardCornerRadius="25dp"
                     android:layout_width="0dp"
@@ -148,7 +147,7 @@
                     android:layout_height="190dp"
                     android:layout_margin="5dp"
                     android:layout_marginBottom="10dp"
-                    app:cardBackgroundColor="@color/red"
+                    app:cardBackgroundColor="@color/white"
                     android:clickable="true"
                     android:focusable="true"
                     tools:ignore="MissingConstraints">
@@ -157,7 +156,6 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="72dp"
-                        app:tint="@color/white"
                         android:layout_gravity="top"
                         android:layout_marginTop="35dp"
                         android:layout_marginBottom="15dp"
@@ -166,7 +164,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:focusable="true"
                         android:layout_gravity="bottom"
                         android:padding="20dp"
@@ -185,7 +183,8 @@
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/option_view_blood_pressure"
                     app:cardCornerRadius="25dp"
-                    app:cardBackgroundColor="@color/yellow"
+                    app:cardBackgroundColor="@color/white"
+                    android:contentDescription="View Blood Pressure"
                     android:layout_weight=".50"
                     android:layout_width="0dp"
                     android:layout_height="190dp"
@@ -196,7 +195,6 @@
                     >
 
                     <ImageView
-                        app:tint="@color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top"
@@ -210,7 +208,6 @@
                         android:focusable="true"
                         android:layout_gravity="bottom"
                         android:padding="20dp"
-                        android:textColor="@color/white"
                         android:textSize="20dp"
                         android:textStyle="bold"
                         android:shadowColor="#959595"
