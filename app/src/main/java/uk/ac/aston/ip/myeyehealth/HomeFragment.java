@@ -208,11 +208,6 @@ public class HomeFragment extends Fragment {
         //if taken it will show the message
         //otherwise, hide the message.
         if(remindersCarousel.size() > 0) {
-            if(remindersCarousel.size() > 4) {
-                ViewGroup.LayoutParams remindersLayoutParams = binding.cardMedicationReminders.getLayoutParams();
-                remindersLayoutParams.height = 100;
-                binding.cardMedicationReminders.setLayoutParams(remindersLayoutParams);
-            }
             noRemindersMsg.setVisibility(View.INVISIBLE);
             recyclerView.setVisibility(View.VISIBLE);
 
