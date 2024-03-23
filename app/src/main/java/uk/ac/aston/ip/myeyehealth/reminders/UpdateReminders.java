@@ -26,7 +26,11 @@ import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.databinding.FragmentUpdateRemindersBinding;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 
-//TODO: Need to configure the update fragment classes navigation, and then layout properties
+/**
+ * UpdateReminder is a {@link Fragment} that allows the user to update their reminder.
+ * @author Ibrahim Ahmad
+ * @version 1.2.0
+ * */
 public class UpdateReminders extends Fragment {
 
     private UpdateRemindersViewModel mViewModel;
@@ -49,26 +53,33 @@ public class UpdateReminders extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity()).get(UpdateRemindersViewModel.class);
 
+        //retrieve medication reminders and bind them to the TextView, CheckBox objects
+        //from mViewModel
         binding.txtReminderName.getEditText().setText(mViewModel.getReminderName());
         binding.checkboxIsRepeat.setChecked(mViewModel.isRepeated());
         binding.txtReminderType.getEditText().setText(mViewModel.getReminderType());
         binding.txtReminderDose.getEditText().setText(String.valueOf(mViewModel.getDose()));
+
+        //parse the time to LocalTime
         LocalTime reminderTime = LocalTime.ofNanoOfDay(mViewModel.getTime());
-        String time = reminderTime.toString();
-        binding.reminderTimeAmTxt.setText(time);
+        String time = reminderTime.toString(); //format to string
+        binding.reminderTimeAmTxt.setText(time); //set time in string format to TextView object
 
         //creates the timepicker object
         MaterialTimePicker materialTimePicker = new MaterialTimePicker.Builder()
-                .setTimeFormat(TimeFormat.CLOCK_24H)
-                .setHour(reminderTime.getHour())
-                .setMinute(reminderTime.getMinute())
-                .setTheme(R.style.Theme_MyEyeHealth_TimePicker)
-                .setTitleText("Select Reminder Time AM")
-                .build();
+                .setTimeFormat(TimeFormat.CLOCK_12H) //Set to twelve hour format
+                .setHour(reminderTime.getHour()) //set hour from LocalTime object
+                .setMinute(reminderTime.getMinute()) //set minute from LocalTime object
+                .setTheme(R.style.Theme_MyEyeHealth_TimePicker) //apply theme
+                .setTitleText("Select Reminder Time AM") //set title
+                .build(); //build the MaterialTimePicker object
 
+        //Create Two thread safe Atomic-based integer variables to store hour and minutes
+        //this ensures thread-safe operations
         AtomicInteger hour = new AtomicInteger(reminderTime.getHour());
         AtomicInteger minute = new AtomicInteger(reminderTime.getMinute());
 
+        //OnClickListener for setting the time
         binding.btnReminderTime.setOnClickListener(v -> {
             materialTimePicker.show(getParentFragmentManager(), "atag");
             materialTimePicker.addOnDismissListener(dialog -> {
@@ -86,28 +97,41 @@ public class UpdateReminders extends Fragment {
             });
         });
 
+        //stores the reminder no in an atomic-based integer variable
         AtomicInteger reminderNo = new AtomicInteger(mViewModel.getReminderId());
 
-
+        //OnClickListener for updating reminder
         binding.btnUpdate.setOnClickListener(v -> {
 
+            Reminders reminders = new Reminders();
 
+            //Creates a thread for updating the reminders
             Thread thread = new Thread(() -> {
                 MyEyeHealthDatabase myEyeHealthDatabase = MyEyeHealthDatabase.getInstance(getContext());
 
-                Reminders reminders = new Reminders();
                 reminders.reminderNo = reminderNo.get();
                 reminders.reminderName = binding.txtReminderName.getEditText().getText().toString();
                 reminders.reminderType = binding.txtReminderType.getEditText().getText().toString();
                 reminders.isRepeated = binding.checkboxIsRepeat.isChecked();
                 reminders.dose = Float.valueOf(binding.txtReminderDose.getEditText().getText().toString());
                 reminders.time = LocalTime.of(hour.get(), minute.get()).toNanoOfDay();
-                myEyeHealthDatabase.remindersDAO().updateReminder(reminders);
 
+                //update entry on database
+                myEyeHealthDatabase.remindersDAO().updateReminder(reminders);
             });
 
-            thread.start();
+            thread.start(); //start the thread
 
+            //this will update the reminder details in ManageReminders fragment
+            ManageRemindersViewModel manageRemindersViewModel = new ViewModelProvider(requireActivity())
+                    .get(ManageRemindersViewModel.class);
+            manageRemindersViewModel.reminderName.setValue(binding.txtReminderName.getEditText().getText().toString());
+            manageRemindersViewModel.reminderDose.setValue(Float.valueOf(binding.txtReminderDose.getEditText().getText().toString()));
+            manageRemindersViewModel.reminderType.setValue(binding.txtReminderType.getEditText().getText().toString());
+            manageRemindersViewModel.reminderTime.setValue(LocalTime.of(hour.get(), minute.get()).toNanoOfDay());
+            manageRemindersViewModel.isRepeated.setValue(binding.checkboxIsRepeat.isChecked());
+
+            //return back to the manage reminders fragment
             NavHostFragment.findNavController(UpdateReminders.this)
                             .navigateUp();
         });
