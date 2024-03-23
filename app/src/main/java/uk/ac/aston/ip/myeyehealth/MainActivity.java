@@ -306,6 +306,12 @@ public class MainActivity extends AppCompatActivity {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getDayOfMonth(),
                         localDateTime.getHour(), localDateTime.getMinute());
+                if(getSharedPreferences("settings", Context.MODE_PRIVATE)
+                        .contains("REMINDER_TIME_PREFERENCE")) {
+                    int receiveNotificationTimeEarlyInMinutes = getSharedPreferences("settings", Context.MODE_PRIVATE)
+                            .contains("REMINDER_TIME_PREFERENCE") ? (int) getSharedPreferences("settings", Context.MODE_PRIVATE).getAll().get("REMINDER_TIME_PREFERENCE") : 0;
+                    localDateTime = localDateTime.minusMinutes(receiveNotificationTimeEarlyInMinutes);
+                }
 
                 alarmManager.setExactAndAllowWhileIdle(
                         AlarmManager.RTC_WAKEUP,
