@@ -5,88 +5,115 @@
     android:layout_height="match_parent"
     tools:context=".AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="MyEyeHealth"
-            android:textSize="32dp"
-            android:textStyle="bold"
-            android:textAlignment="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MyEyeHealth"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:textAlignment="center"/>
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher"
-            />
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_launcher"
+                />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="An eye health management application"
-            android:textSize="16dp"
-            android:textAlignment="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Created by Ibrahim Ahmad"
-            android:textSize="12dp"
-            android:textAlignment="center"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="For CS3IP (Individual Project)"
-            android:textSize="12dp"
-            android:textAlignment="center"
-            android:layout_marginBottom="20dp"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="v2.0.1 RC1"
-            android:textSize="12dp"
-            android:textAlignment="center"
-            android:layout_marginBottom="20dp"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="An eye health management application"
+                android:textSize="16dp"
+                android:padding="10sp"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Created by Ibrahim Ahmad (210029073)"
+                android:padding="5sp"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="For CS3IP (Individual Project)"
+                android:padding="5sp"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:layout_marginBottom="20dp"
+                />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ligula turpis, tempor eu est imperdiet, vehicula pulvinar neque. Sed aliquam suscipit lectus, nec bibendum velit tristique at. Maecenas id felis luctus ligula mattis posuere sit amet id odio. Ut porta posuere euismod. Fusce sed enim in augue mattis pharetra. Etiam vel sagittis nisi. Vestibulum nec mattis eros. Cras id maximus risus, sit amet sagittis est. "
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ligula turpis, tempor eu est imperdiet, vehicula pulvinar neque. Sed aliquam suscipit lectus, nec bibendum velit tristique at. Maecenas id felis luctus ligula mattis posuere sit amet id odio. Ut porta posuere euismod. Fusce sed enim in augue mattis pharetra. Etiam vel sagittis nisi. Vestibulum nec mattis eros. Cras id maximus risus, sit amet sagittis est. "
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ligula turpis, tempor eu est imperdiet, vehicula pulvinar neque. Sed aliquam suscipit lectus, nec bibendum velit tristique at. Maecenas id felis luctus ligula mattis posuere sit amet id odio. Ut porta posuere euismod. Fusce sed enim in augue mattis pharetra. Etiam vel sagittis nisi. Vestibulum nec mattis eros. Cras id maximus risus, sit amet sagittis est. "
-            />
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="v2.0.1 RC1 (BETA)"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:layout_marginBottom="20dp"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:background="@color/black"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:textSize="16sp"
+                android:text="Release: Beta"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:background="@color/black"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10sp"
+                android:textSize="16sp"
+                android:text="Build version: v2.0.1 RC2 (Beta)"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:background="@color/black"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:padding="10sp"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:text="Build Time: 23/03/2024 07:46:35"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:background="@color/black"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:padding="10sp"
+                android:textSize="16sp"
+                android:layout_height="wrap_content"
+                android:text="Contributors:\n\nDeveloper of the App:\nIbrahim Ahmad\t(210029073@aston.ac.uk)\n\nSupervisor:\nDr. Lilit Hakobyan\t(hakobyl2@aston.ac.uk)"
+                />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_marginBottom="25dp"
+                android:background="@color/black"/>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
