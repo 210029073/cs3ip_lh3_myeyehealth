@@ -111,7 +111,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_view_reminders"
-
+                    style="@style/Theme.MyEyeHealth.Button"
                     android:layout_gravity="center"
                     android:text="Manage Reminders"
                     android:layout_margin="10dp"
@@ -126,7 +126,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_view_reminders_history"
-
+                    style="@style/Theme.MyEyeHealth.Button"
                     android:layout_gravity="center"
                     android:text="Reminder History"
                     android:layout_margin="10dp"
