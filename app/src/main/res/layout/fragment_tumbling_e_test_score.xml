@@ -165,6 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:text="Continue"
+            style="@style/Theme.MyEyeHealth.Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -176,11 +177,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
+            style="@style/Theme.MyEyeHealth.Button"
             android:text="Restart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_continue"
-            app:layout_constraintVertical_bias="0.1000002" />
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
