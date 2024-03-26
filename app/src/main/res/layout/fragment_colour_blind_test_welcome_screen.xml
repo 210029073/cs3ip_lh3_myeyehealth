@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
-            android:text="Isihara Colour Blind Test"
+            android:text="Ishihara Colour Blind Test"
             android:textAlignment="center"
             android:textSize="32dp"
             android:textStyle="bold"
