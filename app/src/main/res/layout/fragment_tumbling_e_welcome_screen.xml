@@ -62,7 +62,7 @@
             android:layout_marginTop="25dp"
             android:layout_height="wrap_content"
             android:text="Let's see how you are able to see objects close.\n\n\n\n\tTest one eye at a time.\n\nIf you wear glasses, please wear them during the test.\n
-            \nPlease make sure that you hold the screen about 40cm \t\taway.\n\n\n\n\t\t\t\t\tPress Tap to continue.
+            \nPlease make sure that you hold the screen about 40cm away.\n\n\n\n\t\t\t\t\tPress Tap to continue.
         "
             android:textAlignment="center"
             android:textSize="16dp"
