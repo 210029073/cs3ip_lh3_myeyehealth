@@ -46,6 +46,7 @@
                         android:textStyle="bold"
                         android:shadowColor="#959595"
                         android:text="E"
+                        android:textColor="@color/black"
                         android:textAlignment="center"
                         tools:ignore="RtlCompat" />
 
@@ -56,6 +57,7 @@
                         android:padding="20dp"
                         android:layout_gravity="bottom"
                         android:textSize="20dp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:shadowColor="#959595"
                         android:text="Tumbling E Test" />
@@ -91,6 +93,7 @@
                         android:focusable="true"
                         android:layout_gravity="bottom"
                         android:textSize="20dp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:padding="20dp"
                         android:shadowColor="#959595"
@@ -133,6 +136,7 @@
                         android:layout_gravity="bottom"
                         android:padding="20dp"
                         android:textSize="20dp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:shadowColor="#959595"
                         android:text="Metric Conversion" />
@@ -209,12 +213,14 @@
                         android:layout_gravity="bottom"
                         android:padding="20dp"
                         android:textSize="20dp"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
                         android:shadowColor="#959595"
                         android:text="View Blood Pressure" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:visibility="invisible"
                     android:id="@+id/option_metric_conversionc"
                     android:layout_width="0dp"
                     android:layout_weight=".50"
