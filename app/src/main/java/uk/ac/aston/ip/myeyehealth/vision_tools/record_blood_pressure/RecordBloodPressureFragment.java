@@ -118,6 +118,12 @@ public class RecordBloodPressureFragment extends Fragment {
                 //Store the health logs in an object
                 Health health = new Health();
                 health.healthType = "Blood Pressure";
+
+                //set the sys, dia, and bpm value.
+                sys.setValue(Integer.parseInt(binding.sysUnit.getEditText().getText().toString()));
+                dia.setValue(Integer.parseInt(binding.diaUnit.getEditText().getText().toString()));
+                bpm.setValue(Integer.parseInt(binding.bpmUnit.getEditText().getText().toString()));
+
                 health.healthData = new BloodPressure(sys.getValue(), dia.getValue())
                         .setBpm(bpm.getValue())
                         .build()
