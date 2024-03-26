@@ -28,14 +28,12 @@
         <!--            app:layout_constraintTop_toTopOf="@id/tumbling_e_container"-->
         <!--            app:layout_constraintVertical_bias="0.0" />-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="[ICON]"
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/palette_512"
             android:layout_marginTop="50dp"
-            android:textAlignment="center"
-            android:textSize="100sp"
-            android:textStyle="bold"
+            android:layout_marginBottom="50dp"
             app:layout_constraintBottom_toTopOf="@id/lbl_msg_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +59,7 @@
             android:layout_marginTop="25dp"
             android:layout_height="wrap_content"
             android:text="In this test we will test your colour vision.\n\n\n\n\tIf you wear glasses, please wear them during the test.\n
-            \nPlease make sure that you hold the screen about 40cm away.\n\n\n\n\t\t\t\t\tPress Tap to continue.
+            \nPlease make sure that you hold the screen about 40cm away.
         "
             android:textAlignment="center"
             android:textSize="16dp"
@@ -71,6 +69,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lbl_msg_title"
             app:layout_constraintVertical_bias="0.060000002" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/lbl_msg_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.4"
+            android:textSize="18dp"
+            android:text="Press Tap to continue."/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

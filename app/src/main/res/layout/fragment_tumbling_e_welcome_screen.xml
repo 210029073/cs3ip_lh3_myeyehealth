@@ -62,7 +62,7 @@
             android:layout_marginTop="25dp"
             android:layout_height="wrap_content"
             android:text="Let's see how you are able to see objects close.\n\n\n\n\tTest one eye at a time.\n\nIf you wear glasses, please wear them during the test.\n
-            \nPlease make sure that you hold the screen about 40cm away.\n\n\n\n\t\t\t\t\tPress Tap to continue.
+            \nPlease make sure that you hold the screen about 40cm away.
         "
             android:textAlignment="center"
             android:textSize="16dp"
@@ -72,6 +72,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lbl_msg_title"
             app:layout_constraintVertical_bias="0.060000002" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                app:layout_constraintTop_toBottomOf="@id/lbl_msg_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.4"
+                android:textSize="18dp"
+                android:text="Press Tap to continue."/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
