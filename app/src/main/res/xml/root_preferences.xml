@@ -110,7 +110,7 @@
         <Preference
             app:iconSpaceReserved="false"
             app:title="MyEyeHealth"
-            app:summary="v2.0.1 RC3 (Beta)"
+            app:summary="@string/version_tag"
             app:selectable="false"
             />
     </PreferenceCategory>

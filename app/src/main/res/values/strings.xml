@@ -125,4 +125,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_activity_color_blind_test">ColorBlindTestActivity</string>
+
+    <!-- Version label -->
+    <string name="version_tag">Build version: v2.0.1 RC3 (Beta)</string>
 </resources>
