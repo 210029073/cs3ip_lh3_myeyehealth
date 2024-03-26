@@ -139,10 +139,10 @@ public class TumblingETestScoreFragment extends Fragment {
             this.mViewModel.onCleared();
             this.viewModel.onCleared();
 
-//            Intent intent = getActivity().getIntent();
-//            getActivity().finish();
-//            startActivity(intent);
-            getActivity().recreate();
+            Intent intent = getActivity().getIntent();
+            getActivity().finish();
+            startActivity(intent);
+//            getActivity().recreate();
         });
 
 
