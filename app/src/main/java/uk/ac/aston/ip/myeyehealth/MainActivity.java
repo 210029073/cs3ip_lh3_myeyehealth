@@ -121,9 +121,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        if(getApplicationContext().getSystemService(NotificationManager.class).getNotificationChannel("ReminderAlarmReciever").getImportance() != NotificationManager.IMPORTANCE_NONE) {
+        int notificationId = 1;
+        if(getApplicationContext().getSystemService(NotificationManager.class).getNotificationChannel("ReminderAlarmReciever") != null) {
+            if (getApplicationContext().getSystemService(NotificationManager.class).getNotificationChannel("ReminderAlarmReciever").getImportance() != NotificationManager.IMPORTANCE_NONE) {
 //            if (((boolean) getSharedPreferences("settings", Context.MODE_PRIVATE).getAll().get("IS_NOTIFICATIONS_ENABLED"))) {
-                int notificationId = 1;
                 MedicationLogsRepository medicationLogsRepository = new MedicationLogsRepository(getApplicationContext());
                 for (MedicationLog medicationLog : medicationLogsRepository.getPendingRemindersToday()) {
                     //get the medication time
@@ -155,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
 //            }
+            }
         }
         setSupportActionBar(binding.toolbar);
         NavigationView navigationView = binding.navView;
@@ -230,11 +232,19 @@ public class MainActivity extends AppCompatActivity {
         prepareMedicationRemindersLog();
 //        System.out.println(getPreferences(0).getAll().keySet());
 
-        if(getApplicationContext().getSystemService(NotificationManager.class).getNotificationChannel("ReminderAlarmReciever").getImportance() != NotificationManager.IMPORTANCE_NONE) {
+        if(getApplicationContext().getSystemService(NotificationManager.class).getNotificationChannel("ReminderAlarmReciever") == null) {
+            NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(NotificationManager.class);
+            NotificationChannel channel = new NotificationChannel("ReminderAlarmReciever", "Send reminders when app is running", NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(channel);
+
+        }
+
+        if (getApplicationContext().getSystemService(NotificationManager.class).getNotificationChannel("ReminderAlarmReciever").getImportance() != NotificationManager.IMPORTANCE_NONE) {
 //            if ((boolean) getSharedPreferences("settings", Context.MODE_PRIVATE).getAll().get("IS_NOTIFICATIONS_ENABLED")) {
-                setAlarms();
+            setAlarms();
 //            }
         }
+
 
     }
 
