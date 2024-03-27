@@ -1,35 +1,21 @@
 package uk.ac.aston.ip.myeyehealth;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.datastore.preferences.core.MutablePreferences;
-import androidx.datastore.preferences.core.Preferences;
-import androidx.datastore.preferences.core.PreferencesKeys;
-import androidx.datastore.preferences.rxjava3.RxPreferenceDataStoreBuilder;
-import androidx.datastore.rxjava3.RxDataStore;
-import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
-import androidx.preference.PreferenceDataStore;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SwitchPreferenceCompat;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import io.reactivex.rxjava3.core.Single;
 import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
 import uk.ac.aston.ip.myeyehealth.entities.Reminders;
 import uk.ac.aston.ip.myeyehealth.entities.TestRecord;
@@ -40,12 +26,9 @@ import uk.ac.aston.ip.myeyehealth.entities.TestRecord;
  * @author Ibrahim Ahmad
  * */
 public class SettingsFragment extends PreferenceFragmentCompat {
-    private RxDataStore<Preferences> preferenceRxDataStore;
-    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
-        this.preferenceRxDataStore = new RxPreferenceDataStoreBuilder(getContext(), "settings").build();
 
     }
 
@@ -61,23 +44,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         //if there is no preference already stored then set it to defaults, which is receiving on time
         if(!requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).contains("REMINDER_TIME_PREFERENCE")) {
             requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
-                    .putInt("REMINDER_TIME_PREFERENCE", 0).commit();
+                    .putInt("REMINDER_TIME_PREFERENCE", 0).apply();
         }
         //gets the preference
         ListPreference listPreference = findPreference("NOTIFICATION_REMINDER_TIME");
 
         //stores the state of the preference i.e minutes
-        String preferenceState = listPreference.getValue();
-
-        listPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-            //stores in preference store
-            requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
-                    .putInt("REMINDER_TIME_PREFERENCE", Integer.parseInt(newValue.toString())).commit();
-            System.out.println(requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE)
-                    .getInt("REMINDER_TIME_PREFERENCE", 0));
-            Toast.makeText(getContext(), "Set notification reminder to be received " + newValue + "min before", Toast.LENGTH_SHORT).show();
-            return true;
-        });
+        if(listPreference != null) {
+            listPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                //stores in preference store
+                requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
+                        .putInt("REMINDER_TIME_PREFERENCE", Integer.parseInt(newValue.toString())).apply();
+                System.out.println(requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE)
+                        .getInt("REMINDER_TIME_PREFERENCE", 0));
+                Toast.makeText(getContext(), "Set notification reminder to be received " + newValue + "min before", Toast.LENGTH_SHORT).show();
+                return true;
+            });
+        }
     }
 
     private void prepareConfigurationSettingsForClearingData() {
@@ -110,8 +93,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
 //        });
 
-//        threadMain.setName("CheckRemindersTestResults");
-//        threadMain.start();
 
         clearAllReminders.setOnPreferenceClickListener(preference -> {
             Toast.makeText(getContext(), "The user has clicked clear all reminders", Toast.LENGTH_SHORT).show();
@@ -164,67 +145,22 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 
     private void toggleTimelyNotificationsSetting() {
-        NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-        SwitchPreferenceCompat switchPreferenceCompat = findPreference("IS_NOTIFICATIONS_ENABLED");
+        Preference manageNotificationPreference = findPreference("IS_NOTIFICATIONS_ENABLED");
 
         findPreference("VIEW_ABOUT").setOnPreferenceClickListener(preference -> {
             NavHostFragment.findNavController(SettingsFragment.this)
                     .navigate(R.id.aboutFragment);
             return true;
         });
-        if(!getPreferenceManager().getSharedPreferences().contains("IS_NOTIFICATIONS_ENABLED")) {
-            if (notificationManager.areNotificationsEnabled()) {
-                requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("IS_NOTIFICATIONS_ENABLED", true).commit();
-                switchPreferenceCompat.setChecked(((HashMap<String, Boolean>) requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).getAll()).get("IS_NOTIFICATIONS_ENABLED"));
-            }
-            else {
-                requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("IS_NOTIFICATIONS_ENABLED", false).commit();
-                switchPreferenceCompat.setChecked(((HashMap<String, Boolean>) requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).getAll()).get("IS_NOTIFICATIONS_ENABLED"));
-            }
-        }
 
-        switchPreferenceCompat.setVisible(true);
         findPreference("NOTIFICATION_REMINDER_TIME").setVisible(true);
         findPreference("NOTIFICATION_REMINDER_TIME");
 
-        switchPreferenceCompat.setChecked(
-                getPreferenceManager().getSharedPreferences().getBoolean("IS_NOTIFICATIONS_ENABLED", false)
-        );
-        switchPreferenceCompat.setOnPreferenceClickListener(preference -> {
-            if(switchPreferenceCompat.isChecked()) {
-                this.preferenceRxDataStore.updateDataAsync(preferences -> {
-                    MutablePreferences mutablePreferences = preferences.toMutablePreferences();
-                    Preferences.Key<Boolean> isEnabledKey = PreferencesKeys.booleanKey("IS_NOTIFICATIONS_ENABLED");
-                    mutablePreferences.set(isEnabledKey, true);
-                    return Single.just(mutablePreferences.toPreferences());
-                });
-                this.preferenceRxDataStore.updateDataAsync(preferences -> {
-                    MutablePreferences mutablePreferences = preferences.toMutablePreferences();
-                    mutablePreferences.set(new Preferences.Key<>("IS_NOTIFICATIONS_ENABLED"), true);
-                    return Single.just(mutablePreferences.toPreferences());
-                });
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    notificationManager.createNotificationChannel(new NotificationChannel("ReminderAlarmReciever", "Send reminders when app is running", NotificationManager.IMPORTANCE_HIGH));
-                    requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("IS_NOTIFICATIONS_ENABLED", true).commit();
-                    switchPreferenceCompat.setChecked(true);
-                }
-                return true;
-            }
-            else {
-
-                this.preferenceRxDataStore.updateDataAsync(preferences -> {
-                    MutablePreferences mutablePreferences = preferences.toMutablePreferences();
-                    Preferences.Key<Boolean> isEnabledKey = PreferencesKeys.booleanKey("IS_NOTIFICATIONS_ENABLED");
-                    mutablePreferences.set(isEnabledKey, false);
-                    return Single.just(mutablePreferences.toPreferences());
-                });
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    notificationManager.deleteNotificationChannel("ReminderAlarmReciever");
-                    requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit().putBoolean("IS_NOTIFICATIONS_ENABLED", false).commit();
-                    switchPreferenceCompat.setChecked(false);
-                }
-                return false;
-            }
+        manageNotificationPreference.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, getContext().getPackageName());
+            getContext().startActivity(intent);
+            return true;
         });
     }
 }

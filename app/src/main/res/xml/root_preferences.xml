@@ -54,14 +54,13 @@
 <!--            />-->
 <!--    </PreferenceCategory>-->
 
-    <PreferenceCategory app:layout="@layout/custom_preference_category" app:iconSpaceReserved="false" android:summary="Manage Notifications" app:title="Notifications">
-        <SwitchPreferenceCompat
+    <PreferenceCategory app:layout="@layout/custom_preference_category" app:iconSpaceReserved="false" android:summary="Notifications" app:title="Notifications">
+        <Preference
             app:iconSpaceReserved="false"
-            app:isPreferenceVisible="false"
+            app:isPreferenceVisible="true"
                 app:key="IS_NOTIFICATIONS_ENABLED"
-                app:summaryOn="Toggle to turn off reminders"
-                app:summaryOff="Toggle to receive reminders"
-                app:title="Receive Medication Reminders"
+                app:summary="Manage your notification settings"
+                app:title="Manage Notifications"
             />
 
         <ListPreference

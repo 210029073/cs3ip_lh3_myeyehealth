@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
             getPreferences(0).edit().putBoolean("RUN_FIRST_TIME_APP", true).commit();
         }
 
-        Log.d("SHAREDPREFERENCES", this.getSharedPreferences("settings", Context.MODE_PRIVATE).getAll().keySet().toString());
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -136,13 +134,13 @@ public class MainActivity extends AppCompatActivity {
                 //if there is medication reminders then notify the user.
                 Log.d("medicationLog", String.valueOf(medicationLogs.size()));
                 Log.d("reminders", "med reminders: " + database.remindersDAO().getAll().size());
-                if (medicationLogs.size() < database.remindersDAO().getAll().size() && getPreferences(0).getBoolean("IS_NOTIFICATIONS_ENABLED", true)) {
+                if (medicationLogs.size() < database.remindersDAO().getAll().size() && notificationManager.getNotificationChannel("MyEyeHealth").getImportance() != NotificationManager.IMPORTANCE_NONE) {
                     notificationManager.notify(0, builder.build());
                 }
             }
         }
-        if(getSharedPreferences("settings", 0).contains("IS_NOTIFICATIONS_ENABLED")) {
-            if (((boolean) getSharedPreferences("settings", Context.MODE_PRIVATE).getAll().get("IS_NOTIFICATIONS_ENABLED"))) {
+        if(getApplicationContext().getSystemService(NotificationManager.class).getNotificationChannel("ReminderAlarmReciever").getImportance() != NotificationManager.IMPORTANCE_NONE) {
+//            if (((boolean) getSharedPreferences("settings", Context.MODE_PRIVATE).getAll().get("IS_NOTIFICATIONS_ENABLED"))) {
                 int notificationId = 1;
                 MedicationLogsRepository medicationLogsRepository = new MedicationLogsRepository(getApplicationContext());
                 for (MedicationLog medicationLog : medicationLogsRepository.getPendingRemindersToday()) {
@@ -174,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
                         notificationManager.notify(notificationId++, builder.build());
                     }
                 }
-            }
+//            }
         }
         setSupportActionBar(binding.toolbar);
         NavigationView navigationView = binding.navView;
@@ -252,10 +250,10 @@ public class MainActivity extends AppCompatActivity {
         prepareMedicationRemindersLog();
         System.out.println(getPreferences(0).getAll().keySet());
 
-        if(getSharedPreferences("settings", Context.MODE_PRIVATE).contains("IS_NOTIFICATIONS_ENABLED")) {
-            if ((boolean) getSharedPreferences("settings", Context.MODE_PRIVATE).getAll().get("IS_NOTIFICATIONS_ENABLED")) {
+        if(getApplicationContext().getSystemService(NotificationManager.class).getNotificationChannel("ReminderAlarmReciever").getImportance() != NotificationManager.IMPORTANCE_NONE) {
+//            if ((boolean) getSharedPreferences("settings", Context.MODE_PRIVATE).getAll().get("IS_NOTIFICATIONS_ENABLED")) {
                 setAlarms();
-            }
+//            }
         }
 
     }
