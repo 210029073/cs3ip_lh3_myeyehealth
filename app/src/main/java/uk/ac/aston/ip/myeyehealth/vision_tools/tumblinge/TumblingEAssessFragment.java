@@ -225,10 +225,10 @@ public class TumblingEAssessFragment extends Fragment {
 
                     Gson gson = new Gson();
                     String output = gson.toJson(tumblingETestScore);
-                    Log.d("Test Result Json", output);
+//                    Log.d("Test Result Json", output);
 
-                    Log.d("Left Eye Score", String.valueOf(tumblingETestScore.getLeftEyeScore()));
-                    Log.d("Right Eye Score", String.valueOf(tumblingETestScore.getRightEyeScore()));
+//                    Log.d("Left Eye Score", String.valueOf(tumblingETestScore.getLeftEyeScore()));
+//                    Log.d("Right Eye Score", String.valueOf(tumblingETestScore.getRightEyeScore()));
 
                     MyEyeHealthDatabase myEyeHealthDatabase = MyEyeHealthDatabase.getInstance(getContext());
                     Thread thread = new Thread(() -> {

@@ -103,13 +103,13 @@ public class ColorBlindnessTestScore extends Fragment {
         mViewModel = new ViewModelProvider(requireActivity())
                 .get(ColorBlindnessTestViewModel.class);
         float test_score = (getArguments().getInt("score") / 5f) * 100f;
-        Log.d("Score", String.valueOf(test_score));
+//        Log.d("Score", String.valueOf(test_score));
         String score = String.valueOf(test_score);
         binding.scoreValue.setText(score + "%");
 
         binding.btnContinue.setOnClickListener(v ->
         {
-            System.out.println(getActivity().getClass().getName());
+//            System.out.println(getActivity().getClass().getName());
             if(getActivity().getClass().getName().equals("uk.ac.aston.ip.myeyehealth.vision_tools.color_blindness_test.activity.ColorBlindTestActivity")) {
                 getActivity().finish();
             }

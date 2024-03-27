@@ -100,7 +100,7 @@ public class RemindersFragment extends Fragment {
             long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
             long today = LocalDate.now().toEpochDay();
             List<MedicationLog> remindersTaken = database.remindersDAO().findRemindersTakenToday(today);
-            Log.i("remindersTaken", "onViewCreated: " + remindersTaken.size());
+//            Log.i("remindersTaken", "onViewCreated: " + remindersTaken.size());
 
             if (reminders.size() > 0) {
                 binding.tmpPlaceholderMsg.setVisibility(View.INVISIBLE);
@@ -109,8 +109,8 @@ public class RemindersFragment extends Fragment {
                 for (Reminders reminder : reminders) {
                     boolean hasTaken = false;
                     for (MedicationLog reminderTaken : remindersTaken) {
-                        Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
-                        Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
+//                        Log.d("Is Date same for: ", "Reminder taken :" + reminderTaken.remindersNo + "at Reminder: " + reminder.reminderNo);
+//                        Log.d("Is date same?", String.valueOf(LocalDateTime.ofEpochSecond(reminderTaken.medicationTimeTaken, 0, ZoneOffset.UTC).getDayOfMonth() == LocalDateTime.now().getDayOfMonth()));
                         if (!reminderTaken.isMedicationTaken && reminderTaken.remindersNo == reminder.reminderNo) {
                             addedReminder.add(reminder.reminderNo);
                         }

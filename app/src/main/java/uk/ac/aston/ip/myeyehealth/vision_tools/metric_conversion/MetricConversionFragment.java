@@ -104,7 +104,7 @@ public class MetricConversionFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //get the users text input
-                Log.d("MetricConversionFragment", "onTextChanged: " + s);
+//                Log.d("MetricConversionFragment", "onTextChanged: " + s);
                 if(s.length() == 0) {
                     testScoreOutputStr.setValue(0 + "/" + distance.getValue());
                     testScoreOutput.setText(testScoreOutputStr.getValue());

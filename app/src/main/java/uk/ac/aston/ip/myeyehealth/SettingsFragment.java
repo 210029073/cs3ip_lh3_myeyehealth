@@ -55,8 +55,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 //stores in preference store
                 requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
                         .putInt("REMINDER_TIME_PREFERENCE", Integer.parseInt(newValue.toString())).apply();
-                System.out.println(requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE)
-                        .getInt("REMINDER_TIME_PREFERENCE", 0));
+//                System.out.println(requireActivity().getSharedPreferences("settings", Context.MODE_PRIVATE)
+//                        .getInt("REMINDER_TIME_PREFERENCE", 0));
                 Toast.makeText(getContext(), "Set notification reminder to be received " + newValue + "min before", Toast.LENGTH_SHORT).show();
                 return true;
             });

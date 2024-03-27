@@ -92,7 +92,7 @@ public class TumblingETestScoreFragment extends Fragment {
         int left = mViewModel.getLeftEyeScore().getValue();
         int right = mViewModel.getRightEyeScore().getValue();
 
-        Log.i("LeftEyeScore", String.valueOf(left));
+//        Log.i("LeftEyeScore", String.valueOf(left));
         binding.leftEyeTestscore.setText(String.valueOf(left));
         binding.rightEyeTestscore.setText(String.valueOf(right));
 

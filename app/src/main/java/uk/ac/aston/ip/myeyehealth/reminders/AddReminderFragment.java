@@ -88,7 +88,7 @@ public class AddReminderFragment extends Fragment {
                     .build();
             timePicker.show(getParentFragmentManager(), "atag");
             timePicker.addOnDismissListener(l -> {
-                Log.i("hours in picker", String.valueOf(timePicker.getHour()));
+//                Log.i("hours in picker", String.valueOf(timePicker.getHour()));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     String localTime = LocalTime.of(timePicker.getHour(), timePicker.getMinute()).toString();
 
@@ -96,7 +96,7 @@ public class AddReminderFragment extends Fragment {
                     hour.set(timePicker.getHour());
                     minute.set(timePicker.getMinute());
 
-                    Log.i("time in picker", localTime);
+//                    Log.i("time in picker", localTime);
 
                     binding.reminderTimeAmTxt.setText(localTime);
                 }

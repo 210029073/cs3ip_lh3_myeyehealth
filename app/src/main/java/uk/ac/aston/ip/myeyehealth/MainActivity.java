@@ -3,48 +3,26 @@ package uk.ac.aston.ip.myeyehealth;
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
-import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.TaskStackBuilder;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
-import uk.ac.aston.ip.myeyehealth.databinding.ActivityMainBinding;
-import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
-import uk.ac.aston.ip.myeyehealth.entities.Reminders;
-import uk.ac.aston.ip.myeyehealth.reminders.MedicationLogsRepository;
-import uk.ac.aston.ip.myeyehealth.reminders.RemindersActivity;
-import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersAdapter;
-import uk.ac.aston.ip.myeyehealth.reminders.adapter.ListRemindersNotTakenAdapter;
-import uk.ac.aston.ip.myeyehealth.reminders.alarms.ReminderAlarmReciever;
-import uk.ac.aston.ip.myeyehealth.reminders.alarms.ReminderAlarmScheduler;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ImageSwitcher;
-import android.widget.TextView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -57,10 +35,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+
+import uk.ac.aston.ip.myeyehealth.database.MyEyeHealthDatabase;
+import uk.ac.aston.ip.myeyehealth.databinding.ActivityMainBinding;
+import uk.ac.aston.ip.myeyehealth.entities.MedicationLog;
+import uk.ac.aston.ip.myeyehealth.entities.Reminders;
+import uk.ac.aston.ip.myeyehealth.reminders.MedicationLogsRepository;
+import uk.ac.aston.ip.myeyehealth.reminders.RemindersActivity;
+import uk.ac.aston.ip.myeyehealth.reminders.alarms.ReminderAlarmReciever;
+import uk.ac.aston.ip.myeyehealth.reminders.alarms.ReminderAlarmScheduler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -132,8 +116,6 @@ public class MainActivity extends AppCompatActivity {
                 long yesterday = date.minus(Period.ofDays(1)).getEpochSecond();
                 List<MedicationLog> medicationLogs = database.remindersDAO().findRemindersTakenTodayNotification(date.getEpochSecond(), yesterday);
                 //if there is medication reminders then notify the user.
-                Log.d("medicationLog", String.valueOf(medicationLogs.size()));
-                Log.d("reminders", "med reminders: " + database.remindersDAO().getAll().size());
                 if (medicationLogs.size() < database.remindersDAO().getAll().size() && notificationManager.getNotificationChannel("MyEyeHealth").getImportance() != NotificationManager.IMPORTANCE_NONE) {
                     notificationManager.notify(0, builder.build());
                 }
@@ -187,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             item.setChecked(true);
-            Log.println(Log.INFO, "Item checked", "item: " + item.getTitle() + " checked: " + item.isChecked());
             if(item.isChecked()) {
                 navController.navigate(item.getItemId());
                 return true;
@@ -200,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             item.setChecked(true);
             if(item.isChecked()) {
-                Log.i("Item checked: ", String.valueOf(item.getItemId()));
                 item.setChecked(false);
                 navController.navigate(item.getItemId());
 //                if(item.getItemId() ==  R.id.homeFragment || item.getItemId() ==  R.id.visionToolsFragment || item.getItemId() ==  R.id.remindersFragment) {
@@ -248,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         prepareMedicationRemindersLog();
-        System.out.println(getPreferences(0).getAll().keySet());
+//        System.out.println(getPreferences(0).getAll().keySet());
 
         if(getApplicationContext().getSystemService(NotificationManager.class).getNotificationChannel("ReminderAlarmReciever").getImportance() != NotificationManager.IMPORTANCE_NONE) {
 //            if ((boolean) getSharedPreferences("settings", Context.MODE_PRIVATE).getAll().get("IS_NOTIFICATIONS_ENABLED")) {
@@ -300,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 LocalTime localTime = LocalTime.ofNanoOfDay(reminder.time);
                 LocalDateTime dateTimeNow = LocalDateTime.now();
                 LocalDateTime localDateTime = LocalDateTime.of(dateTimeNow.getYear(), dateTimeNow.getMonthValue(), dateTimeNow.getDayOfMonth(), localTime.getHour(), localTime.getMinute());
-                System.out.println(localDateTime);
+//                System.out.println(localDateTime);
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(localDateTime.getYear(), localDateTime.getMonthValue(), localDateTime.getDayOfMonth(),
                         localDateTime.getHour(), localDateTime.getMinute());

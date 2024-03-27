@@ -81,7 +81,7 @@ public class MissedRemindersFragment extends Fragment {
             }
         }
 
-        Log.d("missed reminders", "" + tmp.size());
+//        Log.d("missed reminders", "" + tmp.size());
 //        for(Map.Entry<LocalDate, List<Integer>> entry : visitedRemindersMap.entrySet()) {
 //            for(Reminders reminder : reminders) {
 //                if(!entry.getValue().contains(reminder.reminderNo)) {

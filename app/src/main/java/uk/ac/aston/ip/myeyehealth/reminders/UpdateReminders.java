@@ -90,7 +90,7 @@ public class UpdateReminders extends Fragment {
                     hour.set(materialTimePicker.getHour());
                     minute.set(materialTimePicker.getMinute());
 
-                    Log.i("time in picker", localTime);
+//                    Log.i("time in picker", localTime);
 
                     binding.reminderTimeAmTxt.setText(localTime);
                 }
